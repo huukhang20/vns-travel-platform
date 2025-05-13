@@ -45,10 +45,10 @@ VNS Travel Platform is an integrated travel management system designed to stream
 ## 🛠️ Technology Stack
 
 - **Frontend**: ReactJS, React Native
-- **Backend**: Node.js, Express.js
+- **Backend**: C#, .NET 8
 - **Database**: SQL Server
 - **Authentication**: JWT, OAuth 2.0
-- **Payment Integration**: PayOS, ZaloPay
+- **Payment Integration**: ZaloPay
 - **Notifications**: Firebase Cloud Messaging
 - **Deployment**: Docker, CI/CD with GitHub Actions
 
