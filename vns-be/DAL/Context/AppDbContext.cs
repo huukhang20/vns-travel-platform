@@ -30,9 +30,18 @@ namespace DAL.Context
         {            
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ComboService>(entity => { 
-                entity.HasNoKey();
-            });
+            modelBuilder.Entity<ComboService>()
+                .HasKey(cs => new { cs.ComboId, cs.ServiceId });
+
+            modelBuilder.Entity<ComboService>()
+                .HasOne(cs => cs.Combo)
+                .WithMany(c => c.ComboServices)
+                .HasForeignKey(cs => cs.ComboId);
+
+            modelBuilder.Entity<ComboService>()
+                .HasOne(cs => cs.Service)
+                .WithMany(s => s.ComboServices)
+                .HasForeignKey(cs => cs.ServiceId);
 
             modelBuilder.Entity<ServiceLocation>(entity => {
                 entity.HasNoKey();

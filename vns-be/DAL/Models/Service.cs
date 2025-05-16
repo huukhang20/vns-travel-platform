@@ -14,7 +14,7 @@ namespace DAL.Models
         public ServiceType ServiceType { get; set; }
         public required string Location { get; set; }
         public Partner Partner { get; set; } = null!;
-        public List<ComboService> ComboServices { get; } = [];        
+        public List<ComboService> ComboServices { get; set; } = new();
         public List<ServicePromotion> ServicePromotions { get; } = [];
         public List<ServiceLocation> ServiceLocations { get; } = [];
     }

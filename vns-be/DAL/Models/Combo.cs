@@ -9,6 +9,6 @@
         public decimal DiscountedPrice { get; set; }
         public int? Availability { get; set; }
         public required string Location { get; set; }
-        public List<ComboService> ComboServices { get; } = [];
+        public List<ComboService> ComboServices { get; set; } = new();
     }
 }
