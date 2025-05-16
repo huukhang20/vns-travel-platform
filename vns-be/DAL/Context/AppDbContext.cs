@@ -1,7 +1,7 @@
 ﻿using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace DAL
+namespace DAL.Context
 {
     public class AppDbContext : DbContext
     {
@@ -27,7 +27,5 @@ namespace DAL
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
             base.OnModelCreating(modelBuilder);
         }
-    }
-    {
     }
 }
