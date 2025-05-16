@@ -11,6 +11,7 @@ namespace DAL.Models
         public string? AvatarUrl { get; set; }
         public required string PhoneNumber { get; set; }
         public Role Role { get; set; }
+        public List<Voucher> Vouchers { get; set; } = new();
 
     }
 }

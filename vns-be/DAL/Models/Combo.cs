@@ -2,7 +2,7 @@
 {
     public class Combo
     {
-        public int ComboId { get; set; }
+        public Guid ComboId { get; set; }
         public Guid PartnerId { get; set; }
         public required string Title { get; set; }
         public required string Description { get; set; }

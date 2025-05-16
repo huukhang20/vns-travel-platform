@@ -2,7 +2,7 @@
 {
     public class Voucher
     {
-        public int VoucherId { get; set; }
+        public Guid VoucherId { get; set; }
         public Guid UserId { get; set; }
         public required string Code { get; set; }
         public decimal? DiscountPercemtage { get; set; }
@@ -10,5 +10,6 @@
         public DateTime ValidFrom { get; set; }
         public DateTime ValidTo { get; set; }
         public int MaxUsage { get; set; }
+        public User User { get; set; } = null!;
     }
 }

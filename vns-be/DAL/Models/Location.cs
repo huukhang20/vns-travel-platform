@@ -2,8 +2,9 @@
 {
     public class Location
     {
-        public int LocationId { get; set; }
+        public Guid LocationId { get; set; }
         public float Latitude { get; set; }
         public float Longitude { get; set; }
+        public List<ServiceLocation> ServiceLocations { get; } = new();
     }
 }

@@ -4,7 +4,7 @@ namespace DAL.Models
 {
     public class Booking
     {
-        public int BookingId { get; set; }
+        public Guid BookingId { get; set; }
         public Guid UserId { get; set; }
         public int ServiceId { get; set; }
         public int ComboId { get; set; }

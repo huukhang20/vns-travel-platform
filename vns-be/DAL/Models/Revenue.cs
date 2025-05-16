@@ -2,7 +2,7 @@
 {
     public class Revenue
     {
-        public int RevenueId { get; set; }
+        public Guid RevenueId { get; set; }
         public Guid PartnerId { get; set; }
         public decimal TotalEarnings { get; set; }
         public int Month { get; set; }
