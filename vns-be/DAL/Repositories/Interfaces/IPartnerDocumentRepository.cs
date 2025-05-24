@@ -1,5 +1,5 @@
 ﻿using DAL.Models;
-namespace DAL.Repositories
+namespace DAL.Repositories.Interfaces
 {
     public interface IPartnerDocumentRepository : IRepository<PartnerDocument>
     {

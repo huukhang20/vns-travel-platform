@@ -1,7 +1,7 @@
 ﻿using DAL.Repositories.Commons;
 using System.Linq.Expressions;
 
-namespace DAL.Repositories
+namespace DAL.Repositories.Interfaces
 {
     public interface IRepository<T> where T : class
     {

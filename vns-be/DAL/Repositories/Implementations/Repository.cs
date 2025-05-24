@@ -1,9 +1,10 @@
 ﻿using DAL.Context;
 using DAL.Repositories.Commons;
+using DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace DAL.Repositories
+namespace DAL.Repositories.Implementations
 {
     public class Repository<T> : IRepository<T> where T : class
     {
