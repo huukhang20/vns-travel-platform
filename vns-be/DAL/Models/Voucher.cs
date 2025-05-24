@@ -5,7 +5,7 @@
         public Guid VoucherId { get; set; }
         public Guid UserId { get; set; }
         public required string Code { get; set; }
-        public decimal? DiscountPercemtage { get; set; }
+        public decimal? DiscountPercentage { get; set; }
         public decimal? DiscountAmount { get; set; }
         public DateTime ValidFrom { get; set; }
         public DateTime ValidTo { get; set; }

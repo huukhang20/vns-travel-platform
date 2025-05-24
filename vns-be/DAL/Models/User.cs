@@ -12,6 +12,8 @@ namespace DAL.Models
         public required string PhoneNumber { get; set; }
         public Role Role { get; set; }
         public List<Voucher> Vouchers { get; set; } = new();
+        public List<Message> SentMessages { get; set; } = new();
+        public List<Message> ReceivedMessages { get; set; } = new();
 
     }
 }

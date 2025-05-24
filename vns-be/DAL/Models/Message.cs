@@ -1,4 +1,7 @@
-﻿namespace DAL.Models
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace DAL.Models
 {
     public class Message
     {
@@ -7,7 +10,5 @@
         public Guid ReceiverId { get; set; }
         public string Content { get; set; } = null!;
         public DateTime CreatedAt { get; set; }
-        public User Sender { get; set; } = null!;
-        public User Receiver { get; set; } = null!;
     }
 }

@@ -27,7 +27,7 @@ namespace DAL.Context
         {
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {            
+        {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<ComboService>()
@@ -43,13 +43,34 @@ namespace DAL.Context
                 .WithMany(s => s.ComboServices)
                 .HasForeignKey(cs => cs.ServiceId);
 
-            modelBuilder.Entity<ServiceLocation>(entity => {
-                entity.HasNoKey();
+            modelBuilder.Entity<ServicePromotion>(entity =>
+            {
+                entity.HasKey(e => e.ServicePromotionId);
+                entity.HasOne(e => e.Service)
+                      .WithMany(s => s.ServicePromotions)
+                      .HasForeignKey(e => e.ServiceId);
             });
 
-            modelBuilder.Entity<ServicePromotion>(entity => {
-                entity.HasNoKey();
-            });
+
+
+            modelBuilder.Entity<Service>()
+    .HasMany(s => s.ServicePromotions)
+    .WithOne(sp => sp.Service)
+    .HasForeignKey(sp => sp.ServiceId);
+
+            modelBuilder.Entity<ServiceLocation>()
+                .HasKey(sl => new { sl.ServiceId, sl.LocationId });
+
+            modelBuilder.Entity<ServiceLocation>()
+                .HasOne(sl => sl.Service)
+                .WithMany(s => s.ServiceLocations)
+                .HasForeignKey(sl => sl.ServiceId);
+
+            modelBuilder.Entity<ServiceLocation>()
+                .HasOne(sl => sl.Location)
+                .WithMany(l => l.ServiceLocations)
+                .HasForeignKey(sl => sl.LocationId);
+
         }
     }
 }
