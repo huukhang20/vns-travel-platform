@@ -1,6 +1,10 @@
 ﻿using BLL.DTOs;
 using BLL.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Google;
 
 namespace Presentation.Controllers
 {
@@ -28,5 +32,36 @@ namespace Presentation.Controllers
             var newUser = await _authenService.RegisterAsync(registerDto);
             return Ok(newUser);
         }
+
+        [HttpGet("google-login")]
+        public IActionResult GoogleLogin()
+        {
+            var redirectUrl = Url.Action("GoogleResponse");
+            var properties = new AuthenticationProperties { RedirectUri = redirectUrl };
+            return Challenge(properties, GoogleDefaults.AuthenticationScheme);
+        }
+
+        [HttpGet("google-response")]
+        public async Task<IActionResult> GoogleResponse()
+        {
+            var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            if (!result.Succeeded)
+                return Unauthorized();
+
+            var claims = result.Principal.Identities
+                .FirstOrDefault()?.Claims
+                .Select(claim => new { claim.Type, claim.Value });
+
+            var email = result.Principal.FindFirst(ClaimTypes.Email)?.Value;
+            var name = result.Principal.FindFirst(ClaimTypes.Name)?.Value;
+
+            return Ok(new
+            {
+                Email = email,
+                Name = name,
+                Claims = claims
+            });
+        }
+
     }
 }
