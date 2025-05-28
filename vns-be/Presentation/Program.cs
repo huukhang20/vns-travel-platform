@@ -1,11 +1,15 @@
 using DAL.Context;
 using Microsoft.EntityFrameworkCore;
+using Presentation;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 
 // Add services to the container.
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.ResolveServices(connectionString);
 
 // Register DbContext with SQL Server provider
 builder.Services.AddDbContext<AppDbContext>(options =>
