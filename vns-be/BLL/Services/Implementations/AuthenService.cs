@@ -66,6 +66,7 @@ namespace BLL.Services.Implementations
                 };
                 
                 var addNewUser = _unitOfWork.User.AddAsync(userToAdd);
+                await _unitOfWork.SaveChangesAsync();
 
                 return new AuthenStatusDto
                 {
