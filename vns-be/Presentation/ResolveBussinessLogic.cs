@@ -1,10 +1,10 @@
-﻿using BLL.Services.Implementations;
+﻿using BLL;
+using BLL.Services.Implementations;
 using BLL.Services.Interfaces;
 using DAL.Context;
 using DAL.Repositories.Implementations;
 using DAL.Repositories.Interfaces;
 using Google.Apis.Auth.AspNetCore3;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +16,9 @@ namespace Presentation
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IAuthenService, AuthenService>();
+            services.AddScoped<IServiceManager, ServiceManager>();
+
+            services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 
             services.AddDbContext<AppDbContext>(option => option.UseSqlServer(connectionString, sqlOptions =>
             {
