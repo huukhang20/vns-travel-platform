@@ -17,6 +17,7 @@ namespace Presentation
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IAuthenService, AuthenService>();
             services.AddScoped<IServiceManager, ServiceManager>();
+            services.AddScoped<IBookingService, BookingService>();
 
             services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 
