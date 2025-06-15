@@ -29,6 +29,13 @@ namespace BLL
                 .ForMember(dest => dest.PaymentMethod, opt => opt.MapFrom(src => src.PaymentMethod))
                 .ForMember(dest => dest.PaymentStatus, opt => opt.MapFrom(src => src.PaymentStatus))
                 .ReverseMap();
+
+            CreateMap<ServiceFilterDto, Service>()
+                .ForMember(dest => dest.ServiceId, opt => opt.MapFrom(src => src.ServiceId))
+                .ForMember(dest => dest.PartnerId, opt => opt.MapFrom(src => src.PartnerId))
+                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title))
+                .ForMember(dest => dest.LocationId, opt => opt.MapFrom(src => src.LocationId))
+                .ReverseMap();
         }
     }
 }

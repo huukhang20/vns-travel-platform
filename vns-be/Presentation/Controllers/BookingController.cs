@@ -13,7 +13,7 @@ namespace Presentation.Controllers
         {
             _bookingService = bookingService;
         }
-        [HttpPost("create")]
+        [HttpPost]
         public async Task<IActionResult> CreateBooking([FromBody] BookingDto bookingDto)
         {
             if (bookingDto == null)
@@ -30,7 +30,7 @@ namespace Presentation.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-        [HttpGet("get/{bookingId}")]
+        [HttpGet("{bookingId}")]
         public async Task<IActionResult> GetBooking(Guid bookingId)
         {
             try
@@ -48,7 +48,7 @@ namespace Presentation.Controllers
             }
         }
 
-        [HttpGet("get-all/{userId}")]
+        [HttpGet]
         public async Task<IActionResult> GetAllBookings(Guid userId)
         {
             try
@@ -61,7 +61,7 @@ namespace Presentation.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-        [HttpPut("update/{bookingId}")]
+        [HttpPut]
         public async Task<IActionResult> UpdateBooking(Guid bookingId)
         {
             try
@@ -79,7 +79,7 @@ namespace Presentation.Controllers
             }
         }
 
-        [HttpDelete("delete/{bookingId}")]
+        [HttpDelete]
         public async Task<IActionResult> DeleteBooking(Guid bookingId)
         {
             try
