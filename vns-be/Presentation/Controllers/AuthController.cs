@@ -1,67 +1,60 @@
 ﻿using BLL.DTOs;
-using BLL.Services.Interfaces;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
+using BLL.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication.Google;
 
 namespace Presentation.Controllers
 {
-    [Route("api/auth")]
     [ApiController]
+    [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthenService _authenService;
+        private readonly IAuthService _authService;
 
-        public AuthController(IAuthenService authenService)
+        public AuthController(IAuthService authService)
         {
-            _authenService = authenService;
-        }
-
-        [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginDto loginDto)
-        {
-            var result = await _authenService.LoginAsync(loginDto);
-            return Ok(result);
+            _authService = authService;
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterDto registerDto)
+        public async Task<ActionResult<AuthResponseDTO>> Register([FromBody] RegisterDTO model)
         {
-            var newUser = await _authenService.RegisterAsync(registerDto);
-            return Ok(newUser);
-        }
-
-        [HttpGet("google-login")]
-        public IActionResult GoogleLogin()
-        {
-            var redirectUrl = Url.Action("GoogleResponse");
-            var properties = new AuthenticationProperties { RedirectUri = redirectUrl };
-            return Challenge(properties, GoogleDefaults.AuthenticationScheme);
-        }
-
-        [HttpGet("google-response")]
-        public async Task<IActionResult> GoogleResponse()
-        {
-            var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            if (!result.Succeeded)
-                return Unauthorized();
-
-            var claims = result.Principal.Identities
-                .FirstOrDefault()?.Claims
-                .Select(claim => new { claim.Type, claim.Value });
-
-            var email = result.Principal.FindFirst(ClaimTypes.Email)?.Value;
-            var name = result.Principal.FindFirst(ClaimTypes.Name)?.Value;
-
-            return Ok(new
+            try
             {
-                Email = email,
-                Name = name,
-                Claims = claims
-            });
+                var result = await _authService.RegisterAsync(model);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
+        [HttpPost("login")]
+        public async Task<ActionResult<AuthResponseDTO>> Login([FromBody] LoginDTO model)
+        {
+            try
+            {
+                var result = await _authService.LoginAsync(model);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpPost("refresh-token")]
+        public async Task<ActionResult<AuthResponseDTO>> RefreshToken([FromBody] RefreshTokenDTO model)
+        {
+            try
+            {
+                var result = await _authService.RefreshTokenAsync(model.RefreshToken);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
     }
 }
