@@ -12,6 +12,9 @@ namespace BLL.Services
         Task<AuthResponseDTO> RegisterAsync(RegisterDTO model);
         Task<AuthResponseDTO> LoginAsync(LoginDTO model);
         Task<AuthResponseDTO> RefreshTokenAsync(string refreshToken);
+        Task SendForgotPasswordOTPAsync(ForgotPasswordDTO model);
+        Task<bool> VerifyOTPAsync(VerifyOTPDTO model);
+        Task ResetPasswordAsync(ResetPasswordDTO model);
     }
 
     public class AuthService : IAuthService
@@ -19,15 +22,19 @@ namespace BLL.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IJwtService _jwtService;
         private readonly IPasswordHasher<User> _passwordHasher;
+        private readonly IEmailService _emailService;
+        private static readonly Dictionary<string, (string OTP, DateTime Expiry)> _otpStore = new();
 
         public AuthService(
             IUnitOfWork unitOfWork,
             IJwtService jwtService,
-            IPasswordHasher<User> passwordHasher)
+            IPasswordHasher<User> passwordHasher,
+            IEmailService emailService)
         {
             _unitOfWork = unitOfWork;
             _jwtService = jwtService;
             _passwordHasher = passwordHasher;
+            _emailService = emailService;
         }
 
         public async Task<AuthResponseDTO> RegisterAsync(RegisterDTO model)
@@ -120,6 +127,66 @@ namespace BLL.Services
                 Email = user.Email,
                 Role = user.Role.ToString()
             };
+        }
+
+        public async Task SendForgotPasswordOTPAsync(ForgotPasswordDTO model)
+        {
+            var user = await _unitOfWork.User.GetAsync(u => u.Email == model.Email);
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            // Generate 6-digit OTP
+            var otp = new Random().Next(100000, 999999).ToString();
+            var expiry = DateTime.UtcNow.AddMinutes(5);
+
+            // Store OTP with expiry
+            _otpStore[model.Email] = (otp, expiry);
+
+            // Send OTP via email
+            await _emailService.SendOTPEmailAsync(model.Email, otp);
+        }
+
+        public async Task<bool> VerifyOTPAsync(VerifyOTPDTO model)
+        {
+            if (!_otpStore.TryGetValue(model.Email, out var otpData))
+            {
+                throw new Exception("OTP not found or expired");
+            }
+
+            if (DateTime.UtcNow > otpData.Expiry)
+            {
+                _otpStore.Remove(model.Email);
+                throw new Exception("OTP has expired");
+            }
+
+            if (otpData.OTP != model.OTP)
+            {
+                throw new Exception("Invalid OTP");
+            }
+
+            return true;
+        }
+
+        public async Task ResetPasswordAsync(ResetPasswordDTO model)
+        {
+            // Verify OTP first
+            await VerifyOTPAsync(new VerifyOTPDTO { Email = model.Email, OTP = model.OTP });
+
+            var user = await _unitOfWork.User.GetAsync(u => u.Email == model.Email);
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            // Update password
+            user.PasswordHash = _passwordHasher.HashPassword(user, model.NewPassword);
+            await _unitOfWork.User.UpdateAsync(user);
+            await _unitOfWork.SaveChangesAsync();
+
+            // Remove used OTP
+            _otpStore.Remove(model.Email);
         }
     }
 } 

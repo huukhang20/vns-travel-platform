@@ -48,4 +48,37 @@ namespace BLL.DTOs
         [Required]
         public string RefreshToken { get; set; } = null!;
     }
+
+    public class ForgotPasswordDTO
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; } = null!;
+    }
+
+    public class VerifyOTPDTO
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; } = null!;
+
+        [Required]
+        [StringLength(6, MinimumLength = 6)]
+        public string OTP { get; set; } = null!;
+    }
+
+    public class ResetPasswordDTO
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; } = null!;
+
+        [Required]
+        [StringLength(6, MinimumLength = 6)]
+        public string OTP { get; set; } = null!;
+
+        [Required]
+        [MinLength(6)]
+        public string NewPassword { get; set; } = null!;
+    }
 } 
