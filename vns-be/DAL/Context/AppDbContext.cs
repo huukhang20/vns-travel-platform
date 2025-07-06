@@ -1,10 +1,12 @@
-﻿using DAL.Models;
+﻿using DAL.Commons;
+using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Context
 {
     public class AppDbContext : DbContext
     {
+        private readonly DatabaseType _databaseType;
 
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Voucher> Vouchers { get; set; }
@@ -23,42 +25,46 @@ namespace DAL.Context
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
 
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options, DatabaseType databaseType = DatabaseType.SqlServer) 
+            : base(options)
         {
+            _databaseType = databaseType;
         }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
+            // Configure relationships
             modelBuilder.Entity<ComboService>()
                 .HasKey(cs => new { cs.ComboId, cs.ServiceId });
 
             modelBuilder.Entity<ComboService>()
                 .HasOne(cs => cs.Combo)
                 .WithMany(c => c.ComboServices)
-                .HasForeignKey(cs => cs.ComboId);
+                .HasForeignKey(cs => cs.ComboId)
+                .OnDelete(_databaseType == DatabaseType.Sqlite ? DeleteBehavior.Cascade : DeleteBehavior.Restrict);
 
             modelBuilder.Entity<ComboService>()
                 .HasOne(cs => cs.Service)
                 .WithMany(s => s.ComboServices)
-                .HasForeignKey(cs => cs.ServiceId);
+                .HasForeignKey(cs => cs.ServiceId)
+                .OnDelete(_databaseType == DatabaseType.Sqlite ? DeleteBehavior.Cascade : DeleteBehavior.Restrict);
 
             modelBuilder.Entity<ServicePromotion>(entity =>
             {
                 entity.HasKey(e => e.ServicePromotionId);
                 entity.HasOne(e => e.Service)
                       .WithMany(s => s.ServicePromotions)
-                      .HasForeignKey(e => e.ServiceId);
+                      .HasForeignKey(e => e.ServiceId)
+                      .OnDelete(_databaseType == DatabaseType.Sqlite ? DeleteBehavior.Cascade : DeleteBehavior.Restrict);
             });
 
-
-
             modelBuilder.Entity<Service>()
-    .HasMany(s => s.ServicePromotions)
-    .WithOne(sp => sp.Service)
-    .HasForeignKey(sp => sp.ServiceId);
+                .HasMany(s => s.ServicePromotions)
+                .WithOne(sp => sp.Service)
+                .HasForeignKey(sp => sp.ServiceId)
+                .OnDelete(_databaseType == DatabaseType.Sqlite ? DeleteBehavior.Cascade : DeleteBehavior.Restrict);
 
             modelBuilder.Entity<ServiceLocation>()
                 .HasKey(sl => new { sl.ServiceId, sl.LocationId });
@@ -66,13 +72,37 @@ namespace DAL.Context
             modelBuilder.Entity<ServiceLocation>()
                 .HasOne(sl => sl.Service)
                 .WithMany(s => s.ServiceLocations)
-                .HasForeignKey(sl => sl.ServiceId);
+                .HasForeignKey(sl => sl.ServiceId)
+                .OnDelete(_databaseType == DatabaseType.Sqlite ? DeleteBehavior.Cascade : DeleteBehavior.Restrict);
 
             modelBuilder.Entity<ServiceLocation>()
                 .HasOne(sl => sl.Location)
                 .WithMany(l => l.ServiceLocations)
-                .HasForeignKey(sl => sl.LocationId);
+                .HasForeignKey(sl => sl.LocationId)
+                .OnDelete(_databaseType == DatabaseType.Sqlite ? DeleteBehavior.Cascade : DeleteBehavior.Restrict);
 
+            // SQLite-specific configurations
+            if (_databaseType == DatabaseType.Sqlite)
+            {
+                ConfigureForSqlite(modelBuilder);
+            }
+        }
+
+        private void ConfigureForSqlite(ModelBuilder modelBuilder)
+        {
+            // Configure string properties for SQLite
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                foreach (var property in entityType.GetProperties())
+                {
+                    if (property.ClrType == typeof(string))
+                    {
+                        modelBuilder.Entity(entityType.ClrType)
+                            .Property(property.Name)
+                            .HasColumnType("TEXT");
+                    }
+                }
+            }
         }
     }
 }

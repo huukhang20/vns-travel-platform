@@ -17,12 +17,12 @@ builder.Configuration.AddUserSecrets<Program>();
 
 // Add services to the container.
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.ResolveServices(builder.Configuration, connectionString);
+// Configure database
+var databaseConfig = DatabaseConfig.FromConfiguration(builder.Configuration);
+builder.Services.ResolveServices(builder.Configuration, databaseConfig.ConnectionString);
 
-// Register DbContext with SQL Server provider
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(connectionString));
+// Add database services using extension method
+builder.Services.AddDatabaseServices(databaseConfig);
 
 // Configure JWT Authentication
 builder.Services.AddAuthentication(options =>
@@ -95,6 +95,9 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 var app = builder.Build();
+
+// Initialize database
+await app.InitializeDatabaseAsync();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
