@@ -1,5 +1,6 @@
 using DAL.Commons;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace DAL.Context
 {
@@ -24,9 +25,9 @@ namespace DAL.Context
         }
 
         public static DatabaseConfig FromConfiguration(IConfiguration configuration)
-        {
+        {            
             var databaseType = configuration.GetValue<string>("Database:Type")?.ToLower();
-            var connectionString = configuration.GetConnectionString("DefaultConnection") ?? 
+            var connectionString = configuration.GetConnectionString("DefaultConnection") ??
                                   configuration.GetConnectionString("SqliteConnection") ??
                                   configuration.GetConnectionString("SqlServerConnection");
 
