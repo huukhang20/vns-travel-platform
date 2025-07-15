@@ -1,12 +1,19 @@
 import { Route, Routes } from "react-router-dom";
-import LoginPartner from "./pages/LoginPartner";
-import LoginAdmin from "./pages/LoginAdmin";
 import "./index.css";
-import PartnerService from "./pages/PartnerService";
+import LoginPartner from "./pages/PartnerPages/LoginPartner";
+import RegisterPartner from "./pages/PartnerPages/RegisterPartner";
+import LoginAdmin from "./pages/AdminPages/LoginAdmin";
+import AdminManagement from "./pages/AdminPages/AdminManagement";
+import PartnerService from "./pages/PartnerPages/PartnerService";
+import PartnerFinance from "./pages/PartnerPages/PartnerFinance";
+import PartnerBooking from "./pages/PartnerPages/PartnerBooking";
+import PartnerDashboard from "./pages/PartnerPages/PartnerDashboard";
+import PartnerProfile from "./pages/PartnerPages/PartnerProfile";
+import PartnerMessaging from "./pages/PartnerPages/PartnerMessaging";
 import Layout from "./components/Layout";
-import PartnerFinance from "./pages/PartnerFinance";
-import PartnerBooking from "./pages/PartnerBooking";
-import RegisterPartner from "./pages/RegisterPartner";
+import AdminDashboard from "./pages/AdminPages/AdminDashboard";
+import AdminVoucher from "./pages/AdminPages/AdminVoucher";
+import AdminProfile from "./pages/AdminPages/AdminProfile";
 
 function App() {
   return (
@@ -17,9 +24,18 @@ function App() {
         <Route path="/RegisterPartner" element={<RegisterPartner />} />
         <Route path="/LoginAdmin" element={<LoginAdmin />} />
         <Route element={<Layout />}>
+          <Route path="/AdminManagement" element={<AdminManagement />} />
+          <Route path="/AdminDashboard" element={<AdminDashboard />} />
+          <Route path="/AdminVoucher" element={<AdminVoucher />} />
+          <Route path="/AdminProfile" element={<AdminProfile />} />
+        </Route>
+        <Route element={<Layout />}>
           <Route path="/PartnerService" element={<PartnerService />} />
           <Route path="/PartnerFinance" element={<PartnerFinance />} />
           <Route path="/PartnerBooking" element={<PartnerBooking />} />
+          <Route path="/PartnerDashboard" element={<PartnerDashboard />} />
+          <Route path="/PartnerProfile" element={<PartnerProfile />} />
+          <Route path="/PartnerMessaging" element={<PartnerMessaging />} />
         </Route>
       </Routes>
     </>

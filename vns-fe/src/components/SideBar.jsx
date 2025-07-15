@@ -82,6 +82,70 @@ const SideBar = () => {
           </div>
           <span className="text-sm font-medium">Financial</span>
         </NavLink>
+        <NavLink
+          to="/PartnerDashboard"
+          className={({ isActive }) =>
+            `flex flex-col items-center space-y-2 w-full py-3 rounded-lg transition-colors duration-200 ${
+              isActive ? "bg-primary" : "hover:bg-slate-600"
+            }`
+          }
+        >
+          <div className="w-8 h-8 flex items-center justify-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+              fill="#e3e3e3"
+            >
+              <path d="M120-120v-80l80-80v160h-80Zm160 0v-240l80-80v320h-80Zm160 0v-320l80 81v239h-80Zm160 0v-239l80-80v319h-80Zm160 0v-400l80-80v480h-80ZM120-327v-113l280-280 160 160 280-280v113L560-447 400-607 120-327Z" />
+            </svg>
+          </div>
+          <span className="text-sm font-medium">Dashboard</span>
+        </NavLink>
+
+        <NavLink
+          to="/PartnerProfile"
+          className={({ isActive }) =>
+            `flex flex-col items-center space-y-2 w-full py-3 rounded-lg transition-colors duration-200 ${
+              isActive ? "bg-primary" : "hover:bg-slate-600"
+            }`
+          }
+        >
+          <div className="w-8 h-8 flex items-center justify-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+              fill="#e3e3e3"
+            >
+              <path d="M120-120v-80l80-80v160h-80Zm160 0v-240l80-80v320h-80Zm160 0v-320l80 81v239h-80Zm160 0v-239l80-80v319h-80Zm160 0v-400l80-80v480h-80ZM120-327v-113l280-280 160 160 280-280v113L560-447 400-607 120-327Z" />
+            </svg>
+          </div>
+          <span className="text-sm font-medium">Profile</span>
+        </NavLink>
+        <NavLink
+          to="/PartnerMessaging"
+          className={({ isActive }) =>
+            `flex flex-col items-center space-y-2 w-full py-3 rounded-lg transition-colors duration-200 ${
+              isActive ? "bg-primary" : "hover:bg-slate-600"
+            }`
+          }
+        >
+          <div className="w-8 h-8 flex items-center justify-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+              fill="#e3e3e3"
+            >
+              <path d="M120-120v-80l80-80v160h-80Zm160 0v-240l80-80v320h-80Zm160 0v-320l80 81v239h-80Zm160 0v-239l80-80v319h-80Zm160 0v-400l80-80v480h-80ZM120-327v-113l280-280 160 160 280-280v113L560-447 400-607 120-327Z" />
+            </svg>
+          </div>
+          <span className="text-sm font-medium">Message</span>
+        </NavLink>
       </div>
     </div>
   );
