@@ -10,10 +10,10 @@ import PartnerBooking from "./pages/PartnerPages/PartnerBooking";
 import PartnerDashboard from "./pages/PartnerPages/PartnerDashboard";
 import PartnerProfile from "./pages/PartnerPages/PartnerProfile";
 import PartnerMessaging from "./pages/PartnerPages/PartnerMessaging";
-import Layout from "./components/Layout";
 import AdminDashboard from "./pages/AdminPages/AdminDashboard";
 import AdminVoucher from "./pages/AdminPages/AdminVoucher";
 import AdminProfile from "./pages/AdminPages/AdminProfile";
+import PartnerLayout from "./pages/PartnerPages/PartnerLayout";
 
 function App() {
   return (
@@ -23,13 +23,13 @@ function App() {
         <Route path="/LoginPartner" element={<LoginPartner />} />
         <Route path="/RegisterPartner" element={<RegisterPartner />} />
         <Route path="/LoginAdmin" element={<LoginAdmin />} />
-        <Route element={<Layout />}>
-          <Route path="/AdminManagement" element={<AdminManagement />} />
-          <Route path="/AdminDashboard" element={<AdminDashboard />} />
-          <Route path="/AdminVoucher" element={<AdminVoucher />} />
-          <Route path="/AdminProfile" element={<AdminProfile />} />
-        </Route>
-        <Route element={<Layout />}>
+        {/* <Route element={<Layout />}> */}
+        <Route path="/AdminManagement" element={<AdminManagement />} />
+        <Route path="/AdminDashboard" element={<AdminDashboard />} />
+        <Route path="/AdminVoucher" element={<AdminVoucher />} />
+        <Route path="/AdminProfile" element={<AdminProfile />} />
+        {/* </Route> */}
+        <Route element={<PartnerLayout />}>
           <Route path="/PartnerService" element={<PartnerService />} />
           <Route path="/PartnerFinance" element={<PartnerFinance />} />
           <Route path="/PartnerBooking" element={<PartnerBooking />} />
