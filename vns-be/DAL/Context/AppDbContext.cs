@@ -24,6 +24,7 @@ namespace DAL.Context
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
+        public DbSet<OtpCode> OtpCodes { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options, DatabaseType databaseType = DatabaseType.SqlServer) 
             : base(options)
