@@ -15,7 +15,6 @@ namespace Presentation
         public static IServiceCollection ResolveServices(this IServiceCollection services, IConfiguration configuration, string connectionString)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IAuthenService, AuthenService>();
             services.AddScoped<IServiceManager, ServiceManager>();
             services.AddScoped<IBookingService, BookingService>();
 
@@ -36,13 +35,13 @@ namespace Presentation
                 o.DefaultForbidScheme = GoogleOpenIdConnectDefaults.AuthenticationScheme;
                 o.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             })
-            .AddCookie()
-            .AddGoogle(options =>
-            {
-                options.ClientId = configuration["Authentication:Google:ClientId"];
-                options.ClientSecret = configuration["Authentication:Google:ClientSecret"];
-                options.CallbackPath = "/auth/signin-google";
-            });
+            .AddCookie();
+            //.AddGoogle(options =>
+            //{
+            //    options.ClientId = configuration["Authentication:Google:ClientId"];
+            //    options.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+            //    options.CallbackPath = "/auth/signin-google";
+            //});
 
             return services;
         }
