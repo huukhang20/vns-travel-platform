@@ -29,13 +29,13 @@ namespace Presentation
                     errorNumbersToAdd: null);
             }));
 
-            services.AddAuthentication(o =>
-            {
-                o.DefaultChallengeScheme = GoogleOpenIdConnectDefaults.AuthenticationScheme;
-                o.DefaultForbidScheme = GoogleOpenIdConnectDefaults.AuthenticationScheme;
-                o.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            })
-            .AddCookie();
+            //services.AddAuthentication(o =>
+            //{
+            //    o.DefaultChallengeScheme = GoogleOpenIdConnectDefaults.AuthenticationScheme;
+            //    o.DefaultForbidScheme = GoogleOpenIdConnectDefaults.AuthenticationScheme;
+            //    o.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            //})
+            //.AddCookie()
             //.AddGoogle(options =>
             //{
             //    options.ClientId = configuration["Authentication:Google:ClientId"];

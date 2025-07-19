@@ -39,6 +39,10 @@ namespace BLL.Services
 
         public async Task<AuthResponseDTO> RegisterAsync(RegisterDTO model)
         {
+            if (string.IsNullOrWhiteSpace(model.Password))
+            {
+                throw new Exception("Password is required.");
+            }
             var existingUser = await _unitOfWork.User.GetAsync(u => u.Email == model.Email);
             if (existingUser != null)
             {
