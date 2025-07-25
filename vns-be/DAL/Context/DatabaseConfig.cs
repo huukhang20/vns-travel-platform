@@ -19,6 +19,9 @@ namespace DAL.Context
                 case DatabaseType.Sqlite:
                     options.UseSqlite(ConnectionString);
                     break;
+                case DatabaseType.PostgreSql:
+                    options.UseNpgsql(ConnectionString);
+                    break;
                 default:
                     throw new ArgumentException($"Unsupported database type: {DatabaseType}");
             }
@@ -29,7 +32,8 @@ namespace DAL.Context
             var databaseType = configuration.GetValue<string>("Database:Type")?.ToLower();
             var connectionString = configuration.GetConnectionString("DefaultConnection") ??
                                   configuration.GetConnectionString("SqliteConnection") ??
-                                  configuration.GetConnectionString("SqlServerConnection");
+                                  configuration.GetConnectionString("SqlServerConnection")??
+                                  configuration.GetConnectionString("PostgreSqlConnection");
 
             if (string.IsNullOrEmpty(connectionString))
             {
@@ -42,6 +46,7 @@ namespace DAL.Context
                 {
                     "sqlite" => DatabaseType.Sqlite,
                     "sqlserver" => DatabaseType.SqlServer,
+                    "postgresql" => DatabaseType.PostgreSql,
                     _ => throw new ArgumentException($"Unsupported database type: {databaseType}")
                 },
                 ConnectionString = connectionString

@@ -1,12 +1,13 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace DAL.Migrations
+namespace DAL.Migrations.PostgreSql
 {
     /// <inheritdoc />
-    public partial class InitDb : Migration
+    public partial class InitPostgredb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,16 +16,16 @@ namespace DAL.Migrations
                 name: "Bookings",
                 columns: table => new
                 {
-                    BookingId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ServiceId = table.Column<int>(type: "int", nullable: false),
-                    ComboId = table.Column<int>(type: "int", nullable: false),
-                    BookingType = table.Column<int>(type: "int", nullable: false),
-                    BookingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    BookingStatus = table.Column<int>(type: "int", nullable: false),
-                    TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PaymentMethod = table.Column<int>(type: "int", nullable: false),
-                    PaymentStatus = table.Column<int>(type: "int", nullable: false)
+                    BookingId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    ServiceId = table.Column<int>(type: "integer", nullable: false),
+                    ComboId = table.Column<int>(type: "integer", nullable: false),
+                    BookingType = table.Column<int>(type: "integer", nullable: false),
+                    BookingDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    BookingStatus = table.Column<int>(type: "integer", nullable: false),
+                    TotalAmount = table.Column<decimal>(type: "numeric", nullable: false),
+                    PaymentMethod = table.Column<int>(type: "integer", nullable: false),
+                    PaymentStatus = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -35,13 +36,13 @@ namespace DAL.Migrations
                 name: "Combos",
                 columns: table => new
                 {
-                    ComboId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PartnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DiscountedPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Availability = table.Column<int>(type: "int", nullable: true),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ComboId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    PartnerId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    DiscountedPrice = table.Column<decimal>(type: "numeric", nullable: false),
+                    Availability = table.Column<int>(type: "integer", nullable: true),
+                    Location = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -52,7 +53,7 @@ namespace DAL.Migrations
                 name: "Locations",
                 columns: table => new
                 {
-                    LocationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LocationId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
                     Latitude = table.Column<float>(type: "real", nullable: false),
                     Longitude = table.Column<float>(type: "real", nullable: false)
                 },
@@ -62,17 +63,32 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OtpCodes",
+                columns: table => new
+                {
+                    OtpCodeId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    Code = table.Column<string>(type: "text", nullable: false),
+                    Expiry = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OtpCodes", x => x.OtpCodeId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Partners",
                 columns: table => new
                 {
-                    PartnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    BussinessName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BussinessCategory = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ContactInfo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsVerified = table.Column<bool>(type: "bit", nullable: false),
-                    VerificationStatus = table.Column<int>(type: "int", nullable: false)
+                    PartnerId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    BussinessName = table.Column<string>(type: "text", nullable: false),
+                    BussinessCategory = table.Column<string>(type: "text", nullable: false),
+                    ContactInfo = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    IsVerified = table.Column<bool>(type: "boolean", nullable: false),
+                    VerificationStatus = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -83,13 +99,13 @@ namespace DAL.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AvatarUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Role = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: true),
+                    FullName = table.Column<string>(type: "text", nullable: false),
+                    AvatarUrl = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    Role = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -100,12 +116,12 @@ namespace DAL.Migrations
                 name: "Payments",
                 columns: table => new
                 {
-                    PaymentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    BookingId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PartnerTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TransactionId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PaymentStatus = table.Column<int>(type: "int", nullable: false)
+                    PaymentId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    BookingId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    PartnerTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Amount = table.Column<decimal>(type: "numeric", nullable: false),
+                    TransactionId = table.Column<string>(type: "text", nullable: true),
+                    PaymentStatus = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -122,12 +138,12 @@ namespace DAL.Migrations
                 name: "FinancialReports",
                 columns: table => new
                 {
-                    FinancialReportId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PartnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TotalRevenue = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TotalExpenses = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    NetProfit = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ReportDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    FinancialReportId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    PartnerId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    TotalRevenue = table.Column<decimal>(type: "numeric", nullable: false),
+                    TotalExpenses = table.Column<decimal>(type: "numeric", nullable: false),
+                    NetProfit = table.Column<decimal>(type: "numeric", nullable: false),
+                    ReportDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -144,13 +160,13 @@ namespace DAL.Migrations
                 name: "PartnerDocuments",
                 columns: table => new
                 {
-                    PartnerDocumentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PartnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DocumentUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DocumentType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UploadedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UploadedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    VerifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    PartnerDocumentId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    PartnerId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    DocumentUrl = table.Column<string>(type: "text", nullable: false),
+                    DocumentType = table.Column<string>(type: "text", nullable: false),
+                    UploadedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UploadedBy = table.Column<string>(type: "text", nullable: false),
+                    VerifiedBy = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -167,12 +183,12 @@ namespace DAL.Migrations
                 name: "Revenues",
                 columns: table => new
                 {
-                    RevenueId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PartnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TotalEarnings = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Month = table.Column<int>(type: "int", nullable: false),
-                    Year = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    RevenueId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    PartnerId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    TotalEarnings = table.Column<decimal>(type: "numeric", nullable: false),
+                    Month = table.Column<int>(type: "integer", nullable: false),
+                    Year = table.Column<int>(type: "integer", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -189,15 +205,15 @@ namespace DAL.Migrations
                 name: "Services",
                 columns: table => new
                 {
-                    ServiceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PartnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    LocationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Availability = table.Column<int>(type: "int", nullable: true),
-                    ServiceType = table.Column<int>(type: "int", nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ServiceId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    PartnerId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    LocationId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    Price = table.Column<decimal>(type: "numeric", nullable: false),
+                    Availability = table.Column<int>(type: "integer", nullable: true),
+                    ServiceType = table.Column<int>(type: "integer", nullable: false),
+                    Location = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -214,12 +230,12 @@ namespace DAL.Migrations
                 name: "Feedbacks",
                 columns: table => new
                 {
-                    FeedbackId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PartnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Rating = table.Column<int>(type: "int", nullable: false),
-                    Comment = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    FeedbackId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    PartnerId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    Rating = table.Column<int>(type: "integer", nullable: false),
+                    Comment = table.Column<string>(type: "text", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -242,13 +258,13 @@ namespace DAL.Migrations
                 name: "Messages",
                 columns: table => new
                 {
-                    MessageId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SenderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ReceiverId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    UserId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    MessageId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    SenderId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    ReceiverId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    Content = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: true),
+                    UserId1 = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -269,14 +285,14 @@ namespace DAL.Migrations
                 name: "Vouchers",
                 columns: table => new
                 {
-                    VoucherId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DiscountPercentage = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    DiscountAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    ValidFrom = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ValidTo = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    MaxUsage = table.Column<int>(type: "int", nullable: false)
+                    VoucherId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    Code = table.Column<string>(type: "text", nullable: false),
+                    DiscountPercentage = table.Column<decimal>(type: "numeric", nullable: true),
+                    DiscountAmount = table.Column<decimal>(type: "numeric", nullable: true),
+                    ValidFrom = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ValidTo = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    MaxUsage = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -293,8 +309,8 @@ namespace DAL.Migrations
                 name: "ComboServices",
                 columns: table => new
                 {
-                    ComboId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ServiceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ComboId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    ServiceId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()")
                 },
                 constraints: table =>
                 {
@@ -304,21 +320,21 @@ namespace DAL.Migrations
                         column: x => x.ComboId,
                         principalTable: "Combos",
                         principalColumn: "ComboId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ComboServices_Services_ServiceId",
                         column: x => x.ServiceId,
                         principalTable: "Services",
                         principalColumn: "ServiceId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "ServiceLocations",
                 columns: table => new
                 {
-                    ServiceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    LocationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ServiceId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    LocationId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()")
                 },
                 constraints: table =>
                 {
@@ -328,24 +344,24 @@ namespace DAL.Migrations
                         column: x => x.LocationId,
                         principalTable: "Locations",
                         principalColumn: "LocationId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ServiceLocations_Services_ServiceId",
                         column: x => x.ServiceId,
                         principalTable: "Services",
                         principalColumn: "ServiceId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "ServicePromotions",
                 columns: table => new
                 {
-                    ServicePromotionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ServiceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ServicePromotionId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    ServiceId = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    Discount = table.Column<decimal>(type: "numeric", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -355,7 +371,7 @@ namespace DAL.Migrations
                         column: x => x.ServiceId,
                         principalTable: "Services",
                         principalColumn: "ServiceId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -438,6 +454,9 @@ namespace DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Messages");
+
+            migrationBuilder.DropTable(
+                name: "OtpCodes");
 
             migrationBuilder.DropTable(
                 name: "PartnerDocuments");

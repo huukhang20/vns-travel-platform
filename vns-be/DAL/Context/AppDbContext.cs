@@ -26,7 +26,7 @@ namespace DAL.Context
         public virtual DbSet<Message> Messages { get; set; }
         public DbSet<OtpCode> OtpCodes { get; set; }
 
-        public AppDbContext(DbContextOptions<AppDbContext> options, DatabaseType databaseType = DatabaseType.SqlServer) 
+        public AppDbContext(DbContextOptions<AppDbContext> options, DatabaseType databaseType = DatabaseType.PostgreSql)
             : base(options)
         {
             _databaseType = databaseType;
@@ -82,10 +82,15 @@ namespace DAL.Context
                 .HasForeignKey(sl => sl.LocationId)
                 .OnDelete(_databaseType == DatabaseType.Sqlite ? DeleteBehavior.Cascade : DeleteBehavior.Restrict);
 
-            // SQLite-specific configurations
-            if (_databaseType == DatabaseType.Sqlite)
+            // SQLite-specific/PostgreSql configurations
+            switch (_databaseType)
             {
-                ConfigureForSqlite(modelBuilder);
+                case DatabaseType.Sqlite:
+                    ConfigureForSqlite(modelBuilder);
+                    break;
+                case DatabaseType.PostgreSql:
+                    ConfigureForPostgreSql(modelBuilder);
+                    break;
             }
         }
 
@@ -101,6 +106,23 @@ namespace DAL.Context
                         modelBuilder.Entity(entityType.ClrType)
                             .Property(property.Name)
                             .HasColumnType("TEXT");
+                    }
+                }
+            }
+        }
+
+        private void ConfigureForPostgreSql(ModelBuilder modelBuilder)
+        {
+            // Configure all Guid properties to use uuid
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                foreach (var property in entityType.GetProperties())
+                {
+                    if (property.ClrType == typeof(Guid))
+                    {
+                        modelBuilder.Entity(entityType.ClrType)
+                            .Property<Guid>(property.Name)
+                            .HasDefaultValueSql("gen_random_uuid()");
                     }
                 }
             }

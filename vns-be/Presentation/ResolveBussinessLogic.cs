@@ -20,13 +20,13 @@ namespace Presentation
 
             services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 
-            services.AddDbContext<AppDbContext>(option => option.UseSqlServer(connectionString, sqlOptions =>
+            services.AddDbContext<AppDbContext>(option => option.UseNpgsql(connectionString, sqlOptions =>
             {
                 sqlOptions.CommandTimeout(30);
-                sqlOptions.EnableRetryOnFailure(
-                    maxRetryCount: 5,
-                    maxRetryDelay: TimeSpan.FromSeconds(30),
-                    errorNumbersToAdd: null);
+                //sqlOptions.EnableRetryOnFailure(
+                //    maxRetryCount: 5,
+                //    maxRetryDelay: TimeSpan.FromSeconds(30),
+                //    errorNumbersToAdd: null);
             }));
 
             //services.AddAuthentication(o =>
