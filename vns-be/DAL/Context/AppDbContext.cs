@@ -158,6 +158,10 @@ namespace DAL.Context
                 .HasForeignKey(pl => pl.PartnerId)
                 .OnDelete(_databaseType == DatabaseType.Sqlite ? DeleteBehavior.Cascade : DeleteBehavior.Restrict);
 
+            // Composite key for PartnerLocation
+            modelBuilder.Entity<PartnerLocation>()
+                .HasKey(pl => new { pl.PartnerId, pl.LocationId });
+
             // Location relationships
             modelBuilder.Entity<Location>()
                 .HasMany(l => l.ServiceRatings)
@@ -171,6 +175,51 @@ namespace DAL.Context
                 .WithOne(sf => sf.Booking)
                 .HasForeignKey(sf => sf.BookingId)
                 .OnDelete(_databaseType == DatabaseType.Sqlite ? DeleteBehavior.Cascade : DeleteBehavior.Restrict);
+
+            // Booking-Payment relationship - prevent cascade path cycles
+            modelBuilder.Entity<Payment>()
+                .HasOne(p => p.Booking)
+                .WithMany(b => b.Payments)
+                .HasForeignKey(p => p.BookingId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            // Refund relationships - prevent cascade path cycles
+            modelBuilder.Entity<Refund>()
+                .HasOne(r => r.Booking)
+                .WithMany(b => b.Refunds)
+                .HasForeignKey(r => r.BookingId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Refund>()
+                .HasOne(r => r.Payment)
+                .WithMany(p => p.Refunds)
+                .HasForeignKey(r => r.PaymentId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            // ServiceFeedback relationships - prevent cascade path cycles
+            modelBuilder.Entity<ServiceFeedback>()
+                .HasOne(sf => sf.User)
+                .WithMany(u => u.ServiceFeedbacks)
+                .HasForeignKey(sf => sf.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<ServiceFeedback>()
+                .HasOne(sf => sf.Partner)
+                .WithMany()
+                .HasForeignKey(sf => sf.PartnerId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<ServiceFeedback>()
+                .HasOne(sf => sf.Booking)
+                .WithMany(b => b.ServiceFeedbacks)
+                .HasForeignKey(sf => sf.BookingId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<ServiceFeedback>()
+                .HasOne(sf => sf.Service)
+                .WithMany()
+                .HasForeignKey(sf => sf.ServiceId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             // SQLite-specific configurations
             if (_databaseType == DatabaseType.Sqlite)

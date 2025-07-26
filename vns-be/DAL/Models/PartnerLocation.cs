@@ -1,14 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DAL.Models
 {
     public class PartnerLocation
     {
-        [Key, Column(Order = 0)]
         public Guid PartnerId { get; set; }
 
-        [Key, Column(Order = 1)]
         public Guid LocationId { get; set; }
 
         public bool IsPrimary { get; set; }
