@@ -93,7 +93,7 @@ builder.Services.AddAuthentication(options =>
                 Email = email,
                 FullName = name,
                 PhoneNumber = phoneNumber,
-                Role = DAL.Models.Enum.Role.Customer
+                Role = (int)DAL.Models.Enum.Role.Customer
             };
             await db.User.AddAsync(user);
             await db.SaveChangesAsync();

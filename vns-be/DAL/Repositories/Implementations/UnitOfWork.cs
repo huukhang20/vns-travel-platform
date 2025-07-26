@@ -11,10 +11,6 @@ namespace DAL.Repositories.Implementations
 
         public IComboRepository Combo { get; private set; }
 
-        public IComboServiceRepository ComboService { get; private set; }
-
-        public IFeedbackRepository Feedback { get; private set; }
-
         public IFinancialReportRepository FinancialReport { get; private set; }
 
         public ILocationRepository Location { get; private set; }
@@ -29,8 +25,6 @@ namespace DAL.Repositories.Implementations
 
         public IRevenueRepository Revenue { get; private set; }
 
-        public IServiceLocationRepository ServiceLocation { get; private set; }
-
         public IServicePromotionRepository ServicePromotion { get; private set; }
 
         public IServiceRepository Service { get; private set; }
@@ -44,8 +38,6 @@ namespace DAL.Repositories.Implementations
             _context = context;
             Booking = new BookingRepository(_context);
             Combo = new ComboRepository(_context);
-            ComboService = new ComboServiceRepository(_context);
-            Feedback = new FeedbackRepository(_context);
             FinancialReport = new FinancialReportRepository(_context);
             Location = new LocationRepository(_context);
             Message = new MessageRepository(_context);
@@ -53,7 +45,6 @@ namespace DAL.Repositories.Implementations
             Partner = new PartnerRepository(_context);
             Payment = new PaymentRepository(_context);
             Revenue = new RevenueRepository(_context);
-            ServiceLocation = new ServiceLocationRepository(_context);
             ServicePromotion = new ServicePromotionRepository(_context);
             Service = new ServiceRepository(_context);
             User = new UserRepository(_context);
