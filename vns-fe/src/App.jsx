@@ -14,6 +14,9 @@ import AdminDashboard from "./pages/AdminPages/AdminDashboard";
 import AdminVoucher from "./pages/AdminPages/AdminVoucher";
 import AdminProfile from "./pages/AdminPages/AdminProfile";
 import PartnerLayout from "./pages/PartnerPages/PartnerLayout";
+import PartnerRentalRegistration from "./pages/PartnerPages/PartnerRentalRegistration";
+import PartnerTourRegistration from "./pages/PartnerPages/PartnerTourRegistration";
+import PartnerCarRentalRegistration from "./pages/PartnerPages/PartnerCarRentalRegistration";
 
 function App() {
   return (
@@ -31,6 +34,18 @@ function App() {
         {/* </Route> */}
         <Route element={<PartnerLayout />}>
           <Route path="/PartnerService" element={<PartnerService />} />
+          <Route
+            path="/PartnerService/rental"
+            element={<PartnerRentalRegistration />}
+          />
+          <Route
+            path="/PartnerService/tour"
+            element={<PartnerTourRegistration />}
+          />
+          <Route
+            path="/PartnerService/car"
+            element={<PartnerCarRentalRegistration />}
+          />
           <Route path="/PartnerFinance" element={<PartnerFinance />} />
           <Route path="/PartnerBooking" element={<PartnerBooking />} />
           <Route path="/PartnerDashboard" element={<PartnerDashboard />} />

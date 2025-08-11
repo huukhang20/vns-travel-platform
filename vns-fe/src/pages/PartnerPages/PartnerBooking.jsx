@@ -157,7 +157,7 @@ const PartnerBooking = () => {
   );
 
   return (
-    <div className="min-h-screen bg-[#e9e9e9] p-6">
+    <div className="min-h-screen bg-[#e9e9e9] p-8">
       {/* Header */}
       <div className="max-w-7xl mx-auto ">
         <div className="flex justify-between items-center pt-6">

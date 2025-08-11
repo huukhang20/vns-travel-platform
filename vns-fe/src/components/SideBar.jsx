@@ -50,6 +50,10 @@ const SideBar = ({
           </NavLink>
         ))}
       </div>
+      {/* Footer Section */}
+      <div className="mt-auto text-xs text-gray-400">
+        © 2025 VNS Travel Platform
+      </div>
     </div>
   );
 };

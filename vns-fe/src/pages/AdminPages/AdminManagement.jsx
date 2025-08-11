@@ -11,7 +11,6 @@ import {
 } from "lucide-react";
 
 const AdminManagement = () => {
-  // Sample data for accounts
   const [accounts, setAccounts] = useState([
     {
       id: 1,
