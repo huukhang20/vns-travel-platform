@@ -515,11 +515,7 @@ const PartnerFinance = () => {
                     <option value="yearly">Yearly</option>
                   </select>
                 </div>
-                <div className="flex items-end">
-                  <button className="w-full px-4 py-2 bg-[#008fa0] text-white rounded-lg font-medium hover:bg-[#007a8a]">
-                    Generate Report
-                  </button>
-                </div>
+               
               </div>
             </div>
 

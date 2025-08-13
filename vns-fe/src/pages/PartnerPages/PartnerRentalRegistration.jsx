@@ -124,7 +124,7 @@ const PartnerRentalRegistration = () => {
                   key={type.value}
                   className={`p-4 border rounded-lg cursor-pointer transition-all ${
                     formData.propertyType === type.value
-                      ? "border-blue-500 bg-blue-50"
+                      ? "border-[#008fa0] bg-[#e6f7f9]"
                       : "border-gray-200 hover:border-gray-300"
                   }`}
                   onClick={() => updateFormData("propertyType", type.value)}
@@ -143,7 +143,7 @@ const PartnerRentalRegistration = () => {
                 type="text"
                 value={formData.propertyName}
                 onChange={(e) => updateFormData("propertyName", e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#008fa0] focus:border-[#008fa0]"
                 placeholder="Enter a catchy name for your property"
               />
             </div>
@@ -169,7 +169,7 @@ const PartnerRentalRegistration = () => {
                   type="text"
                   value={formData.address}
                   onChange={(e) => updateFormData("address", e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#008fa0] focus:border-[#008fa0]"
                   placeholder="123 Main Street"
                 />
               </div>
@@ -183,7 +183,7 @@ const PartnerRentalRegistration = () => {
                     type="text"
                     value={formData.city}
                     onChange={(e) => updateFormData("city", e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#008fa0] focus:border-[#008fa0]"
                     placeholder="New York"
                   />
                 </div>
@@ -195,7 +195,7 @@ const PartnerRentalRegistration = () => {
                     type="text"
                     value={formData.state}
                     onChange={(e) => updateFormData("state", e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#008fa0] focus:border-[#008fa0]"
                     placeholder="NY"
                   />
                 </div>
@@ -207,7 +207,7 @@ const PartnerRentalRegistration = () => {
                     type="text"
                     value={formData.zipCode}
                     onChange={(e) => updateFormData("zipCode", e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#008fa0] focus:border-[#008fa0]"
                     placeholder="10001"
                   />
                 </div>
@@ -228,8 +228,8 @@ const PartnerRentalRegistration = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center">
-                <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full">
-                  <Bed className="w-8 h-8 text-blue-600" />
+                <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-[#008fa0] rounded-full">
+                  <Bed className="w-8 h-8 text-white" />
                 </div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Bedrooms
@@ -261,8 +261,8 @@ const PartnerRentalRegistration = () => {
               </div>
 
               <div className="text-center">
-                <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full">
-                  <Bath className="w-8 h-8 text-blue-600" />
+                <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-[#008fa0] rounded-full">
+                  <Bath className="w-8 h-8 text-white" />
                 </div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Bathrooms
@@ -294,8 +294,8 @@ const PartnerRentalRegistration = () => {
               </div>
 
               <div className="text-center">
-                <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full">
-                  <Users className="w-8 h-8 text-blue-600" />
+                <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-[#008fa0] rounded-full">
+                  <Users className="w-8 h-8 text-white" />
                 </div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Max Guests
@@ -340,7 +340,7 @@ const PartnerRentalRegistration = () => {
             </p>
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {[
+              {[ 
                 { value: "wifi", label: "WiFi", icon: Wifi },
                 { value: "kitchen", label: "Kitchen", icon: Coffee },
                 { value: "tv", label: "TV", icon: Tv },
@@ -356,16 +356,14 @@ const PartnerRentalRegistration = () => {
                     key={amenity.value}
                     className={`p-4 border rounded-lg cursor-pointer transition-all ${
                       isSelected
-                        ? "border-blue-500 bg-blue-50"
+                        ? "border-[#008fa0] bg-[#e6f7f9]"
                         : "border-gray-200 hover:border-gray-300"
                     }`}
                     onClick={() => toggleAmenity(amenity.value)}
                   >
                     <div className="flex flex-col items-center text-center">
                       <Icon className="w-6 h-6 mb-2 text-gray-600" />
-                      <span className="text-sm font-medium">
-                        {amenity.label}
-                      </span>
+                      <span className="text-sm font-medium">{amenity.label}</span>
                     </div>
                   </div>
                 );
@@ -397,7 +395,7 @@ const PartnerRentalRegistration = () => {
                     onChange={(e) =>
                       updateFormData("basePrice", e.target.value)
                     }
-                    className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#008fa0] focus:border-[#008fa0]"
                     placeholder="120"
                   />
                 </div>
@@ -415,7 +413,7 @@ const PartnerRentalRegistration = () => {
                     onChange={(e) =>
                       updateFormData("cleaningFee", e.target.value)
                     }
-                    className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#008fa0] focus:border-[#008fa0]"
                     placeholder="25"
                   />
                 </div>
@@ -433,7 +431,7 @@ const PartnerRentalRegistration = () => {
                     onChange={(e) =>
                       updateFormData("securityDeposit", e.target.value)
                     }
-                    className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#008fa0] focus:border-[#008fa0]"
                     placeholder="200"
                   />
                 </div>
@@ -441,11 +439,11 @@ const PartnerRentalRegistration = () => {
             </div>
 
             {formData.basePrice && (
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <h3 className="font-medium text-blue-900 mb-2">
+              <div className="bg-[#e6f7f9] p-4 rounded-lg">
+                <h3 className="font-medium text-[#008fa0] mb-2">
                   Total for 3 nights
                 </h3>
-                <div className="space-y-1 text-sm text-blue-800">
+                <div className="space-y-1 text-sm text-[#007a8a]">
                   <div className="flex justify-between">
                     <span>${formData.basePrice} × 3 nights</span>
                     <span>${formData.basePrice * 3}</span>
@@ -456,7 +454,7 @@ const PartnerRentalRegistration = () => {
                       <span>${formData.cleaningFee}</span>
                     </div>
                   )}
-                  <div className="border-t border-blue-200 pt-1 mt-2">
+                  <div className="border-t border-[#007a8a] pt-1 mt-2">
                     <div className="flex justify-between font-semibold">
                       <span>Total</span>
                       <span>
@@ -486,7 +484,7 @@ const PartnerRentalRegistration = () => {
               <div className="space-y-1 text-center">
                 <Camera className="mx-auto h-12 w-12 text-gray-400" />
                 <div className="flex text-sm text-gray-600">
-                  <label className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500">
+                  <label className="relative cursor-pointer bg-white rounded-md font-medium text-[#008fa0] hover:text-[#007a8a]">
                     <span>Upload files</span>
                     <input
                       type="file"
@@ -552,7 +550,7 @@ const PartnerRentalRegistration = () => {
                   onChange={(e) =>
                     updateFormData("checkInTime", e.target.value)
                   }
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#008fa0] focus:border-[#008fa0]"
                 />
               </div>
 
@@ -566,7 +564,7 @@ const PartnerRentalRegistration = () => {
                   onChange={(e) =>
                     updateFormData("checkOutTime", e.target.value)
                   }
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#008fa0] focus:border-[#008fa0]"
                 />
               </div>
             </div>
@@ -580,7 +578,7 @@ const PartnerRentalRegistration = () => {
                 onChange={(e) =>
                   updateFormData("cancellationPolicy", e.target.value)
                 }
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#008fa0] focus:border-[#008fa0]"
               >
                 <option value="flexible">
                   Flexible - Full refund 1 day prior
@@ -602,7 +600,7 @@ const PartnerRentalRegistration = () => {
                 value={formData.houseRules}
                 onChange={(e) => updateFormData("houseRules", e.target.value)}
                 rows={4}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#008fa0] focus:border-[#008fa0]"
                 placeholder="No smoking, No pets, Quiet hours 10PM-8AM"
               />
             </div>
@@ -672,7 +670,7 @@ const PartnerRentalRegistration = () => {
                     formData.amenities.map((amenity) => (
                       <span
                         key={amenity}
-                        className="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full"
+                        className="px-3 py-1 bg-[#008fa0] text-white text-sm rounded-full"
                       >
                         {amenity.charAt(0).toUpperCase() + amenity.slice(1)}
                       </span>
@@ -713,7 +711,7 @@ const PartnerRentalRegistration = () => {
               <input
                 id="publish-confirmation"
                 type="checkbox"
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                className="h-4 w-4 text-[#008fa0] focus:ring-[#008fa0] border-gray-300 rounded"
               />
               <label
                 htmlFor="publish-confirmation"
@@ -750,7 +748,7 @@ const PartnerRentalRegistration = () => {
         <div className="flex justify-between relative">
           <div className="absolute top-4 left-0 right-0 h-1 bg-gray-200 -z-10"></div>
           <div
-            className="absolute top-4 left-0 h-1 bg-blue-600 -z-10 transition-all duration-500"
+            className="absolute top-4 left-0 h-1 bg-[#008fa0] -z-10 transition-all duration-500"
             style={{
               width: `${((currentStep - 1) / (steps.length - 1)) * 100}%`,
             }}
@@ -763,7 +761,7 @@ const PartnerRentalRegistration = () => {
                 <div
                   className={`w-8 h-8 rounded-full flex items-center justify-center ${
                     currentStep === step.id
-                      ? "bg-blue-600 text-white border-2 border-blue-600"
+                      ? "bg-[#008fa0] text-white border-2 border-[#008fa0]"
                       : currentStep > step.id
                       ? "bg-green-500 text-white border-2 border-green-500"
                       : "bg-white border-2 border-gray-300 text-gray-500"
@@ -777,7 +775,7 @@ const PartnerRentalRegistration = () => {
                 </div>
                 <span
                   className={`mt-2 text-xs font-medium text-center ${
-                    currentStep === step.id ? "text-blue-600" : "text-gray-500"
+                    currentStep === step.id ? "text-[#008fa0]" : "text-gray-500"
                   }`}
                 >
                   {step.title}
@@ -811,7 +809,7 @@ const PartnerRentalRegistration = () => {
         {currentStep < 8 ? (
           <button
             onClick={nextStep}
-            className="flex items-center px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="flex items-center px-5 py-2 bg-[#008fa0] text-white rounded-lg hover:bg-[#007a8a]"
           >
             Next
             <ArrowRight className="w-4 h-4 ml-2" />

@@ -1,59 +1,45 @@
 import React, { useState } from "react";
 import {
+  ChevronRight,
+  ChevronLeft,
   Car,
   MapPin,
+  Users,
+  Wifi,
   DollarSign,
-  Calendar,
-  Settings,
   Camera,
   FileText,
   CheckCircle,
   ArrowLeft,
   ArrowRight,
-  Users,
-  Fuel,
-  Zap,
 } from "lucide-react";
 
 const PartnerCarRentalRegistration = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
-    // Vehicle Details
-    make: "",
-    model: "",
-    year: "",
-    transmission: "automatic",
-    fuelType: "petrol",
-    seatingCapacity: 4,
-
-    // Location & Pickup Info
-    address: "",
-    pickupOptions: [],
-    dropoffOptions: [],
-
-    // Pricing & Availability
-    dailyRate: "",
-    hourlyRate: "",
-    availableDates: [],
-
-    // Features & Extras
+    rentalType: "self-drive", // self-drive or with driver
+    businessLicense: "",
+    insurancePolicy: "",
+    operatingHours: "",
+    pickupDeliveryOptions: "",
+    minRentalHours: 1,
+    maxRentalDays: 30,
+    fuelPolicy: "full-to-full", // Predefined options
+    lateReturnFee: "",
+    cleaningFee: "",
+    smokingPenalty: "",
+    basePrice: "",
     features: [],
-    extras: [],
-
-    // Photos
     images: [],
-
-    // Policies
-    cancellationPolicy: "flexible",
-    houseRules: "",
+    cancellationPolicy: "flexible", // Predefined options
   });
 
   const steps = [
-    { id: 1, title: "Vehicle Details", icon: Car },
-    { id: 2, title: "Location & Pickup", icon: MapPin },
-    { id: 3, title: "Pricing & Availability", icon: DollarSign },
-    { id: 4, title: "Features & Extras", icon: Settings },
-    { id: 5, title: "Add Photos", icon: Camera },
+    { id: 1, title: "Rental Type", icon: Car },
+    { id: 2, title: "Business Info", icon: MapPin },
+    { id: 3, title: "Vehicle Details", icon: Users },
+    { id: 4, title: "Pricing & Fees", icon: DollarSign },
+    { id: 5, title: "Photos", icon: Camera },
     { id: 6, title: "Policies", icon: FileText },
     { id: 7, title: "Review & Publish", icon: CheckCircle },
   ];
@@ -72,28 +58,19 @@ const PartnerCarRentalRegistration = () => {
 
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
+    const validFiles = files.filter((file) => file.size <= 10 * 1024 * 1024); // 10MB max
     setFormData((prev) => ({
       ...prev,
-      images: [...prev.images, ...files],
+      images: [...prev.images, ...validFiles],
     }));
   };
 
-  const toggleFeature = (feature) => {
-    setFormData((prev) => ({
-      ...prev,
-      features: prev.features.includes(feature)
-        ? prev.features.filter((f) => f !== feature)
-        : [...prev.features, feature],
-    }));
-  };
-
-  const toggleExtra = (extra) => {
-    setFormData((prev) => ({
-      ...prev,
-      extras: prev.extras.includes(extra)
-        ? prev.extras.filter((e) => e !== extra)
-        : [...prev.extras, extra],
-    }));
+  const handleNumberInput = (field, value) => {
+    if (value >= 0) {
+      updateFormData(field, value);
+    } else {
+      alert("Please enter a positive number.");
+    }
   };
 
   const renderStep = () => {
@@ -102,114 +79,36 @@ const PartnerCarRentalRegistration = () => {
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-800">
-              Vehicle Details
+              What type of rental service are you offering?
             </h2>
-            <p className="text-gray-600 mb-4">Tell us about your vehicle</p>
+            <p className="text-gray-600 mb-4">Choose the rental type.</p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Car Make *
-                </label>
-                <input
-                  type="text"
-                  value={formData.make}
-                  onChange={(e) => updateFormData("make", e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="e.g. Toyota"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Model *
-                </label>
-                <input
-                  type="text"
-                  value={formData.model}
-                  onChange={(e) => updateFormData("model", e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="e.g. Camry"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Year *
-                </label>
-                <input
-                  type="number"
-                  value={formData.year}
-                  onChange={(e) => updateFormData("year", e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="e.g. 2020"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Transmission
-                </label>
-                <select
-                  value={formData.transmission}
-                  onChange={(e) =>
-                    updateFormData("transmission", e.target.value)
-                  }
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              {[
+                {
+                  value: "self-drive",
+                  label: "Self-Drive",
+                  desc: "Guests drive the vehicle themselves",
+                },
+                {
+                  value: "with-driver",
+                  label: "With Driver",
+                  desc: "Vehicle comes with a driver for the rental",
+                },
+              ].map((type) => (
+                <div
+                  key={type.value}
+                  className={`p-4 border rounded-lg cursor-pointer transition-all ${
+                    formData.rentalType === type.value
+                      ? "border-blue-500 bg-blue-50"
+                      : "border-gray-200 hover:border-gray-300"
+                  }`}
+                  onClick={() => updateFormData("rentalType", type.value)}
                 >
-                  <option value="automatic">Automatic</option>
-                  <option value="manual">Manual</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Fuel Type
-                </label>
-                <select
-                  value={formData.fuelType}
-                  onChange={(e) => updateFormData("fuelType", e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                >
-                  <option value="petrol">Petrol</option>
-                  <option value="diesel">Diesel</option>
-                  <option value="electric">Electric</option>
-                  <option value="hybrid">Hybrid</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Seating Capacity
-                </label>
-                <div className="flex items-center space-x-3">
-                  <button
-                    onClick={() =>
-                      updateFormData(
-                        "seatingCapacity",
-                        Math.max(1, formData.seatingCapacity - 1)
-                      )
-                    }
-                    className="w-10 h-10 border border-gray-300 rounded-full flex items-center justify-center hover:bg-gray-50"
-                  >
-                    -
-                  </button>
-                  <span className="text-xl font-semibold w-8 text-center">
-                    {formData.seatingCapacity}
-                  </span>
-                  <button
-                    onClick={() =>
-                      updateFormData(
-                        "seatingCapacity",
-                        formData.seatingCapacity + 1
-                      )
-                    }
-                    className="w-10 h-10 border border-gray-300 rounded-full flex items-center justify-center hover:bg-gray-50"
-                  >
-                    +
-                  </button>
+                  <h3 className="font-medium text-gray-900">{type.label}</h3>
+                  <p className="text-sm text-gray-600 mt-1">{type.desc}</p>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         );
@@ -218,112 +117,48 @@ const PartnerCarRentalRegistration = () => {
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-800">
-              Location & Pickup Info
+              Enter your business information
             </h2>
-            <p className="text-gray-600 mb-4">
-              Where can guests pick up your vehicle?
-            </p>
+            <p className="text-gray-600 mb-4">Provide your rental business details.</p>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Pickup Address *
-              </label>
-              <div className="relative">
-                <MapPin className="absolute left-3 top-3 text-gray-400" />
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Business License Number *
+                </label>
                 <input
                   type="text"
-                  value={formData.address}
-                  onChange={(e) => updateFormData("address", e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Enter full address"
+                  value={formData.businessLicense}
+                  onChange={(e) => updateFormData("businessLicense", e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Enter your business license number"
                 />
               </div>
-            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Pickup Options
+                  Insurance Policy *
                 </label>
-                <div className="space-y-2">
-                  {["Airport", "Hotel", "Home Address", "Office"].map(
-                    (option) => (
-                      <div key={option} className="flex items-center">
-                        <input
-                          type="checkbox"
-                          id={`pickup-${option}`}
-                          checked={formData.pickupOptions.includes(option)}
-                          onChange={(e) => {
-                            if (e.target.checked) {
-                              updateFormData("pickupOptions", [
-                                ...formData.pickupOptions,
-                                option,
-                              ]);
-                            } else {
-                              updateFormData(
-                                "pickupOptions",
-                                formData.pickupOptions.filter(
-                                  (o) => o !== option
-                                )
-                              );
-                            }
-                          }}
-                          className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                        />
-                        <label
-                          htmlFor={`pickup-${option}`}
-                          className="ml-2 block text-sm text-gray-700"
-                        >
-                          {option}
-                        </label>
-                      </div>
-                    )
-                  )}
-                </div>
+                <input
+                  type="text"
+                  value={formData.insurancePolicy}
+                  onChange={(e) => updateFormData("insurancePolicy", e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Enter your insurance policy details"
+                />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Drop-off Options
+                  Operating Hours *
                 </label>
-                <div className="space-y-2">
-                  {[
-                    "Same Location",
-                    "Different Location",
-                    "Airport",
-                    "Hotel",
-                  ].map((option) => (
-                    <div key={option} className="flex items-center">
-                      <input
-                        type="checkbox"
-                        id={`dropoff-${option}`}
-                        checked={formData.dropoffOptions.includes(option)}
-                        onChange={(e) => {
-                          if (e.target.checked) {
-                            updateFormData("dropoffOptions", [
-                              ...formData.dropoffOptions,
-                              option,
-                            ]);
-                          } else {
-                            updateFormData(
-                              "dropoffOptions",
-                              formData.dropoffOptions.filter(
-                                (o) => o !== option
-                              )
-                            );
-                          }
-                        }}
-                        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                      />
-                      <label
-                        htmlFor={`dropoff-${option}`}
-                        className="ml-2 block text-sm text-gray-700"
-                      >
-                        {option}
-                      </label>
-                    </div>
-                  ))}
-                </div>
+                <input
+                  type="text"
+                  value={formData.operatingHours}
+                  onChange={(e) => updateFormData("operatingHours", e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="e.g., 9 AM to 6 PM"
+                />
               </div>
             </div>
           </div>
@@ -332,52 +167,53 @@ const PartnerCarRentalRegistration = () => {
       case 3:
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-gray-800">
-              Pricing & Availability
-            </h2>
+            <h2 className="text-2xl font-bold text-gray-800">Vehicle Details</h2>
             <p className="text-gray-600 mb-4">
-              Set your rates and availability
+              Provide details for the vehicles you are offering for rent.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Daily Rate ($)
+                  Pickup/Delivery Options *
                 </label>
                 <input
-                  type="number"
-                  value={formData.dailyRate}
-                  onChange={(e) => updateFormData("dailyRate", e.target.value)}
+                  type="text"
+                  value={formData.pickupDeliveryOptions}
+                  onChange={(e) =>
+                    updateFormData("pickupDeliveryOptions", e.target.value)
+                  }
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="0.00"
+                  placeholder="e.g., Pickup at station, Delivery available"
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Hourly Rate ($)
-                </label>
-                <input
-                  type="number"
-                  value={formData.hourlyRate}
-                  onChange={(e) => updateFormData("hourlyRate", e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="0.00"
-                />
-              </div>
-            </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Minimum Rental Hours *
+                  </label>
+                  <input
+                    type="number"
+                    value={formData.minRentalHours}
+                    onChange={(e) => handleNumberInput("minRentalHours", e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="1"
+                  />
+                </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Available Dates
-              </label>
-              <div className="border border-gray-300 rounded-lg p-4">
-                <p className="text-gray-500 text-center">
-                  Calendar will appear here in full version
-                </p>
-                <p className="text-gray-400 text-center text-sm mt-2">
-                  (Select available dates for booking)
-                </p>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Maximum Rental Days *
+                  </label>
+                  <input
+                    type="number"
+                    value={formData.maxRentalDays}
+                    onChange={(e) => handleNumberInput("maxRentalDays", e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="30"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -386,82 +222,78 @@ const PartnerCarRentalRegistration = () => {
       case 4:
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-gray-800">
-              Features & Extras
-            </h2>
-            <p className="text-gray-600 mb-4">
-              What features and extras do you offer?
-            </p>
+            <h2 className="text-2xl font-bold text-gray-800">Pricing & Fees</h2>
+            <p className="text-gray-600 mb-4">Set your rental price and fees.</p>
 
-            <div>
-              <h3 className="font-medium text-gray-700 mb-3">Features</h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {[
-                  { value: "ac", label: "Air Conditioning", icon: Zap },
-                  { value: "gps", label: "GPS Navigation", icon: MapPin },
-                  { value: "bluetooth", label: "Bluetooth", icon: Settings },
-                  { value: "usb", label: "USB Ports", icon: Settings },
-                  { value: "sunroof", label: "Sunroof", icon: Settings },
-                  { value: "cruise", label: "Cruise Control", icon: Settings },
-                ].map((feature) => {
-                  const Icon = feature.icon;
-                  return (
-                    <div
-                      key={feature.value}
-                      className={`p-4 border rounded-lg cursor-pointer transition-all ${
-                        formData.features.includes(feature.value)
-                          ? "border-blue-500 bg-blue-50"
-                          : "border-gray-200 hover:border-gray-300"
-                      }`}
-                      onClick={() => toggleFeature(feature.value)}
-                    >
-                      <div className="flex items-center">
-                        <Icon className="w-5 h-5 text-gray-600 mr-2" />
-                        <span className="text-sm font-medium">
-                          {feature.label}
-                        </span>
-                      </div>
-                    </div>
-                  );
-                })}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Base Price per Day *
+                </label>
+                <div className="relative">
+                  <span className="absolute left-3 top-2 text-gray-500">$</span>
+                  <input
+                    type="number"
+                    value={formData.basePrice}
+                    onChange={(e) => handleNumberInput("basePrice", e.target.value)}
+                    className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="120"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Late Return Fee
+                </label>
+                <div className="relative">
+                  <span className="absolute left-3 top-2 text-gray-500">$</span>
+                  <input
+                    type="number"
+                    value={formData.lateReturnFee}
+                    onChange={(e) => handleNumberInput("lateReturnFee", e.target.value)}
+                    className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="50"
+                  />
+                </div>
               </div>
             </div>
 
-            <div>
-              <h3 className="font-medium text-gray-700 mb-3">Extras</h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {[
-                  { value: "baby", label: "Baby Seat" },
-                  { value: "insurance", label: "Insurance" },
-                  { value: "wifi", label: "WiFi" },
-                  { value: "charger", label: "Phone Charger" },
-                ].map((extra) => (
-                  <div
-                    key={extra.value}
-                    className={`p-4 border rounded-lg cursor-pointer transition-all ${
-                      formData.extras.includes(extra.value)
-                        ? "border-blue-500 bg-blue-50"
-                        : "border-gray-200 hover:border-gray-300"
-                    }`}
-                    onClick={() => toggleExtra(extra.value)}
-                  >
-                    <div className="flex items-center">
-                      <span className="text-sm font-medium">{extra.label}</span>
+            {formData.basePrice && (
+              <div className="bg-blue-50 p-4 rounded-lg">
+                <h3 className="font-medium text-blue-900 mb-2">Total for 3 days</h3>
+                <div className="space-y-1 text-sm text-blue-800">
+                  <div className="flex justify-between">
+                    <span>${formData.basePrice} × 3 days</span>
+                    <span>${formData.basePrice * 3}</span>
+                  </div>
+                  {formData.lateReturnFee > 0 && (
+                    <div className="flex justify-between">
+                      <span>Late return fee</span>
+                      <span>${formData.lateReturnFee}</span>
+                    </div>
+                  )}
+                  <div className="border-t border-blue-200 pt-1 mt-2">
+                    <div className="flex justify-between font-semibold">
+                      <span>Total</span>
+                      <span>
+                        $
+                        {formData.basePrice * 3 +
+                          (parseInt(formData.lateReturnFee) || 0)}
+                      </span>
                     </div>
                   </div>
-                ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         );
 
       case 5:
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-gray-800">Add Photos</h2>
-            <p className="text-gray-600 mb-4">
-              Upload clear photos of your vehicle (minimum 4)
-            </p>
+            <h2 className="text-2xl font-bold text-gray-800">Add Photos of your Vehicles</h2>
+            <p className="text-gray-600 mb-4">Upload at least 5 photos to showcase your vehicles.</p>
 
             <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg">
               <div className="space-y-1 text-center">
@@ -479,9 +311,7 @@ const PartnerCarRentalRegistration = () => {
                   </label>
                   <p className="pl-1">or drag and drop</p>
                 </div>
-                <p className="text-xs text-gray-500">
-                  PNG, JPG, GIF up to 10MB
-                </p>
+                <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
               </div>
             </div>
 
@@ -515,43 +345,37 @@ const PartnerCarRentalRegistration = () => {
       case 6:
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-gray-800">Policies</h2>
-            <p className="text-gray-600 mb-4">Set your rental policies</p>
+            <h2 className="text-2xl font-bold text-gray-800">Set your rental policies</h2>
+            <p className="text-gray-600 mb-4">Establish check-in times and house rules for renters.</p>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Cancellation Policy
-              </label>
-              <select
-                value={formData.cancellationPolicy}
-                onChange={(e) =>
-                  updateFormData("cancellationPolicy", e.target.value)
-                }
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              >
-                <option value="flexible">
-                  Flexible - Full refund 24 hours prior
-                </option>
-                <option value="moderate">
-                  Moderate - Full refund 5 days prior
-                </option>
-                <option value="strict">
-                  Strict - 50% refund up until 1 week prior
-                </option>
-              </select>
-            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Rental Duration (Hours/Days)
+                </label>
+                <input
+                  type="text"
+                  value={formData.operatingHours}
+                  onChange={(e) => updateFormData("operatingHours", e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="e.g., 24 hours"
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Additional Rules
-              </label>
-              <textarea
-                value={formData.houseRules}
-                onChange={(e) => updateFormData("houseRules", e.target.value)}
-                rows={4}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="e.g. No smoking, No pets, Return with full tank"
-              />
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Fuel Policy
+                </label>
+                <select
+                  value={formData.fuelPolicy}
+                  onChange={(e) => updateFormData("fuelPolicy", e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                >
+                  <option value="full-to-full">Full to Full</option>
+                  <option value="prepaid">Prepaid</option>
+                  <option value="fuel-included">Fuel Included</option>
+                </select>
+              </div>
             </div>
           </div>
         );
@@ -559,101 +383,50 @@ const PartnerCarRentalRegistration = () => {
       case 7:
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-gray-800">
-              Review & Publish
-            </h2>
+            <h2 className="text-2xl font-bold text-gray-800">Review your listing</h2>
             <p className="text-gray-600 mb-4">
-              Review your listing before publishing
+              Make sure everything looks good before publishing your listing.
             </p>
 
             <div className="bg-gray-50 rounded-lg p-6 space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <h3 className="font-medium text-gray-900">Vehicle</h3>
+                  <h3 className="font-medium text-gray-900">Rental Type</h3>
                   <p className="text-gray-600">
-                    {formData.year} {formData.make} {formData.model}
+                    {formData.rentalType.charAt(0).toUpperCase() +
+                      formData.rentalType.slice(1)}
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="font-medium text-gray-900">Transmission</h3>
-                  <p className="text-gray-600">
-                    {formData.transmission.charAt(0).toUpperCase() +
-                      formData.transmission.slice(1)}
-                  </p>
+                  <h3 className="font-medium text-gray-900">Business License</h3>
+                  <p className="text-gray-600">{formData.businessLicense}</p>
                 </div>
 
                 <div>
-                  <h3 className="font-medium text-gray-900">Fuel Type</h3>
-                  <p className="text-gray-600">
-                    {formData.fuelType.charAt(0).toUpperCase() +
-                      formData.fuelType.slice(1)}
-                  </p>
+                  <h3 className="font-medium text-gray-900">Insurance Policy</h3>
+                  <p className="text-gray-600">{formData.insurancePolicy}</p>
                 </div>
 
                 <div>
-                  <h3 className="font-medium text-gray-900">Seating</h3>
-                  <p className="text-gray-600">
-                    {formData.seatingCapacity} passengers
-                  </p>
+                  <h3 className="font-medium text-gray-900">Pickup/Delivery Options</h3>
+                  <p className="text-gray-600">{formData.pickupDeliveryOptions}</p>
                 </div>
 
                 <div>
-                  <h3 className="font-medium text-gray-900">Daily Rate</h3>
-                  <p className="text-gray-600">
-                    ${formData.dailyRate || "Not set"}
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="font-medium text-gray-900">Hourly Rate</h3>
-                  <p className="text-gray-600">
-                    ${formData.hourlyRate || "Not set"}
-                  </p>
+                  <h3 className="font-medium text-gray-900">Pricing</h3>
+                  <p className="text-gray-600">${formData.basePrice} per day</p>
                 </div>
               </div>
 
               <div>
-                <h3 className="font-medium text-gray-900">Pickup Location</h3>
-                <p className="text-gray-600">
-                  {formData.address || "Not provided"}
-                </p>
+                <h3 className="font-medium text-gray-900">Policies</h3>
+                <p className="text-gray-600">{formData.fuelPolicy}</p>
               </div>
 
               <div>
-                <h3 className="font-medium text-gray-900">Features</h3>
-                <div className="flex flex-wrap gap-2 mt-2">
-                  {formData.features.length > 0 ? (
-                    formData.features.map((feature) => (
-                      <span
-                        key={feature}
-                        className="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full"
-                      >
-                        {feature.toUpperCase()}
-                      </span>
-                    ))
-                  ) : (
-                    <p className="text-gray-600">None selected</p>
-                  )}
-                </div>
-              </div>
-
-              <div>
-                <h3 className="font-medium text-gray-900">Extras</h3>
-                <div className="flex flex-wrap gap-2 mt-2">
-                  {formData.extras.length > 0 ? (
-                    formData.extras.map((extra) => (
-                      <span
-                        key={extra}
-                        className="px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full"
-                      >
-                        {extra.charAt(0).toUpperCase() + extra.slice(1)}
-                      </span>
-                    ))
-                  ) : (
-                    <p className="text-gray-600">None selected</p>
-                  )}
-                </div>
+                <h3 className="font-medium text-gray-900">House Rules</h3>
+                <p className="text-gray-600">{formData.smokingPenalty}</p>
               </div>
             </div>
 
@@ -684,11 +457,9 @@ const PartnerCarRentalRegistration = () => {
       {/* Header */}
       <header className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">
-            List Your Vehicle
-          </h1>
+          <h1 className="text-3xl font-bold text-gray-900">List Your Rental Vehicle</h1>
           <p className="text-gray-600 mt-2">
-            Follow the steps to create your car rental listing
+            Follow the steps to create your rental vehicle listing
           </p>
         </div>
       </header>
