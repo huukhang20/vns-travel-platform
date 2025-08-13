@@ -17,6 +17,7 @@ import PartnerLayout from "./pages/PartnerPages/PartnerLayout";
 import PartnerRentalRegistration from "./pages/PartnerPages/PartnerRentalRegistration";
 import PartnerTourRegistration from "./pages/PartnerPages/PartnerTourRegistration";
 import PartnerCarRentalRegistration from "./pages/PartnerPages/PartnerCarRentalRegistration";
+import PartnerPromotion from "./pages/PartnerPages/PartnerPromotion";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path="/AdminProfile" element={<AdminProfile />} />
         {/* </Route> */}
         <Route element={<PartnerLayout />}>
+          <Route path="/PartnerDashboard" element={<PartnerDashboard />} />
           <Route path="/PartnerService" element={<PartnerService />} />
           <Route
             path="/PartnerService/rental"
@@ -48,8 +50,8 @@ function App() {
           />
           <Route path="/PartnerFinance" element={<PartnerFinance />} />
           <Route path="/PartnerBooking" element={<PartnerBooking />} />
-          <Route path="/PartnerDashboard" element={<PartnerDashboard />} />
           <Route path="/PartnerProfile" element={<PartnerProfile />} />
+          <Route path="/PartnerPromotion" element={<PartnerPromotion />} />
           <Route path="/PartnerMessaging" element={<PartnerMessaging />} />
         </Route>
       </Routes>

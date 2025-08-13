@@ -24,6 +24,11 @@ const PartnerLayout = () => {
             icon: <HandPlatter />,
           },
           {
+            path: "/PartnerPromotion",
+            label: "Promotion",
+            icon: <HandPlatter />,
+          },
+          {
             path: "/PartnerFinance",
             label: "Finance",
             icon: <CircleDollarSign />,
