@@ -16,8 +16,8 @@ import {
 
 const PartnerDashboard = () => {
   const partnerData = {
-    name: "Sarah Johnson",
-    businessName: "Wellness Spa & Salon",
+    name: "Minh Tri",
+    businessName: "Travel Group",
     stats: {
       totalServices: 24,
       activeCombos: 8,

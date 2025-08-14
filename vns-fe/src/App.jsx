@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./index.css";
 import LoginPartner from "./pages/PartnerPages/LoginPartner";
-import RegisterPartner from "./pages/PartnerPages/RegisterPartner";
 import LoginAdmin from "./pages/AdminPages/LoginAdmin";
 import AdminManagement from "./pages/AdminPages/AdminManagement";
 import PartnerService from "./pages/PartnerPages/PartnerService";
@@ -18,6 +17,8 @@ import PartnerRentalRegistration from "./pages/PartnerPages/PartnerRentalRegistr
 import PartnerTourRegistration from "./pages/PartnerPages/PartnerTourRegistration";
 import PartnerCarRentalRegistration from "./pages/PartnerPages/PartnerCarRentalRegistration";
 import PartnerPromotion from "./pages/PartnerPages/PartnerPromotion";
+import PartnerServiceDetails from "./pages/PartnerPages/PartnerServiceDetails";
+import PartnerBookingDetails from "./pages/PartnerPages/PartnerBookingDetails";
 
 function App() {
   return (
@@ -25,7 +26,6 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginPartner />} />
         <Route path="/LoginPartner" element={<LoginPartner />} />
-        <Route path="/RegisterPartner" element={<RegisterPartner />} />
         <Route path="/LoginAdmin" element={<LoginAdmin />} />
         {/* <Route element={<Layout />}> */}
         <Route path="/AdminManagement" element={<AdminManagement />} />
@@ -48,8 +48,16 @@ function App() {
             path="/PartnerService/car"
             element={<PartnerCarRentalRegistration />}
           />
+          <Route
+            path="/PartnerService/detail"
+            element={<PartnerServiceDetails />}
+          />
           <Route path="/PartnerFinance" element={<PartnerFinance />} />
           <Route path="/PartnerBooking" element={<PartnerBooking />} />
+          <Route
+            path="/PartnerBookingDetails"
+            element={<PartnerBookingDetails />}
+          />
           <Route path="/PartnerProfile" element={<PartnerProfile />} />
           <Route path="/PartnerPromotion" element={<PartnerPromotion />} />
           <Route path="/PartnerMessaging" element={<PartnerMessaging />} />

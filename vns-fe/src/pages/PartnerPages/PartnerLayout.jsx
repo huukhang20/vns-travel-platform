@@ -4,6 +4,7 @@ import {
   HandPlatter,
   LayoutDashboard,
   MessageCircleMore,
+  TicketPercent,
 } from "lucide-react";
 import SideBar from "../../components/SideBar";
 import { Outlet } from "react-router-dom";
@@ -26,7 +27,7 @@ const PartnerLayout = () => {
           {
             path: "/PartnerPromotion",
             label: "Promotion",
-            icon: <HandPlatter />,
+            icon: <TicketPercent />,
           },
           {
             path: "/PartnerFinance",

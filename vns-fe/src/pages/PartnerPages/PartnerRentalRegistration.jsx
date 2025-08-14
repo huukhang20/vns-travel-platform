@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import {
-  ChevronRight,
-  ChevronLeft,
   Home,
   MapPin,
   Users,
@@ -9,8 +7,6 @@ import {
   DollarSign,
   Camera,
   FileText,
-  Eye,
-  Upload,
   Bed,
   Bath,
   Car,
@@ -21,6 +17,7 @@ import {
   ArrowLeft,
   ArrowRight,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const PartnerRentalRegistration = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -44,6 +41,7 @@ const PartnerRentalRegistration = () => {
     houseRules: "",
     images: [],
   });
+  const navigate = useNavigate();
 
   const steps = [
     { id: 1, title: "Property Type", icon: Home },
@@ -340,7 +338,7 @@ const PartnerRentalRegistration = () => {
             </p>
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {[ 
+              {[
                 { value: "wifi", label: "WiFi", icon: Wifi },
                 { value: "kitchen", label: "Kitchen", icon: Coffee },
                 { value: "tv", label: "TV", icon: Tv },
@@ -363,7 +361,9 @@ const PartnerRentalRegistration = () => {
                   >
                     <div className="flex flex-col items-center text-center">
                       <Icon className="w-6 h-6 mb-2 text-gray-600" />
-                      <span className="text-sm font-medium">{amenity.label}</span>
+                      <span className="text-sm font-medium">
+                        {amenity.label}
+                      </span>
                     </div>
                   </div>
                 );
@@ -729,6 +729,10 @@ const PartnerRentalRegistration = () => {
     }
   };
 
+  const publishListing = () => {
+    navigate("/PartnerService");
+  };
+
   return (
     <div className="max-w-4xl mx-auto p-4 sm:p-6">
       {/* Header */}
@@ -815,7 +819,10 @@ const PartnerRentalRegistration = () => {
             <ArrowRight className="w-4 h-4 ml-2" />
           </button>
         ) : (
-          <button className="px-5 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+          <button
+            onClick={publishListing}
+            className="px-5 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+          >
             Publish Listing
           </button>
         )}

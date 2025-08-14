@@ -1,20 +1,12 @@
 import React, { useState } from "react";
-import {
-  Plus,
-  Edit2,
-  Trash2,
-  Eye,
-  MoreVertical,
-  X,
-  Home,
-  Compass,
-  Car,
-} from "lucide-react";
+import { Plus, Edit2, Trash2, Eye, MoreVertical } from "lucide-react";
 import PartnerServiceModal from "../../components/PartnerServiceModal";
+import { useNavigate } from "react-router-dom";
 
 const PartnerService = () => {
   const [activeFilter, setActiveFilter] = useState("All");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const services = [
     { id: 1, title: "Oceanview Homestay", type: "rental", status: "active" },
@@ -70,6 +62,10 @@ const PartnerService = () => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+  };
+
+  const handleOpenDetail = () => {
+    navigate("/PartnerService/detail");
   };
 
   return (
@@ -202,11 +198,6 @@ const PartnerService = () => {
 
                 {/* Action Buttons */}
                 <div className="flex items-center space-x-2 pt-4 border-t border-gray-100">
-                  <button className="flex-1 inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
-                    <Eye className="w-4 h-4 mr-1" />
-                    View
-                  </button>
-
                   <button
                     className="flex-1 inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-white rounded-lg transition-all duration-200 hover:shadow-md"
                     style={{
@@ -219,6 +210,7 @@ const PartnerService = () => {
                     onMouseLeave={(e) =>
                       (e.target.style.backgroundColor = "var(--color-primary)")
                     }
+                    onClick={handleOpenDetail}
                   >
                     <Edit2 className="w-4 h-4 mr-1" />
                     Edit
