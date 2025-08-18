@@ -15,6 +15,10 @@ export default function RegisterScreen() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmError, setConfirmError] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // Hàm xử lý nhập mật khẩu (chỉ cho phép số và giới hạn 6 ký tự)
   const handlePasswordChange = (
@@ -36,9 +40,23 @@ export default function RegisterScreen() {
     }
   };
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     let isValid = true;
-
+    // Validate name
+    if (!name) {
+      Alert.alert("Lỗi", "Vui lòng nhập họ tên");
+      isValid = false;
+    }
+    // Validate email
+    if (!email) {
+      Alert.alert("Lỗi", "Vui lòng nhập email");
+      isValid = false;
+    }
+    // Validate phone
+    if (!phone) {
+      Alert.alert("Lỗi", "Vui lòng nhập số điện thoại");
+      isValid = false;
+    }
     // Validate password
     if (!password) {
       setPasswordError("Vui lòng nhập mật khẩu");
@@ -47,7 +65,6 @@ export default function RegisterScreen() {
       setPasswordError("Mật khẩu phải đủ 6 số");
       isValid = false;
     }
-
     // Validate confirm password
     if (!confirmPassword) {
       setConfirmError("Vui lòng xác nhận mật khẩu");
@@ -56,14 +73,36 @@ export default function RegisterScreen() {
       setConfirmError("Mật khẩu không khớp");
       isValid = false;
     }
-
-    if (isValid) {
-      Alert.alert("Thành công", "Tạo tài khoản thành công!", [
-        {
-          text: "OK",
-          onPress: () => router.replace("/signin"),
+    if (!isValid) return;
+    setLoading(true);
+    try {
+      const response = await fetch("https://localhost:7271/api/Auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      ]);
+        body: JSON.stringify({
+          email,
+          password,
+          fullName: name,
+          phoneNumber: phone,
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        Alert.alert("Thành công", "Tạo tài khoản thành công!", [
+          {
+            text: "OK",
+            onPress: () => router.replace("/signin"),
+          },
+        ]);
+      } else {
+        Alert.alert("Lỗi", data.message || "Đăng ký thất bại");
+      }
+    } catch (error) {
+      Alert.alert("Lỗi", "Không thể kết nối đến máy chủ");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -73,7 +112,7 @@ export default function RegisterScreen() {
       <Text style={styles.title}>Tạo tài khoản</Text>
 
       <Text style={styles.label}>Họ và tên</Text>
-      <TextInput style={styles.input} placeholder="Nhập họ tên" />
+      <TextInput style={styles.input} placeholder="Nhập họ tên" value={name} onChangeText={setName} />
 
       <Text style={styles.label}>Email</Text>
       <TextInput
@@ -81,6 +120,8 @@ export default function RegisterScreen() {
         placeholder="Nhập email"
         keyboardType="email-address"
         autoCapitalize="none"
+        value={email}
+        onChangeText={setEmail}
       />
 
       <Text style={styles.label}>SĐT</Text>
@@ -88,6 +129,8 @@ export default function RegisterScreen() {
         style={styles.input}
         placeholder="Nhập số điện thoại"
         keyboardType="phone-pad"
+        value={phone}
+        onChangeText={setPhone}
       />
 
       <Text style={styles.label}>Mật khẩu </Text>
@@ -118,8 +161,8 @@ export default function RegisterScreen() {
         <Text style={styles.errorText}>{confirmError}</Text>
       ) : null}
 
-      <TouchableOpacity style={styles.button} onPress={handleRegister}>
-        <Text style={styles.buttonText}>Tạo Tài Khoản</Text>
+      <TouchableOpacity style={styles.button} onPress={handleRegister} disabled={loading}>
+        <Text style={styles.buttonText}>{loading ? "Đang xử lý..." : "Tạo Tài Khoản"}</Text>
       </TouchableOpacity>
 
       <Text style={styles.bottomText}>
