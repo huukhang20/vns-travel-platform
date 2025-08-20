@@ -117,10 +117,10 @@ const LoginPartner = () => {
 
             <div className="text-center">
               <a
-                href="/RegisterPartner"
+                href="/ForgotPassword"
                 className="text-primary text-sm font-medium hover:underline transition-colors duration-200"
               >
-                Register here
+                Forgot Password?
               </a>
             </div>
 

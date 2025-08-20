@@ -53,7 +53,7 @@ namespace BLL.Services
             {
                 UserId = Guid.NewGuid(),
                 Email = model.Email,
-                FullName = $"{model.FirstName} {model.LastName}",
+                FullName = $"{model.FullName}",
                 PhoneNumber = model.PhoneNumber,
                 Role = (int)Role.Customer, // Default role
                 Password = _passwordHasher.HashPassword(null!, model.Password)

@@ -18,7 +18,7 @@ namespace DAL.Models
         [StringLength(255)]
         public string FullName { get; set; }
 
-        public string AvatarUrl { get; set; }
+        public string? AvatarUrl { get; set; }
 
         [StringLength(20)]
         public string PhoneNumber { get; set; }

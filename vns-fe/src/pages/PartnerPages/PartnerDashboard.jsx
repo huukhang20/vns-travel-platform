@@ -15,10 +15,9 @@ import {
 } from "lucide-react";
 
 const PartnerDashboard = () => {
-  // Sample data - in a real app, this would come from your API
   const partnerData = {
-    name: "Sarah Johnson",
-    businessName: "Wellness Spa & Salon",
+    name: "Minh Tri",
+    businessName: "Travel Group",
     stats: {
       totalServices: 24,
       activeCombos: 8,
@@ -121,37 +120,21 @@ const PartnerDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#e9e9e9] p-6">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-              <p className="text-sm text-gray-600 mt-1">
-                {partnerData.businessName}
-              </p>
-            </div>
-            <button className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-              <Settings className="w-4 h-4 mr-2" />
-              Settings
-            </button>
+      <div className="max-w-7xl mx-auto ">
+        <div className="flex justify-between items-center pt-6">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              Welcome back, {partnerData.name}
+            </h1>
+            <p className="text-gray-600 mt-1">Monitor your account here</p>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Welcome Message */}
-        <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            Welcome back, {partnerData.name}! 👋
-          </h2>
-          <p className="text-gray-600">
-            Here's what's happening with your business today.
-          </p>
-        </div>
-
+      <div className="max-w-7xl mx-auto pt-8">
         {/* Summary Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
           <StatCard
@@ -209,29 +192,7 @@ const PartnerDashboard = () => {
             </div>
           </div>
 
-          {/* Quick Actions & Stats */}
           <div className="space-y-6">
-            {/* Quick Actions */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                Quick Actions
-              </h3>
-              <div className="space-y-3">
-                <button className="w-full flex items-center justify-center px-4 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
-                  <Plus className="w-4 h-4 mr-2" />
-                  Add New Service
-                </button>
-                <button className="w-full flex items-center justify-center px-4 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors">
-                  <Gift className="w-4 h-4 mr-2" />
-                  Manage Promotions
-                </button>
-                <button className="w-full flex items-center justify-center px-4 py-3 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">
-                  <Calendar className="w-4 h-4 mr-2" />
-                  View Calendar
-                </button>
-              </div>
-            </div>
-
             {/* Performance Insight */}
             <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
