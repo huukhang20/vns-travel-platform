@@ -17,43 +17,43 @@ const PartnerFinance = () => {
       id: "01",
       date: "2025-06-15",
       amount: 125.5,
-      type: "Service Fee",
-      status: "Completed",
+      type: "Phí dịch vụ",
+      status: "Đã hoàn thành",
     },
     {
       id: "02",
       date: "2025-06-14",
       amount: 89.25,
-      type: "Service Fee",
-      status: "Completed",
+      type: "Phí dịch vụ",
+      status: "Đã hoàn thành",
     },
     {
       id: "03",
       date: "2025-06-13",
       amount: 250.0,
-      type: "Refund",
-      status: "Pending",
+      type: "Hoàn tiền",
+      status: "Đang chờ",
     },
     {
       id: "04",
       date: "2025-06-12",
       amount: 67.8,
-      type: "Service Fee",
-      status: "Completed",
+      type: "Phí dịch vụ",
+      status: "Đã hoàn thành",
     },
     {
       id: "05",
       date: "2025-06-11",
       amount: 180.45,
-      type: "Service Fee",
-      status: "Completed",
+      type: "Phí dịch vụ",
+      status: "Đã hoàn thành",
     },
   ];
 
   const reports = [
     {
       id: 1,
-      name: "Monthly Earnings Report - May 2025",
+      name: "Báo cáo thu nhập tháng 5/2025",
       type: "earnings",
       period: "monthly",
       date: "2025-06-01",
@@ -61,7 +61,7 @@ const PartnerFinance = () => {
     },
     {
       id: 2,
-      name: "Quarterly Performance Q1 2025",
+      name: "Báo cáo hiệu suất Q1 2025",
       type: "performance",
       period: "quarterly",
       date: "2025-04-01",
@@ -69,7 +69,7 @@ const PartnerFinance = () => {
     },
     {
       id: 3,
-      name: "Expense Summary - May 2025",
+      name: "Tổng hợp chi phí tháng 5/2025",
       type: "expenses",
       period: "monthly",
       date: "2025-06-01",
@@ -77,7 +77,7 @@ const PartnerFinance = () => {
     },
     {
       id: 4,
-      name: "Refund Analysis Q1 2025",
+      name: "Phân tích hoàn tiền Q1 2025",
       type: "refunds",
       period: "quarterly",
       date: "2025-04-01",
@@ -132,7 +132,7 @@ const PartnerFinance = () => {
               trend === "up" ? "text-green-600" : "text-red-600"
             }`}
           >
-            {change}% from last month
+            {change}% so với tháng trước
           </span>
         </div>
       )}
@@ -148,7 +148,10 @@ const PartnerFinance = () => {
         {transaction.date}
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-        ${transaction.amount.toFixed(2)}
+        {new Intl.NumberFormat("vi-VN", {
+          style: "currency",
+          currency: "USD",
+        }).format(transaction.amount)}
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
         {transaction.type}
@@ -156,7 +159,7 @@ const PartnerFinance = () => {
       <td className="px-6 py-4 whitespace-nowrap">
         <span
           className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-            transaction.status === "Completed"
+            transaction.status === "Đã hoàn thành"
               ? "bg-green-100 text-green-800"
               : "bg-yellow-100 text-yellow-800"
           }`}
@@ -202,7 +205,13 @@ const PartnerFinance = () => {
               : "bg-blue-100 text-blue-800"
           }`}
         >
-          {report.type}
+          {report.type === "earnings"
+            ? "Thu nhập"
+            : report.type === "expenses"
+            ? "Chi phí"
+            : report.type === "refunds"
+            ? "Hoàn tiền"
+            : "Hiệu suất"}
         </span>
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
@@ -353,10 +362,10 @@ const PartnerFinance = () => {
         <div className="flex justify-between items-center pt-6">
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Financial Report
+              Báo cáo tài chính
             </h1>
             <p className="text-gray-600">
-              Monitor your earnings and financial performance{" "}
+              Theo dõi thu nhập và hiệu suất tài chính của bạn{" "}
             </p>
           </div>
         </div>
@@ -375,7 +384,7 @@ const PartnerFinance = () => {
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                 }`}
               >
-                Revenue Overview
+                Tổng quan doanh thu
               </button>
               <button
                 onClick={() => setActiveTab("reports")}
@@ -385,7 +394,7 @@ const PartnerFinance = () => {
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                 }`}
               >
-                Financial Reports
+                Báo cáo tài chính
               </button>
             </nav>
           </div>
@@ -397,27 +406,36 @@ const PartnerFinance = () => {
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <StatCard
-                title="Total Earnings"
-                value={`$${revenueData.totalEarnings.toLocaleString()}`}
+                title="Tổng thu nhập"
+                value={new Intl.NumberFormat("vi-VN", {
+                  style: "currency",
+                  currency: "USD",
+                }).format(revenueData.totalEarnings)}
                 change={revenueData.monthlyGrowth}
                 icon={DollarSign}
                 trend="up"
               />
               <StatCard
-                title="Total Transactions"
+                title="Tổng giao dịch"
                 value={revenueData.totalTransactions.toLocaleString()}
                 change={8.2}
                 icon={CreditCard}
                 trend="up"
               />
               <StatCard
-                title="Pending Amount"
-                value={`$${revenueData.pendingAmount.toLocaleString()}`}
+                title="Số tiền đang chờ"
+                value={new Intl.NumberFormat("vi-VN", {
+                  style: "currency",
+                  currency: "USD",
+                }).format(revenueData.pendingAmount)}
                 icon={TrendingUp}
               />
               <StatCard
-                title="This Month"
-                value="$3,450.75"
+                title="Tháng này"
+                value={new Intl.NumberFormat("vi-VN", {
+                  style: "currency",
+                  currency: "USD",
+                }).format(3450.75)}
                 change={15.3}
                 icon={Calendar}
                 trend="up"
@@ -429,15 +447,15 @@ const PartnerFinance = () => {
               <div className="px-6 py-4 border-b border-gray-200">
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-medium text-gray-900">
-                    Recent Transactions
+                    Giao dịch gần đây
                   </h3>
                   <div className="flex items-center space-x-3">
                     <button className="flex items-center px-3 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
                       <Filter className="h-4 w-4 mr-2" />
-                      Filter
+                      Bộ lọc
                     </button>
                     <button className="text-[#008fa0] hover:text-[#007a8a] text-sm font-medium">
-                      View All
+                      Xem tất cả
                     </button>
                   </div>
                 </div>
@@ -447,19 +465,19 @@ const PartnerFinance = () => {
                   <thead className="bg-gray-50">
                     <tr>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Transaction ID
+                        Mã giao dịch
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Date
+                        Ngày
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Amount
+                        Số tiền
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Type
+                        Loại
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Status
+                        Trạng thái
                       </th>
                     </tr>
                   </thead>
@@ -483,39 +501,38 @@ const PartnerFinance = () => {
             {/* Report Filters */}
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">
-                Report Filters
+                Bộ lọc báo cáo
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Report Type
+                    Loại báo cáo
                   </label>
                   <select
                     value={selectedReport}
                     onChange={(e) => setSelectedReport(e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#008fa0] focus:border-[#008fa0] outline-none"
                   >
-                    <option value="earnings">Earnings</option>
-                    <option value="expenses">Expenses</option>
-                    <option value="refunds">Refunds</option>
-                    <option value="performance">Performance</option>
+                    <option value="earnings">Thu nhập</option>
+                    <option value="expenses">Chi phí</option>
+                    <option value="refunds">Hoàn tiền</option>
+                    <option value="performance">Hiệu suất</option>
                   </select>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Period
+                    Kỳ báo cáo
                   </label>
                   <select
                     value={selectedPeriod}
                     onChange={(e) => setSelectedPeriod(e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#008fa0] focus:border-[#008fa0] outline-none"
                   >
-                    <option value="monthly">Monthly</option>
-                    <option value="quarterly">Quarterly</option>
-                    <option value="yearly">Yearly</option>
+                    <option value="monthly">Hàng tháng</option>
+                    <option value="quarterly">Hàng quý</option>
+                    <option value="yearly">Hàng năm</option>
                   </select>
                 </div>
-               
               </div>
             </div>
 
@@ -523,10 +540,10 @@ const PartnerFinance = () => {
             <div className="bg-white rounded-lg shadow-sm border border-gray-200">
               <div className="px-6 py-4 border-b border-gray-200">
                 <h3 className="text-lg font-medium text-gray-900">
-                  Available Reports
+                  Báo cáo khả dụng
                 </h3>
                 <p className="text-sm text-gray-600 mt-1">
-                  Access and download your financial reports
+                  Truy cập và tải xuống báo cáo tài chính của bạn
                 </p>
               </div>
               <div className="overflow-x-auto">
@@ -534,16 +551,16 @@ const PartnerFinance = () => {
                   <thead className="bg-gray-50">
                     <tr>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Report Name
+                        Tên báo cáo
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Type
+                        Loại
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Generated Date
+                        Ngày tạo
                       </th>
                       <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Actions
+                        Hành động
                       </th>
                     </tr>
                   </thead>
@@ -561,24 +578,25 @@ const PartnerFinance = () => {
               <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                 <div className="flex items-center justify-between mb-4">
                   <h4 className="text-lg font-medium text-gray-900">
-                    Monthly Summary
+                    Tổng kết tháng
                   </h4>
                   <div className="h-8 w-8 bg-green-100 rounded-lg flex items-center justify-center">
                     <TrendingUp className="h-4 w-4 text-green-600" />
                   </div>
                 </div>
                 <p className="text-2xl font-bold text-gray-900 mb-2">
-                  $3,450.75
+                  {new Intl.NumberFormat("vi-VN", {
+                    style: "currency",
+                    currency: "USD",
+                  }).format(3450.75)}
                 </p>
-                <p className="text-sm text-gray-600">
-                  Total earnings this month
-                </p>
+                <p className="text-sm text-gray-600">Tổng thu nhập tháng này</p>
               </div>
 
               <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                 <div className="flex items-center justify-between mb-4">
                   <h4 className="text-lg font-medium text-gray-900">
-                    Quarterly Growth
+                    Tăng trưởng quý
                   </h4>
                   <div className="h-8 w-8 bg-blue-100 rounded-lg flex items-center justify-center">
                     <svg
@@ -597,22 +615,20 @@ const PartnerFinance = () => {
                   </div>
                 </div>
                 <p className="text-2xl font-bold text-gray-900 mb-2">+18.2%</p>
-                <p className="text-sm text-gray-600">
-                  Compared to last quarter
-                </p>
+                <p className="text-sm text-gray-600">So với quý trước</p>
               </div>
 
               <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                 <div className="flex items-center justify-between mb-4">
                   <h4 className="text-lg font-medium text-gray-900">
-                    Refund Rate
+                    Tỷ lệ hoàn tiền
                   </h4>
                   <div className="h-8 w-8 bg-orange-100 rounded-lg flex items-center justify-center">
                     <RefreshCw className="h-4 w-4 text-orange-600" />
                   </div>
                 </div>
                 <p className="text-2xl font-bold text-gray-900 mb-2">2.3%</p>
-                <p className="text-sm text-gray-600">Of total transactions</p>
+                <p className="text-sm text-gray-600">Trên tổng giao dịch</p>
               </div>
             </div>
           </div>

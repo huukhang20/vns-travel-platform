@@ -38,8 +38,8 @@ const PartnerPromotion = () => {
     {
       id: 1,
       type: "combo",
-      name: "Ultimate Hanoi Experience",
-      description: "Complete 3-day package with hotel, tours, and meals",
+      name: "Trải nghiệm Hà Nội hoàn hảo",
+      description: "Gói 3 ngày hoàn chỉnh với khách sạn, tour và bữa ăn",
       status: "active",
       originalPrice: 2400000,
       currentPrice: 2160000,
@@ -49,15 +49,15 @@ const PartnerPromotion = () => {
       bookings: 45,
       revenue: 97200000,
       rating: 4.8,
-      services: ["Deluxe Hotel Room", "City Food Tour", "Airport Transfer"],
+      services: ["Phòng Deluxe", "Tour ẩm thực thành phố", "Đưa đón sân bay"],
       created: "2024-01-10",
       lastModified: "2024-01-20",
     },
     {
       id: 2,
       type: "promotion",
-      name: "Early Bird Special",
-      description: "20% off all bookings made 30 days in advance",
+      name: "Ưu đãi đặt sớm",
+      description: "Giảm 20% cho tất cả đặt phòng trước 30 ngày",
       status: "active",
       promoCode: "EARLY2024",
       discountType: "percentage",
@@ -69,15 +69,15 @@ const PartnerPromotion = () => {
       validUntil: "2024-06-30",
       bookings: 23,
       revenue: 45600000,
-      applicableServices: "All Services",
+      applicableServices: "Tất cả dịch vụ",
       created: "2024-01-05",
       lastModified: "2024-01-15",
     },
     {
       id: 3,
       type: "combo",
-      name: "Ho Chi Minh City Explorer",
-      description: "2-day city exploration with guided tours",
+      name: "Khám phá TP.HCM",
+      description: "Tour 2 ngày khám phá thành phố có hướng dẫn",
       status: "draft",
       originalPrice: 1800000,
       currentPrice: 1620000,
@@ -87,15 +87,15 @@ const PartnerPromotion = () => {
       bookings: 0,
       revenue: 0,
       rating: 0,
-      services: ["City Tour", "Local Restaurant", "Museum Tickets"],
+      services: ["Tour thành phố", "Nhà hàng địa phương", "Vé bảo tàng"],
       created: "2024-01-25",
       lastModified: "2024-01-25",
     },
     {
       id: 4,
       type: "promotion",
-      name: "Weekend Flash Sale",
-      description: "Fixed 200K off weekend bookings",
+      name: "Siêu khuyến mãi cuối tuần",
+      description: "Giảm cố định 200K cho đặt phòng cuối tuần",
       status: "expired",
       promoCode: "WEEKEND200",
       discountType: "fixed",
@@ -107,15 +107,15 @@ const PartnerPromotion = () => {
       validUntil: "2024-01-22",
       bookings: 50,
       revenue: 75000000,
-      applicableServices: "Selected Services",
+      applicableServices: "Dịch vụ được chọn",
       created: "2024-01-18",
       lastModified: "2024-01-22",
     },
     {
       id: 5,
       type: "combo",
-      name: "Mekong Delta Adventure",
-      description: "4-day river cruise and cultural immersion",
+      name: "Phiêu lưu Đồng bằng sông Cửu Long",
+      description: "Tour 4 ngày du ngoạn sông và trải nghiệm văn hóa",
       status: "paused",
       originalPrice: 3200000,
       currentPrice: 2880000,
@@ -126,10 +126,10 @@ const PartnerPromotion = () => {
       revenue: 34560000,
       rating: 4.9,
       services: [
-        "River Cruise",
-        "Local Homestay",
-        "Cooking Class",
-        "Transportation",
+        "Du thuyền sông",
+        "Homestay địa phương",
+        "Lớp học nấu ăn",
+        "Vận chuyển",
       ],
       created: "2024-02-01",
       lastModified: "2024-02-15",
@@ -197,15 +197,15 @@ const PartnerPromotion = () => {
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Combos & Promotions
+              Combo & Khuyến mãi
             </h1>
             <p className="text-gray-600">
-              Manage your service packages and promotional offers
+              Quản lý gói dịch vụ và các chương trình khuyến mãi của bạn
             </p>
           </div>
           <button className="bg-[--color-primary] text-white px-4 py-2 rounded-lg hover:bg-[--color-primary-hover] flex items-center">
             <Plus className="w-4 h-4 mr-2" />
-            Create New
+            Tạo mới
           </button>
         </div>
 
@@ -214,7 +214,7 @@ const PartnerPromotion = () => {
           <div className="bg-white rounded-lg shadow-sm p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Total Items</p>
+                <p className="text-sm font-medium text-gray-600">Tổng số mục</p>
                 <p className="text-2xl font-bold text-gray-900">
                   {stats.totalItems}
                 </p>
@@ -227,7 +227,9 @@ const PartnerPromotion = () => {
           <div className="bg-white rounded-lg shadow-sm p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Active</p>
+                <p className="text-sm font-medium text-gray-600">
+                  Đang hoạt động
+                </p>
                 <p className="text-2xl font-bold text-green-600">
                   {stats.active}
                 </p>
@@ -241,7 +243,7 @@ const PartnerPromotion = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">
-                  Total Bookings
+                  Tổng đặt chỗ
                 </p>
                 <p className="text-2xl font-bold text-blue-600">
                   {stats.totalBookings}
@@ -256,7 +258,7 @@ const PartnerPromotion = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600">
-                  Total Revenue
+                  Tổng doanh thu
                 </p>
                 <p className="text-2xl font-bold text-[--color-primary]">
                   {formatPrice(stats.totalRevenue)}
@@ -282,7 +284,7 @@ const PartnerPromotion = () => {
                     : "text-gray-600 hover:text-gray-900"
                 }`}
               >
-                All ({combosAndPromotions.length})
+                Tất cả ({combosAndPromotions.length})
               </button>
               <button
                 onClick={() => setActiveTab("combo")}
@@ -293,7 +295,7 @@ const PartnerPromotion = () => {
                 }`}
               >
                 <Package className="w-4 h-4 mr-2" />
-                Combos (
+                Combo (
                 {
                   combosAndPromotions.filter((item) => item.type === "combo")
                     .length
@@ -309,7 +311,7 @@ const PartnerPromotion = () => {
                 }`}
               >
                 <Gift className="w-4 h-4 mr-2" />
-                Promotions (
+                Khuyến mãi (
                 {
                   combosAndPromotions.filter(
                     (item) => item.type === "promotion"
@@ -334,7 +336,7 @@ const PartnerPromotion = () => {
               <Search className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
               <input
                 type="text"
-                placeholder="Search combos and promotions..."
+                placeholder="Tìm kiếm combo và khuyến mãi..."
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[--color-primary] focus:border-transparent"
               />
             </div>
@@ -343,21 +345,21 @@ const PartnerPromotion = () => {
               onChange={(e) => setFilterStatus(e.target.value)}
               className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[--color-primary] focus:border-transparent"
             >
-              <option value="all">All Status</option>
-              <option value="active">Active</option>
-              <option value="draft">Draft</option>
-              <option value="paused">Paused</option>
-              <option value="expired">Expired</option>
+              <option value="all">Tất cả trạng thái</option>
+              <option value="active">Đang hoạt động</option>
+              <option value="draft">Bản nháp</option>
+              <option value="paused">Tạm dừng</option>
+              <option value="expired">Đã hết hạn</option>
             </select>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
               className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[--color-primary] focus:border-transparent"
             >
-              <option value="created">Sort by Created</option>
-              <option value="name">Sort by Name</option>
-              <option value="bookings">Sort by Bookings</option>
-              <option value="revenue">Sort by Revenue</option>
+              <option value="created">Sắp xếp theo ngày tạo</option>
+              <option value="name">Sắp xếp theo tên</option>
+              <option value="bookings">Sắp xếp theo đặt chỗ</option>
+              <option value="revenue">Sắp xếp theo doanh thu</option>
             </select>
           </div>
         </div>
@@ -384,7 +386,17 @@ const PartnerPromotion = () => {
                       )}`}
                     >
                       {getStatusIcon(item.status)}
-                      <span className="ml-1 capitalize">{item.status}</span>
+                      <span className="ml-1 capitalize">
+                        {item.status === "active"
+                          ? "Đang hoạt động"
+                          : item.status === "draft"
+                          ? "Bản nháp"
+                          : item.status === "paused"
+                          ? "Tạm dừng"
+                          : item.status === "expired"
+                          ? "Đã hết hạn"
+                          : item.status}
+                      </span>
                     </span>
                   </div>
                   <div className="relative">
@@ -417,7 +429,7 @@ const PartnerPromotion = () => {
                       </div>
                       {item.discount > 0 && (
                         <span className="text-sm text-green-600 font-medium">
-                          {item.discount}% off
+                          Giảm {item.discount}%
                         </span>
                       )}
                     </div>
@@ -444,17 +456,17 @@ const PartnerPromotion = () => {
                       {item.discountType === "percentage" ? (
                         <span className="flex items-center">
                           <Percent className="w-3 h-3 mr-1" />
-                          {item.discountValue}% discount
+                          Giảm {item.discountValue}%
                         </span>
                       ) : (
                         <span className="flex items-center">
                           <DollarSign className="w-3 h-3 mr-1" />
-                          {formatPrice(item.discountValue)} off
+                          Giảm {formatPrice(item.discountValue)}
                         </span>
                       )}
                     </div>
                     <div className="text-xs text-gray-500 mt-1">
-                      Used: {item.usedCount}/{item.usageLimit}
+                      Đã dùng: {item.usedCount}/{item.usageLimit}
                     </div>
                   </div>
                 )}
@@ -465,13 +477,13 @@ const PartnerPromotion = () => {
                     <div className="text-lg font-bold text-gray-900">
                       {item.bookings}
                     </div>
-                    <div className="text-xs text-gray-500">Bookings</div>
+                    <div className="text-xs text-gray-500">Đặt chỗ</div>
                   </div>
                   <div className="text-center">
                     <div className="text-lg font-bold text-[--color-primary]">
                       {formatPrice(item.revenue)}
                     </div>
-                    <div className="text-xs text-gray-500">Revenue</div>
+                    <div className="text-xs text-gray-500">Doanh thu</div>
                   </div>
                 </div>
 
@@ -479,10 +491,10 @@ const PartnerPromotion = () => {
                 <div className="text-xs text-gray-500 mb-4">
                   <div className="flex items-center">
                     <Calendar className="w-3 h-3 mr-1" />
-                    Valid: {new Date(
-                      item.validFrom
-                    ).toLocaleDateString()} -{" "}
-                    {new Date(item.validUntil).toLocaleDateString()}
+                    Hiệu lực:{" "}
+                    {new Date(item.validFrom).toLocaleDateString(
+                      "vi-VN"
+                    )} - {new Date(item.validUntil).toLocaleDateString("vi-VN")}
                   </div>
                 </div>
 
@@ -490,7 +502,7 @@ const PartnerPromotion = () => {
                 {item.type === "combo" && item.services && (
                   <div className="mb-4">
                     <div className="text-xs text-gray-500 mb-1">
-                      Included Services:
+                      Dịch vụ bao gồm:
                     </div>
                     <div className="flex flex-wrap gap-1">
                       {item.services.slice(0, 2).map((service, index) => (
@@ -503,7 +515,7 @@ const PartnerPromotion = () => {
                       ))}
                       {item.services.length > 2 && (
                         <span className="px-2 py-1 bg-gray-100 text-gray-500 text-xs rounded">
-                          +{item.services.length - 2} more
+                          +{item.services.length - 2} dịch vụ khác
                         </span>
                       )}
                     </div>
@@ -514,7 +526,7 @@ const PartnerPromotion = () => {
                 {item.type === "promotion" && item.applicableServices && (
                   <div className="mb-4">
                     <div className="text-xs text-gray-500 mb-1">
-                      Applicable to:
+                      Áp dụng cho:
                     </div>
                     <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
                       {item.applicableServices}
@@ -540,12 +552,12 @@ const PartnerPromotion = () => {
                   <div className="flex items-center space-x-2">
                     {item.status === "active" && (
                       <button className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded hover:bg-yellow-200">
-                        Pause
+                        Tạm dừng
                       </button>
                     )}
                     {(item.status === "draft" || item.status === "paused") && (
                       <button className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded hover:bg-green-200">
-                        Activate
+                        Kích hoạt
                       </button>
                     )}
                     <button className="p-2 text-gray-400 hover:text-red-500 hover:bg-white rounded">
@@ -571,20 +583,48 @@ const PartnerPromotion = () => {
               )}
             </div>
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              No {activeTab === "all" ? "items" : activeTab + "s"} found
+              Không tìm thấy{" "}
+              {activeTab === "all"
+                ? "mục nào"
+                : activeTab === "combo"
+                ? "combo"
+                : "khuyến mãi"}
             </h3>
             <p className="text-gray-600 mb-6">
               {filterStatus !== "all"
-                ? `No ${
-                    activeTab === "all" ? "items" : activeTab + "s"
-                  } with status "${filterStatus}"`
-                : `Create your first ${
-                    activeTab === "all" ? "combo or promotion" : activeTab
-                  } to get started`}
+                ? `Không có ${
+                    activeTab === "all"
+                      ? "mục"
+                      : activeTab === "combo"
+                      ? "combo"
+                      : "khuyến mãi"
+                  } với trạng thái "${
+                    filterStatus === "active"
+                      ? "Đang hoạt động"
+                      : filterStatus === "draft"
+                      ? "Bản nháp"
+                      : filterStatus === "paused"
+                      ? "Tạm dừng"
+                      : filterStatus === "expired"
+                      ? "Đã hết hạn"
+                      : filterStatus
+                  }"`
+                : `Tạo ${
+                    activeTab === "all"
+                      ? "combo hoặc khuyến mãi"
+                      : activeTab === "combo"
+                      ? "combo"
+                      : "khuyến mãi"
+                  } đầu tiên của bạn để bắt đầu`}
             </p>
             <button className="bg-[--color-primary] text-white px-4 py-2 rounded-lg hover:bg-[--color-primary-hover] flex items-center mx-auto">
               <Plus className="w-4 h-4 mr-2" />
-              Create {activeTab === "all" ? "New Item" : activeTab}
+              Tạo{" "}
+              {activeTab === "all"
+                ? "mục mới"
+                : activeTab === "combo"
+                ? "combo"
+                : "khuyến mãi"}
             </button>
           </div>
         )}

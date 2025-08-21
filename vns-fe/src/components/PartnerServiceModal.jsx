@@ -9,20 +9,20 @@ const PartnerServiceModal = ({ onClose }) => {
   const serviceTypes = [
     {
       id: "rental",
-      title: "Rental",
-      description: "List rooms, apartments, or houses for travelers",
+      title: "Cho thuê",
+      description: "Đăng phòng, căn hộ hoặc nhà cho khách du lịch",
       icon: Home,
     },
     {
       id: "tour",
       title: "Tour",
-      description: "Offer guided tours or travel experiences",
+      description: "Cung cấp tour hướng dẫn hoặc trải nghiệm du lịch",
       icon: Compass,
     },
     {
       id: "car",
-      title: "Car Rental",
-      description: "Provide cars or other vehicles for rent",
+      title: "Thuê xe",
+      description: "Cung cấp xe hơi hoặc phương tiện khác cho thuê",
       icon: Car,
     },
   ];
@@ -57,7 +57,7 @@ const PartnerServiceModal = ({ onClose }) => {
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <h2 className="text-2xl font-semibold text-gray-900">
-            Add New Service
+            Thêm dịch vụ mới
           </h2>
           <button
             onClick={onClose}
@@ -70,7 +70,7 @@ const PartnerServiceModal = ({ onClose }) => {
         {/* Content */}
         <div className="p-6">
           <p className="text-gray-600 mb-8 text-center">
-            Choose the type of service you want to offer
+            Chọn loại dịch vụ bạn muốn cung cấp
           </p>
 
           {/* Service Type Cards Grid */}
@@ -148,7 +148,7 @@ const PartnerServiceModal = ({ onClose }) => {
               onClick={onClose}
               className="px-6 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors font-medium"
             >
-              Cancel
+              Hủy
             </button>
             <button
               onClick={handleContinue}
@@ -162,7 +162,7 @@ const PartnerServiceModal = ({ onClose }) => {
                 }
               `}
             >
-              Continue
+              Tiếp tục
             </button>
           </div>
         </div>

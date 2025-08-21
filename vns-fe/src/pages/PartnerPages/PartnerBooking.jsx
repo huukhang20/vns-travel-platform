@@ -64,6 +64,21 @@ const PartnerBooking = () => {
     }
   };
 
+  const getStatusText = (status) => {
+    switch (status) {
+      case "confirmed":
+        return "Đã xác nhận";
+      case "pending":
+        return "Đang chờ";
+      case "completed":
+        return "Đã hoàn thành";
+      case "cancelled":
+        return "Đã hủy";
+      default:
+        return status;
+    }
+  };
+
   const filteredBookings =
     activeTab === "all"
       ? bookings
@@ -74,7 +89,7 @@ const PartnerBooking = () => {
       booking.id === bookingId ? { ...booking, status: "confirmed" } : booking
     );
     setBookings(updatedBookings);
-    alert("Booking Confirmed");
+    alert("Đặt chỗ đã được xác nhận");
   };
 
   const handleCancelBooking = (bookingId) => {
@@ -83,7 +98,7 @@ const PartnerBooking = () => {
     );
     setBookings(updatedBookings);
     setShowCancelModal(false); // Close the cancel modal after booking is cancelled
-    alert("Booking Cancelled");
+    alert("Đặt chỗ đã bị hủy");
   };
 
   const viewDetail = () => {
@@ -96,10 +111,10 @@ const PartnerBooking = () => {
         <div className="flex justify-between items-center pt-6">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Booking Management
+              Quản lý đặt chỗ
             </h1>
             <p className="text-gray-600 mt-1">
-              Monitor and manage your bookings
+              Theo dõi và quản lý các đặt chỗ của bạn
             </p>
           </div>
         </div>
@@ -111,10 +126,10 @@ const PartnerBooking = () => {
           <div className="border-b border-gray-200">
             <nav className="-mb-px flex space-x-8">
               {[
-                { key: "all", label: "All Bookings" },
-                { key: "pending", label: "Pending" },
-                { key: "confirmed", label: "Confirmed" },
-                { key: "cancelled", label: "Cancelled" },
+                { key: "all", label: "Tất cả đặt chỗ" },
+                { key: "pending", label: "Đang chờ" },
+                { key: "confirmed", label: "Đã xác nhận" },
+                { key: "cancelled", label: "Đã hủy" },
               ].map((tab) => (
                 <button
                   key={tab.key}
@@ -138,10 +153,16 @@ const PartnerBooking = () => {
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-medium text-gray-900">
                 {activeTab === "all"
-                  ? "All Bookings"
+                  ? "Tất cả đặt chỗ"
                   : `${
-                      activeTab.charAt(0).toUpperCase() + activeTab.slice(1)
-                    } Bookings`}
+                      activeTab === "pending"
+                        ? "Đang chờ"
+                        : activeTab === "confirmed"
+                        ? "Đã xác nhận"
+                        : activeTab === "cancelled"
+                        ? "Đã hủy"
+                        : activeTab.charAt(0).toUpperCase() + activeTab.slice(1)
+                    } đặt chỗ`}
               </h3>
             </div>
           </div>
@@ -150,25 +171,25 @@ const PartnerBooking = () => {
               <thead className="bg-gray-50">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Booking ID
+                    Mã đặt chỗ
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Customer
+                    Khách hàng
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Service
+                    Dịch vụ
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Date & Time
+                    Ngày & Giờ
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
+                    Trạng thái
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Amount
+                    Số tiền
                   </th>
                   <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
+                    Hành động
                   </th>
                 </tr>
               </thead>
@@ -193,12 +214,14 @@ const PartnerBooking = () => {
                           booking.status
                         )}`}
                       >
-                        {booking.status.charAt(0).toUpperCase() +
-                          booking.status.slice(1)}
+                        {getStatusText(booking.status)}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      ${booking.amount.toFixed(2)}
+                      {new Intl.NumberFormat("vi-VN", {
+                        style: "currency",
+                        currency: "USD",
+                      }).format(booking.amount)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <div className="flex justify-end space-x-2">
@@ -213,16 +236,19 @@ const PartnerBooking = () => {
                             onClick={() => handleConfirmBooking(booking.id)}
                             className="text-green-600 hover:text-green-900"
                           >
-                            Confirm
+                            Xác nhận
                           </button>
                         )}
                         {booking.status !== "cancelled" &&
                           booking.status !== "completed" && (
                             <button
-                              onClick={() => setShowCancelModal(true)}
+                              onClick={() => {
+                                setSelectedBooking(booking);
+                                setShowCancelModal(true);
+                              }}
                               className="text-red-600 hover:text-red-900"
                             >
-                              Cancel
+                              Hủy
                             </button>
                           )}
                       </div>
@@ -240,23 +266,23 @@ const PartnerBooking = () => {
         <div className="fixed inset-0 z-10 bg-gray-500 bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-6 rounded-lg shadow-lg w-96">
             <h3 className="text-lg font-medium text-gray-900 mb-4">
-              Cancel Booking
+              Hủy đặt chỗ
             </h3>
             <p className="text-sm text-gray-600 mb-4">
-              Are you sure you want to cancel this booking?
+              Bạn có chắc chắn muốn hủy đặt chỗ này không?
             </p>
             <div className="flex justify-end space-x-4">
               <button
                 onClick={() => setShowCancelModal(false)}
                 className="text-gray-600 hover:text-gray-900"
               >
-                No
+                Không
               </button>
               <button
                 onClick={() => handleCancelBooking(selectedBooking.id)}
                 className="bg-red-600 text-white rounded px-4 py-2"
               >
-                Yes, Cancel
+                Có, Hủy
               </button>
             </div>
           </div>

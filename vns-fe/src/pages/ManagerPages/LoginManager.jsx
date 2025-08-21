@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const LoginPartner = () => {
+const LoginManager = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const LoginPartner = () => {
     // e.preventDefault();
 
     // if (!form.email || !form.password) {
-    //   setError("Vui lòng nhập cả email và mật khẩu.");
+    //   setError("Vui lòng nhập email và mật khẩu.");
     //   return;
     // }
 
@@ -28,10 +28,10 @@ const LoginPartner = () => {
     //     phoneNumber: "000000000",
     //   });
 
-    navigate("/PartnerDashboard");
+    navigate("/ManagerDashboard");
     // } catch (err) {
     //   setError(
-    //     err.response?.data?.message || "Thông tin đăng nhập không hợp lệ hoặc lỗi máy chủ."
+    //     err.response?.data?.message || "Sai thông tin đăng nhập hoặc lỗi máy chủ."
     //   );
     // }
   };
@@ -52,14 +52,14 @@ const LoginPartner = () => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                  d="M5.121 17.804A9 9 0 1118.364 4.56M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                 />
               </svg>
             </div>
             <h2 className="text-3xl font-bold text-gray-900 mb-2">
-              VNS Partner
+              VNS Quản Lý
             </h2>
-            <p className="text-gray-600">Đăng nhập vào tài khoản của bạn</p>
+            <p className="text-gray-600">Đăng nhập vào tài khoản quản lý</p>
           </div>
 
           <form className="space-y-6" onSubmit={handleSubmit}>
@@ -111,7 +111,7 @@ const LoginPartner = () => {
           <div className="mt-8 space-y-4">
             <div className="flex items-center">
               <div className="flex-1 border-t border-gray-200"></div>
-              <div className="px-4 text-sm text-gray-500">Đối tác mới?</div>
+              <div className="px-4 text-sm text-gray-500">Quản lý mới?</div>
               <div className="flex-1 border-t border-gray-200"></div>
             </div>
 
@@ -126,7 +126,7 @@ const LoginPartner = () => {
 
             <div className="text-center">
               <p className="text-xs text-gray-500">
-                Cần trợ giúp? Liên hệ với quản trị viên của bạn
+                Cần hỗ trợ? Vui lòng liên hệ bộ phận IT
               </p>
             </div>
           </div>
@@ -136,4 +136,4 @@ const LoginPartner = () => {
   );
 };
 
-export default LoginPartner;
+export default LoginManager;

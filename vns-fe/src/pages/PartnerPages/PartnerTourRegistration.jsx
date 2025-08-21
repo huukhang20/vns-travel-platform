@@ -87,12 +87,12 @@ const PartnerTourRegistration = () => {
   };
 
   const steps = [
-    { id: 1, title: "Basic Information", icon: MapPin },
-    { id: 2, title: "Schedule & Availability", icon: Calendar },
-    { id: 3, title: "Pricing & Inclusions", icon: DollarSign },
-    { id: 4, title: "Media & Details", icon: Camera },
-    { id: 5, title: "Additional Features", icon: Star },
-    { id: 6, title: "Review & Publish", icon: CheckCircle },
+    { id: 1, title: "Thông tin cơ bản", icon: MapPin },
+    { id: 2, title: "Lịch trình & Khả dụng", icon: Calendar },
+    { id: 3, title: "Giá & Bao gồm", icon: DollarSign },
+    { id: 4, title: "Hình ảnh & Chi tiết", icon: Camera },
+    { id: 5, title: "Tính năng bổ sung", icon: Star },
+    { id: 6, title: "Xem lại & Đăng", icon: CheckCircle },
   ];
 
   const renderStepContent = () => {
@@ -101,13 +101,13 @@ const PartnerTourRegistration = () => {
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-800">
-              Basic Tour Information
+              Thông tin tour cơ bản
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Tour Title *
+                  Tiêu đề tour *
                 </label>
                 <input
                   type="text"
@@ -115,13 +115,13 @@ const PartnerTourRegistration = () => {
                   value={formData.title}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="e.g. Sunset Kayak Adventure in Bali"
+                  placeholder="Ví dụ: Trải nghiệm Kayak ngắm hoàng hôn tại Bali"
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Destination *
+                  Địa điểm *
                 </label>
                 <input
                   type="text"
@@ -129,13 +129,13 @@ const PartnerTourRegistration = () => {
                   value={formData.destination}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="e.g. Bali, Indonesia"
+                  placeholder="Ví dụ: Bali, Indonesia"
                 />
               </div>
 
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Tour Description *
+                  Mô tả tour *
                 </label>
                 <textarea
                   name="description"
@@ -143,13 +143,13 @@ const PartnerTourRegistration = () => {
                   onChange={handleChange}
                   rows={4}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Describe your tour experience in detail..."
+                  placeholder="Mô tả chi tiết trải nghiệm tour của bạn..."
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Category
+                  Danh mục
                 </label>
                 <select
                   name="category"
@@ -157,19 +157,21 @@ const PartnerTourRegistration = () => {
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 >
-                  <option value="">Select a category</option>
-                  <option value="Adventure">Adventure</option>
-                  <option value="Cultural">Cultural</option>
-                  <option value="Food & Culinary">Food & Culinary</option>
-                  <option value="Nature & Wildlife">Nature & Wildlife</option>
-                  <option value="Relaxation">Relaxation</option>
-                  <option value="Historical">Historical</option>
+                  <option value="">Chọn danh mục</option>
+                  <option value="Adventure">Phiêu lưu</option>
+                  <option value="Cultural">Văn hóa</option>
+                  <option value="Food & Culinary">Ẩm thực</option>
+                  <option value="Nature & Wildlife">
+                    Thiên nhiên & Động vật
+                  </option>
+                  <option value="Relaxation">Thư giãn</option>
+                  <option value="Historical">Lịch sử</option>
                 </select>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Duration
+                  Thời lượng
                 </label>
                 <input
                   type="text"
@@ -177,13 +179,13 @@ const PartnerTourRegistration = () => {
                   value={formData.duration}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="e.g. 4 hours"
+                  placeholder="Ví dụ: 4 giờ"
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Group Size
+                  Kích thước nhóm
                 </label>
                 <input
                   type="text"
@@ -191,7 +193,7 @@ const PartnerTourRegistration = () => {
                   value={formData.groupSize}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="e.g. 10 people max"
+                  placeholder="Ví dụ: tối đa 10 người"
                 />
               </div>
             </div>
@@ -202,13 +204,13 @@ const PartnerTourRegistration = () => {
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-800">
-              Schedule & Availability
+              Lịch trình & Khả dụng
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Start Date
+                  Ngày bắt đầu
                 </label>
                 <input
                   type="date"
@@ -221,7 +223,7 @@ const PartnerTourRegistration = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  End Date
+                  Ngày kết thúc
                 </label>
                 <input
                   type="date"
@@ -234,7 +236,7 @@ const PartnerTourRegistration = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Start Time
+                  Giờ bắt đầu
                 </label>
                 <input
                   type="time"
@@ -247,7 +249,7 @@ const PartnerTourRegistration = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  End Time
+                  Giờ kết thúc
                 </label>
                 <input
                   type="time"
@@ -260,30 +262,28 @@ const PartnerTourRegistration = () => {
 
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Available Days
+                  Các ngày khả dụng
                 </label>
                 <div className="grid grid-cols-7 gap-2">
-                  {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(
-                    (day) => (
-                      <label key={day} className="flex items-center space-x-2">
-                        <input
-                          type="checkbox"
-                          name="availableDays"
-                          value={day}
-                          checked={formData.availableDays.includes(day)}
-                          onChange={handleChange}
-                          className="rounded text-blue-600 focus:ring-blue-500"
-                        />
-                        <span>{day}</span>
-                      </label>
-                    )
-                  )}
+                  {["CN", "T2", "T3", "T4", "T5", "T6", "T7"].map((day) => (
+                    <label key={day} className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        name="availableDays"
+                        value={day}
+                        checked={formData.availableDays.includes(day)}
+                        onChange={handleChange}
+                        className="rounded text-blue-600 focus:ring-blue-500"
+                      />
+                      <span>{day}</span>
+                    </label>
+                  ))}
                 </div>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Season
+                  Mùa
                 </label>
                 <select
                   name="season"
@@ -291,12 +291,12 @@ const PartnerTourRegistration = () => {
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 >
-                  <option value="">Select season</option>
-                  <option value="Year-round">Year-round</option>
-                  <option value="Summer">Summer</option>
-                  <option value="Winter">Winter</option>
-                  <option value="Spring">Spring</option>
-                  <option value="Autumn">Autumn</option>
+                  <option value="">Chọn mùa</option>
+                  <option value="Year-round">Quanh năm</option>
+                  <option value="Summer">Mùa hè</option>
+                  <option value="Winter">Mùa đông</option>
+                  <option value="Spring">Mùa xuân</option>
+                  <option value="Autumn">Mùa thu</option>
                 </select>
               </div>
             </div>
@@ -306,14 +306,12 @@ const PartnerTourRegistration = () => {
       case 3:
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-gray-800">
-              Pricing & Inclusions
-            </h2>
+            <h2 className="text-2xl font-bold text-gray-800">Giá & Bao gồm</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Price per Person *
+                  Giá mỗi người *
                 </label>
                 <div className="flex">
                   <select
@@ -326,6 +324,7 @@ const PartnerTourRegistration = () => {
                     <option value="EUR">EUR</option>
                     <option value="GBP">GBP</option>
                     <option value="JPY">JPY</option>
+                    <option value="VND">VND</option>
                   </select>
                   <input
                     type="number"
@@ -340,7 +339,7 @@ const PartnerTourRegistration = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Discount Information
+                  Thông tin giảm giá
                 </label>
                 <input
                   type="text"
@@ -348,13 +347,13 @@ const PartnerTourRegistration = () => {
                   value={formData.discounts}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="e.g. 10% for groups of 5+"
+                  placeholder="Ví dụ: Giảm 10% cho nhóm từ 5 người trở lên"
                 />
               </div>
 
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  What's Included
+                  Những gì được bao gồm
                 </label>
                 <textarea
                   name="includes"
@@ -362,13 +361,13 @@ const PartnerTourRegistration = () => {
                   onChange={handleChange}
                   rows={3}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="List what's included in the tour price..."
+                  placeholder="Liệt kê những gì được bao gồm trong giá tour..."
                 />
               </div>
 
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  What's Not Included
+                  Những gì không được bao gồm
                 </label>
                 <textarea
                   name="excludes"
@@ -376,7 +375,7 @@ const PartnerTourRegistration = () => {
                   onChange={handleChange}
                   rows={3}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="List what's not included in the tour price..."
+                  placeholder="Liệt kê những gì không được bao gồm trong giá tour..."
                 />
               </div>
             </div>
@@ -387,20 +386,20 @@ const PartnerTourRegistration = () => {
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-800">
-              Media & Details
+              Hình ảnh & Chi tiết
             </h2>
 
             <div className="space-y-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Tour Photos
+                  Ảnh tour
                 </label>
                 <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg">
                   <div className="space-y-1 text-center">
                     <Camera className="mx-auto h-12 w-12 text-gray-400" />
                     <div className="flex text-sm text-gray-600">
                       <label className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500">
-                        <span>Upload files</span>
+                        <span>Tải lên tệp</span>
                         <input
                           type="file"
                           multiple
@@ -409,10 +408,10 @@ const PartnerTourRegistration = () => {
                           className="sr-only"
                         />
                       </label>
-                      <p className="pl-1">or drag and drop</p>
+                      <p className="pl-1">hoặc kéo và thả</p>
                     </div>
                     <p className="text-xs text-gray-500">
-                      PNG, JPG, GIF up to 10MB
+                      PNG, JPG, GIF tối đa 10MB
                     </p>
                   </div>
                 </div>
@@ -422,7 +421,7 @@ const PartnerTourRegistration = () => {
                       <div key={index} className="relative">
                         <img
                           src={URL.createObjectURL(file)}
-                          alt="Preview"
+                          alt="Xem trước"
                           className="h-20 w-full object-cover rounded"
                         />
                         <button
@@ -444,7 +443,7 @@ const PartnerTourRegistration = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Itinerary *
+                  Lịch trình chi tiết *
                 </label>
                 <textarea
                   name="itinerary"
@@ -452,13 +451,13 @@ const PartnerTourRegistration = () => {
                   onChange={handleChange}
                   rows={4}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Describe the detailed itinerary of your tour..."
+                  placeholder="Mô tả lịch trình chi tiết của tour..."
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Meeting Point
+                  Điểm hẹn
                 </label>
                 <input
                   type="text"
@@ -466,13 +465,13 @@ const PartnerTourRegistration = () => {
                   value={formData.meetingPoint}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="e.g. Main entrance of City Hall"
+                  placeholder="Ví dụ: Cổng chính của Tòa thị chính"
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Cancellation Policy
+                  Chính sách hủy bỏ
                 </label>
                 <textarea
                   name="cancellationPolicy"
@@ -480,7 +479,7 @@ const PartnerTourRegistration = () => {
                   onChange={handleChange}
                   rows={3}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Describe your cancellation policy..."
+                  placeholder="Mô tả chính sách hủy bỏ của bạn..."
                 />
               </div>
             </div>
@@ -491,13 +490,13 @@ const PartnerTourRegistration = () => {
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-800">
-              Additional Features
+              Tính năng bổ sung
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Difficulty Level
+                  Mức độ khó
                 </label>
                 <select
                   name="difficulty"
@@ -505,16 +504,16 @@ const PartnerTourRegistration = () => {
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 >
-                  <option value="Beginner">Beginner</option>
-                  <option value="Intermediate">Intermediate</option>
-                  <option value="Advanced">Advanced</option>
-                  <option value="Expert">Expert</option>
+                  <option value="Beginner">Người mới bắt đầu</option>
+                  <option value="Intermediate">Trung cấp</option>
+                  <option value="Advanced">Nâng cao</option>
+                  <option value="Expert">Chuyên gia</option>
                 </select>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Age Group
+                  Nhóm tuổi
                 </label>
                 <select
                   name="ageGroup"
@@ -522,17 +521,19 @@ const PartnerTourRegistration = () => {
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 >
-                  <option value="All Ages">All Ages</option>
-                  <option value="Adults Only">Adults Only</option>
-                  <option value="Children Friendly">Children Friendly</option>
-                  <option value="Teens">Teens</option>
-                  <option value="Seniors">Seniors</option>
+                  <option value="All Ages">Mọi lứa tuổi</option>
+                  <option value="Adults Only">Chỉ người lớn</option>
+                  <option value="Children Friendly">
+                    Thân thiện với trẻ em
+                  </option>
+                  <option value="Teens">Thanh thiếu niên</option>
+                  <option value="Seniors">Người cao tuổi</option>
                 </select>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Physical Rating
+                  Đánh giá thể chất
                 </label>
                 <select
                   name="physicalRating"
@@ -540,16 +541,16 @@ const PartnerTourRegistration = () => {
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 >
-                  <option value="Low">Low (Minimal walking)</option>
-                  <option value="Moderate">Moderate (2-3 miles)</option>
-                  <option value="High">High (5+ miles)</option>
-                  <option value="Extreme">Extreme (Strenuous activity)</option>
+                  <option value="Low">Thấp (Ít đi bộ)</option>
+                  <option value="Moderate">Trung bình (2-3 dặm)</option>
+                  <option value="High">Cao (5+ dặm)</option>
+                  <option value="Extreme">Cực đoan (Hoạt động gắng sức)</option>
                 </select>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Languages
+                  Ngôn ngữ
                 </label>
                 <input
                   type="text"
@@ -557,13 +558,13 @@ const PartnerTourRegistration = () => {
                   value={formData.languages}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="e.g. English, Spanish, French"
+                  placeholder="Ví dụ: Tiếng Anh, Tiếng Tây Ban Nha, Tiếng Pháp"
                 />
               </div>
 
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Tour Highlights
+                  Điểm nổi bật của tour
                 </label>
                 <textarea
                   name="highlights"
@@ -571,13 +572,13 @@ const PartnerTourRegistration = () => {
                   onChange={handleChange}
                   rows={3}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="List key highlights of your tour..."
+                  placeholder="Liệt kê các điểm nổi bật chính của tour..."
                 />
               </div>
 
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Special Requirements
+                  Yêu cầu đặc biệt
                 </label>
                 <textarea
                   name="requirements"
@@ -585,7 +586,7 @@ const PartnerTourRegistration = () => {
                   onChange={handleChange}
                   rows={3}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="List any special requirements for participants..."
+                  placeholder="Liệt kê bất kỳ yêu cầu đặc biệt nào cho người tham gia..."
                 />
               </div>
             </div>
@@ -595,82 +596,82 @@ const PartnerTourRegistration = () => {
       case 6:
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-gray-800">
-              Review & Publish
-            </h2>
+            <h2 className="text-2xl font-bold text-gray-800">Xem lại & Đăng</h2>
 
             <div className="bg-gray-50 rounded-lg p-6 space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <h3 className="font-medium text-gray-900">Tour Title</h3>
+                  <h3 className="font-medium text-gray-900">Tiêu đề tour</h3>
                   <p className="text-gray-600">
-                    {formData.title || "Not provided"}
+                    {formData.title || "Chưa cung cấp"}
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="font-medium text-gray-900">Destination</h3>
+                  <h3 className="font-medium text-gray-900">Địa điểm</h3>
                   <p className="text-gray-600">
-                    {formData.destination || "Not provided"}
+                    {formData.destination || "Chưa cung cấp"}
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="font-medium text-gray-900">Category</h3>
+                  <h3 className="font-medium text-gray-900">Danh mục</h3>
                   <p className="text-gray-600">
-                    {formData.category || "Not provided"}
+                    {formData.category || "Chưa cung cấp"}
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="font-medium text-gray-900">Duration</h3>
+                  <h3 className="font-medium text-gray-900">Thời lượng</h3>
                   <p className="text-gray-600">
-                    {formData.duration || "Not provided"}
+                    {formData.duration || "Chưa cung cấp"}
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="font-medium text-gray-900">Group Size</h3>
+                  <h3 className="font-medium text-gray-900">Kích thước nhóm</h3>
                   <p className="text-gray-600">
-                    {formData.groupSize || "Not provided"}
+                    {formData.groupSize || "Chưa cung cấp"}
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="font-medium text-gray-900">Price</h3>
+                  <h3 className="font-medium text-gray-900">Giá</h3>
                   <p className="text-gray-600">
                     {formData.price
                       ? `${formData.currency} ${formData.price}`
-                      : "Not provided"}
+                      : "Chưa cung cấp"}
                   </p>
                 </div>
               </div>
 
               <div>
-                <h3 className="font-medium text-gray-900">Description</h3>
+                <h3 className="font-medium text-gray-900">Mô tả</h3>
                 <p className="text-gray-600">
-                  {formData.description || "Not provided"}
+                  {formData.description || "Chưa cung cấp"}
                 </p>
               </div>
 
               <div>
-                <h3 className="font-medium text-gray-900">Itinerary</h3>
+                <h3 className="font-medium text-gray-900">Lịch trình</h3>
                 <p className="text-gray-600">
-                  {formData.itinerary || "Not provided"}
+                  {formData.itinerary || "Chưa cung cấp"}
                 </p>
               </div>
 
               <div>
-                <h3 className="font-medium text-gray-900">What's Included</h3>
+                <h3 className="font-medium text-gray-900">
+                  Những gì được bao gồm
+                </h3>
                 <p className="text-gray-600">
-                  {formData.includes || "Not provided"}
+                  {formData.includes || "Chưa cung cấp"}
                 </p>
               </div>
 
               <div>
-                <h3 className="font-medium text-gray-900">Meeting Point</h3>
+                <h3 className="font-medium text-gray-900">Điểm hẹn</h3>
                 <p className="text-gray-600">
-                  {formData.meetingPoint || "Not provided"}
+                  {formData.meetingPoint || "Chưa cung cấp"}
                 </p>
               </div>
             </div>
@@ -685,8 +686,8 @@ const PartnerTourRegistration = () => {
                 htmlFor="publish-confirmation"
                 className="ml-2 block text-sm text-gray-900"
               >
-                I confirm that all information is accurate and I agree to the
-                terms and conditions
+                Tôi xác nhận rằng tất cả thông tin đều chính xác và tôi đồng ý
+                với các điều khoản và điều kiện
               </label>
             </div>
           </div>
@@ -702,9 +703,9 @@ const PartnerTourRegistration = () => {
       {/* Header */}
       <header className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Create New Tour</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Tạo tour mới</h1>
           <p className="text-gray-600 mt-2">
-            Follow the steps to list your tour experience
+            Làm theo các bước để đăng ký trải nghiệm tour của bạn
           </p>
         </div>
       </header>
@@ -764,7 +765,7 @@ const PartnerTourRegistration = () => {
           }`}
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
-          Previous
+          Trước
         </button>
 
         {step < steps.length ? (
@@ -772,12 +773,12 @@ const PartnerTourRegistration = () => {
             onClick={nextStep}
             className="flex items-center px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
           >
-            Next
+            Tiếp theo
             <ArrowRight className="w-4 h-4 ml-2" />
           </button>
         ) : (
           <button className="px-5 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
-            Publish Tour
+            Đăng tour
           </button>
         )}
       </div>

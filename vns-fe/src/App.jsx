@@ -1,17 +1,13 @@
 import { Route, Routes } from "react-router-dom";
 import "./index.css";
 import LoginPartner from "./pages/PartnerPages/LoginPartner";
-import LoginAdmin from "./pages/AdminPages/LoginAdmin";
-import AdminManagement from "./pages/AdminPages/AdminManagement";
+import LoginManager from "./pages/ManagerPages/LoginManager";
 import PartnerService from "./pages/PartnerPages/PartnerService";
 import PartnerFinance from "./pages/PartnerPages/PartnerFinance";
 import PartnerBooking from "./pages/PartnerPages/PartnerBooking";
 import PartnerDashboard from "./pages/PartnerPages/PartnerDashboard";
 import PartnerProfile from "./pages/PartnerPages/PartnerProfile";
 import PartnerMessaging from "./pages/PartnerPages/PartnerMessaging";
-import AdminDashboard from "./pages/AdminPages/AdminDashboard";
-import AdminVoucher from "./pages/AdminPages/AdminVoucher";
-import AdminProfile from "./pages/AdminPages/AdminProfile";
 import PartnerLayout from "./pages/PartnerPages/PartnerLayout";
 import PartnerRentalRegistration from "./pages/PartnerPages/PartnerRentalRegistration";
 import PartnerTourRegistration from "./pages/PartnerPages/PartnerTourRegistration";
@@ -19,6 +15,9 @@ import PartnerCarRentalRegistration from "./pages/PartnerPages/PartnerCarRentalR
 import PartnerPromotion from "./pages/PartnerPages/PartnerPromotion";
 import PartnerServiceDetails from "./pages/PartnerPages/PartnerServiceDetails";
 import PartnerBookingDetails from "./pages/PartnerPages/PartnerBookingDetails";
+import ManagerAccountManagement from "./pages/ManagerPages/ManagerAccountManagement";
+import ManagerDashboard from "./pages/ManagerPages/ManagerDashboard";
+import ManagerLayout from "./pages/ManagerPages/ManagerLayout";
 
 function App() {
   return (
@@ -26,13 +25,18 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginPartner />} />
         <Route path="/LoginPartner" element={<LoginPartner />} />
-        <Route path="/LoginAdmin" element={<LoginAdmin />} />
-        {/* <Route element={<Layout />}> */}
-        <Route path="/AdminManagement" element={<AdminManagement />} />
-        <Route path="/AdminDashboard" element={<AdminDashboard />} />
-        <Route path="/AdminVoucher" element={<AdminVoucher />} />
-        <Route path="/AdminProfile" element={<AdminProfile />} />
-        {/* </Route> */}
+        <Route path="/LoginManager" element={<LoginManager />} />
+        <Route element={<ManagerLayout />}>
+          <Route
+            path="/ManagerAccountManagement"
+            element={<ManagerAccountManagement />}
+          />
+          <Route path="/ManagerDashboard" element={<ManagerDashboard />} />
+          {/* <Route path="/ManagerDashboard" element={<ManagerDashboard />} />
+          <Route path="/ManagerManagement" element={<ManagerManagement />} />
+          <Route path="/ManagerVoucher" element={<ManagerVoucher />} />
+          <Route path="/ManagerProfile" element={<ManagerProfile />} /> */}
+        </Route>
         <Route element={<PartnerLayout />}>
           <Route path="/PartnerDashboard" element={<PartnerDashboard />} />
           <Route path="/PartnerService" element={<PartnerService />} />

@@ -44,14 +44,14 @@ const PartnerRentalRegistration = () => {
   const navigate = useNavigate();
 
   const steps = [
-    { id: 1, title: "Property Type", icon: Home },
-    { id: 2, title: "Location", icon: MapPin },
-    { id: 3, title: "Rooms & Guests", icon: Users },
-    { id: 4, title: "Amenities", icon: Wifi },
-    { id: 5, title: "Pricing", icon: DollarSign },
-    { id: 6, title: "Photos", icon: Camera },
-    { id: 7, title: "Policies", icon: FileText },
-    { id: 8, title: "Review & Publish", icon: CheckCircle },
+    { id: 1, title: "Loại bất động sản", icon: Home },
+    { id: 2, title: "Vị trí", icon: MapPin },
+    { id: 3, title: "Phòng & Khách", icon: Users },
+    { id: 4, title: "Tiện nghi", icon: Wifi },
+    { id: 5, title: "Giá cả", icon: DollarSign },
+    { id: 6, title: "Hình ảnh", icon: Camera },
+    { id: 7, title: "Chính sách", icon: FileText },
+    { id: 8, title: "Xem lại & Đăng", icon: CheckCircle },
   ];
 
   const updateFormData = (field, value) => {
@@ -89,33 +89,33 @@ const PartnerRentalRegistration = () => {
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-800">
-              What type of property are you listing?
+              Bạn đang đăng loại bất động sản nào?
             </h2>
             <p className="text-gray-600 mb-4">
-              Choose the option that best describes your space
+              Chọn tùy chọn mô tả chính xác không gian của bạn
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
                 {
                   value: "apartment",
-                  label: "Apartment",
-                  desc: "A furnished place within a building",
+                  label: "Căn hộ",
+                  desc: "Một nơi có nội thất trong tòa nhà",
                 },
                 {
                   value: "house",
-                  label: "House",
-                  desc: "A residential building",
+                  label: "Nhà riêng",
+                  desc: "Một tòa nhà dân cư",
                 },
                 {
                   value: "condo",
-                  label: "Condominium",
-                  desc: "A privately owned unit in a building",
+                  label: "Chung cư",
+                  desc: "Một đơn vị sở hữu riêng trong tòa nhà",
                 },
                 {
                   value: "studio",
                   label: "Studio",
-                  desc: "A single room with kitchen and bathroom",
+                  desc: "Một phòng đơn với bếp và nhà tắm",
                 },
               ].map((type) => (
                 <div
@@ -135,14 +135,14 @@ const PartnerRentalRegistration = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Property Name *
+                Tên bất động sản *
               </label>
               <input
                 type="text"
                 value={formData.propertyName}
                 onChange={(e) => updateFormData("propertyName", e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#008fa0] focus:border-[#008fa0]"
-                placeholder="Enter a catchy name for your property"
+                placeholder="Nhập tên cho bất động sản của bạn"
               />
             </div>
           </div>
@@ -152,61 +152,61 @@ const PartnerRentalRegistration = () => {
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-800">
-              Where is your property located?
+              Bất động sản của bạn nằm ở đâu?
             </h2>
             <p className="text-gray-600 mb-4">
-              Provide the complete address for your listing
+              Cung cấp địa chỉ đầy đủ cho dịch vụ của bạn
             </p>
 
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Street Address *
+                  Địa chỉ đường *
                 </label>
                 <input
                   type="text"
                   value={formData.address}
                   onChange={(e) => updateFormData("address", e.target.value)}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#008fa0] focus:border-[#008fa0]"
-                  placeholder="123 Main Street"
+                  placeholder="123 Đường Chính"
                 />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    City *
+                    Thành phố *
                   </label>
                   <input
                     type="text"
                     value={formData.city}
                     onChange={(e) => updateFormData("city", e.target.value)}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#008fa0] focus:border-[#008fa0]"
-                    placeholder="New York"
+                    placeholder="Hồ Chí Minh"
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    State *
+                    Tỉnh/Thành phố *
                   </label>
                   <input
                     type="text"
                     value={formData.state}
                     onChange={(e) => updateFormData("state", e.target.value)}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#008fa0] focus:border-[#008fa0]"
-                    placeholder="NY"
+                    placeholder="TP.HCM"
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    ZIP Code *
+                    Mã bưu điện *
                   </label>
                   <input
                     type="text"
                     value={formData.zipCode}
                     onChange={(e) => updateFormData("zipCode", e.target.value)}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#008fa0] focus:border-[#008fa0]"
-                    placeholder="10001"
+                    placeholder="700000"
                   />
                 </div>
               </div>
@@ -218,10 +218,10 @@ const PartnerRentalRegistration = () => {
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-800">
-              Tell us about your space
+              Hãy cho chúng tôi biết về không gian của bạn
             </h2>
             <p className="text-gray-600 mb-4">
-              How many rooms and guests can you accommodate?
+              Bạn có bao nhiêu phòng và khách có thể ở được?
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -230,7 +230,7 @@ const PartnerRentalRegistration = () => {
                   <Bed className="w-8 h-8 text-white" />
                 </div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Bedrooms
+                  Phòng ngủ
                 </label>
                 <div className="flex items-center justify-center space-x-3">
                   <button
@@ -263,7 +263,7 @@ const PartnerRentalRegistration = () => {
                   <Bath className="w-8 h-8 text-white" />
                 </div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Bathrooms
+                  Phòng tắm
                 </label>
                 <div className="flex items-center justify-center space-x-3">
                   <button
@@ -296,7 +296,7 @@ const PartnerRentalRegistration = () => {
                   <Users className="w-8 h-8 text-white" />
                 </div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Max Guests
+                  Số khách tối đa
                 </label>
                 <div className="flex items-center justify-center space-x-3">
                   <button
@@ -331,20 +331,20 @@ const PartnerRentalRegistration = () => {
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-800">
-              What amenities do you offer?
+              Bạn cung cấp những tiện nghi nào?
             </h2>
             <p className="text-gray-600 mb-4">
-              Select all amenities available to your guests
+              Chọn tất cả các tiện nghi có sẵn cho khách của bạn
             </p>
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {[
                 { value: "wifi", label: "WiFi", icon: Wifi },
-                { value: "kitchen", label: "Kitchen", icon: Coffee },
+                { value: "kitchen", label: "Bếp", icon: Coffee },
                 { value: "tv", label: "TV", icon: Tv },
-                { value: "parking", label: "Free Parking", icon: Car },
-                { value: "ac", label: "Air Conditioning", icon: AirVent },
-                { value: "heating", label: "Heating", icon: AirVent },
+                { value: "parking", label: "Đỗ xe miễn phí", icon: Car },
+                { value: "ac", label: "Điều hòa", icon: AirVent },
+                { value: "heating", label: "Sưởi ấm", icon: AirVent },
               ].map((amenity) => {
                 const Icon = amenity.icon;
                 const isSelected = formData.amenities.includes(amenity.value);
@@ -376,19 +376,19 @@ const PartnerRentalRegistration = () => {
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-800">
-              Set your pricing
+              Đặt giá của bạn
             </h2>
             <p className="text-gray-600 mb-4">
-              Determine competitive rates for your property
+              Xác định mức giá cạnh tranh cho bất động sản của bạn
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Base Price per Night *
+                  Giá cơ bản mỗi đêm *
                 </label>
                 <div className="relative">
-                  <span className="absolute left-3 top-2 text-gray-500">$</span>
+                  <span className="absolute left-3 top-2 text-gray-500">₫</span>
                   <input
                     type="number"
                     value={formData.basePrice}
@@ -403,10 +403,10 @@ const PartnerRentalRegistration = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Cleaning Fee
+                  Phí dọn dẹp
                 </label>
                 <div className="relative">
-                  <span className="absolute left-3 top-2 text-gray-500">$</span>
+                  <span className="absolute left-3 top-2 text-gray-500">₫</span>
                   <input
                     type="number"
                     value={formData.cleaningFee}
@@ -421,10 +421,10 @@ const PartnerRentalRegistration = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Security Deposit
+                  Tiền đặt cọc
                 </label>
                 <div className="relative">
-                  <span className="absolute left-3 top-2 text-gray-500">$</span>
+                  <span className="absolute left-3 top-2 text-gray-500">₫</span>
                   <input
                     type="number"
                     value={formData.securityDeposit}
@@ -441,26 +441,32 @@ const PartnerRentalRegistration = () => {
             {formData.basePrice && (
               <div className="bg-[#e6f7f9] p-4 rounded-lg">
                 <h3 className="font-medium text-[#008fa0] mb-2">
-                  Total for 3 nights
+                  Tổng cộng cho 3 đêm
                 </h3>
                 <div className="space-y-1 text-sm text-[#007a8a]">
                   <div className="flex justify-between">
-                    <span>${formData.basePrice} × 3 nights</span>
-                    <span>${formData.basePrice * 3}</span>
+                    <span>
+                      {parseInt(formData.basePrice).toLocaleString()}₫ × 3 đêm
+                    </span>
+                    <span>{(formData.basePrice * 3).toLocaleString()}₫</span>
                   </div>
                   {formData.cleaningFee > 0 && (
                     <div className="flex justify-between">
-                      <span>Cleaning fee</span>
-                      <span>${formData.cleaningFee}</span>
+                      <span>Phí dọn dẹp</span>
+                      <span>
+                        {parseInt(formData.cleaningFee).toLocaleString()}₫
+                      </span>
                     </div>
                   )}
                   <div className="border-t border-[#007a8a] pt-1 mt-2">
                     <div className="flex justify-between font-semibold">
-                      <span>Total</span>
+                      <span>Tổng cộng</span>
                       <span>
-                        $
-                        {formData.basePrice * 3 +
-                          (parseInt(formData.cleaningFee) || 0)}
+                        {(
+                          formData.basePrice * 3 +
+                          (parseInt(formData.cleaningFee) || 0)
+                        ).toLocaleString()}
+                        ₫
                       </span>
                     </div>
                   </div>
@@ -474,10 +480,11 @@ const PartnerRentalRegistration = () => {
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-800">
-              Add photos of your space
+              Thêm ảnh về không gian của bạn
             </h2>
             <p className="text-gray-600 mb-4">
-              Great photos help your listing stand out. Add at least 5 photos.
+              Những bức ảnh đẹp giúp danh sách của bạn nổi bật. Thêm ít nhất 5
+              ảnh.
             </p>
 
             <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg">
@@ -485,7 +492,7 @@ const PartnerRentalRegistration = () => {
                 <Camera className="mx-auto h-12 w-12 text-gray-400" />
                 <div className="flex text-sm text-gray-600">
                   <label className="relative cursor-pointer bg-white rounded-md font-medium text-[#008fa0] hover:text-[#007a8a]">
-                    <span>Upload files</span>
+                    <span>Tải lên tệp</span>
                     <input
                       type="file"
                       multiple
@@ -494,10 +501,10 @@ const PartnerRentalRegistration = () => {
                       className="sr-only"
                     />
                   </label>
-                  <p className="pl-1">or drag and drop</p>
+                  <p className="pl-1">hoặc kéo và thả</p>
                 </div>
                 <p className="text-xs text-gray-500">
-                  PNG, JPG, GIF up to 10MB
+                  PNG, JPG, GIF tối đa 10MB
                 </p>
               </div>
             </div>
@@ -508,7 +515,7 @@ const PartnerRentalRegistration = () => {
                   <div key={index} className="relative">
                     <img
                       src={URL.createObjectURL(file)}
-                      alt="Preview"
+                      alt="Xem trước"
                       className="h-24 w-full object-cover rounded"
                     />
                     <button
@@ -533,16 +540,16 @@ const PartnerRentalRegistration = () => {
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-800">
-              Set your policies
+              Đặt chính sách của bạn
             </h2>
             <p className="text-gray-600 mb-4">
-              Establish check-in times and house rules for guests
+              Thiết lập thời gian nhận phòng và nội quy nhà cho khách
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Check-in Time
+                  Giờ nhận phòng
                 </label>
                 <input
                   type="time"
@@ -556,7 +563,7 @@ const PartnerRentalRegistration = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Check-out Time
+                  Giờ trả phòng
                 </label>
                 <input
                   type="time"
@@ -571,7 +578,7 @@ const PartnerRentalRegistration = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Cancellation Policy
+                Chính sách hủy bỏ
               </label>
               <select
                 value={formData.cancellationPolicy}
@@ -581,27 +588,27 @@ const PartnerRentalRegistration = () => {
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#008fa0] focus:border-[#008fa0]"
               >
                 <option value="flexible">
-                  Flexible - Full refund 1 day prior
+                  Linh hoạt - Hoàn tiền đầy đủ 1 ngày trước
                 </option>
                 <option value="moderate">
-                  Moderate - Full refund 5 days prior
+                  Vừa phải - Hoàn tiền đầy đủ 5 ngày trước
                 </option>
                 <option value="strict">
-                  Strict - 50% refund up until 1 week prior
+                  Nghiêm ngặt - Hoàn 50% đến 1 tuần trước
                 </option>
               </select>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                House Rules
+                Nội quy nhà
               </label>
               <textarea
                 value={formData.houseRules}
                 onChange={(e) => updateFormData("houseRules", e.target.value)}
                 rows={4}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#008fa0] focus:border-[#008fa0]"
-                placeholder="No smoking, No pets, Quiet hours 10PM-8AM"
+                placeholder="Không hút thuốc, Không thú cưng, Giờ yên tĩnh 22:00-8:00"
               />
             </div>
           </div>
@@ -611,31 +618,40 @@ const PartnerRentalRegistration = () => {
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-800">
-              Review your listing
+              Xem lại danh sách của bạn
             </h2>
             <p className="text-gray-600 mb-4">
-              Make sure everything looks good before publishing
+              Hãy đảm bảo mọi thứ đều ổn trước khi đăng
             </p>
 
             <div className="bg-gray-50 rounded-lg p-6 space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <h3 className="font-medium text-gray-900">Property Name</h3>
+                  <h3 className="font-medium text-gray-900">
+                    Tên bất động sản
+                  </h3>
                   <p className="text-gray-600">
-                    {formData.propertyName || "Not provided"}
+                    {formData.propertyName || "Chưa cung cấp"}
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="font-medium text-gray-900">Property Type</h3>
+                  <h3 className="font-medium text-gray-900">
+                    Loại bất động sản
+                  </h3>
                   <p className="text-gray-600">
-                    {formData.propertyType.charAt(0).toUpperCase() +
-                      formData.propertyType.slice(1)}
+                    {formData.propertyType === "apartment"
+                      ? "Căn hộ"
+                      : formData.propertyType === "house"
+                      ? "Nhà riêng"
+                      : formData.propertyType === "condo"
+                      ? "Chung cư"
+                      : "Studio"}
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="font-medium text-gray-900">Location</h3>
+                  <h3 className="font-medium text-gray-900">Vị trí</h3>
                   <p className="text-gray-600">
                     {formData.address}, {formData.city}, {formData.state}{" "}
                     {formData.zipCode}
@@ -643,28 +659,31 @@ const PartnerRentalRegistration = () => {
                 </div>
 
                 <div>
-                  <h3 className="font-medium text-gray-900">Capacity</h3>
+                  <h3 className="font-medium text-gray-900">Sức chứa</h3>
                   <p className="text-gray-600">
-                    {formData.bedrooms} bedrooms, {formData.bathrooms}{" "}
-                    bathrooms, up to {formData.maxGuests} guests
+                    {formData.bedrooms} phòng ngủ, {formData.bathrooms} phòng
+                    tắm, tối đa {formData.maxGuests} khách
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="font-medium text-gray-900">Price</h3>
+                  <h3 className="font-medium text-gray-900">Giá</h3>
                   <p className="text-gray-600">
-                    ${formData.basePrice || 0} per night
+                    {parseInt(formData.basePrice || 0).toLocaleString()}₫ mỗi
+                    đêm
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="font-medium text-gray-900">Cleaning Fee</h3>
-                  <p className="text-gray-600">${formData.cleaningFee || 0}</p>
+                  <h3 className="font-medium text-gray-900">Phí dọn dẹp</h3>
+                  <p className="text-gray-600">
+                    {parseInt(formData.cleaningFee || 0).toLocaleString()}₫
+                  </p>
                 </div>
               </div>
 
               <div>
-                <h3 className="font-medium text-gray-900">Amenities</h3>
+                <h3 className="font-medium text-gray-900">Tiện nghi</h3>
                 <div className="flex flex-wrap gap-2 mt-2">
                   {formData.amenities.length > 0 ? (
                     formData.amenities.map((amenity) => (
@@ -672,37 +691,51 @@ const PartnerRentalRegistration = () => {
                         key={amenity}
                         className="px-3 py-1 bg-[#008fa0] text-white text-sm rounded-full"
                       >
-                        {amenity.charAt(0).toUpperCase() + amenity.slice(1)}
+                        {amenity === "wifi"
+                          ? "WiFi"
+                          : amenity === "kitchen"
+                          ? "Bếp"
+                          : amenity === "tv"
+                          ? "TV"
+                          : amenity === "parking"
+                          ? "Đỗ xe miễn phí"
+                          : amenity === "ac"
+                          ? "Điều hòa"
+                          : "Sưởi ấm"}
                       </span>
                     ))
                   ) : (
-                    <p className="text-gray-600">None selected</p>
+                    <p className="text-gray-600">Không có tiện nghi nào</p>
                   )}
                 </div>
               </div>
 
               <div>
-                <h3 className="font-medium text-gray-900">Policies</h3>
+                <h3 className="font-medium text-gray-900">Chính sách</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
                   <p className="text-gray-600">
-                    <span className="font-medium">Check-in:</span>{" "}
+                    <span className="font-medium">Nhận phòng:</span>{" "}
                     {formData.checkInTime}
                   </p>
                   <p className="text-gray-600">
-                    <span className="font-medium">Check-out:</span>{" "}
+                    <span className="font-medium">Trả phòng:</span>{" "}
                     {formData.checkOutTime}
                   </p>
                   <p className="text-gray-600">
-                    <span className="font-medium">Cancellation:</span>{" "}
-                    {formData.cancellationPolicy}
+                    <span className="font-medium">Hủy bỏ:</span>{" "}
+                    {formData.cancellationPolicy === "flexible"
+                      ? "Linh hoạt"
+                      : formData.cancellationPolicy === "moderate"
+                      ? "Vừa phải"
+                      : "Nghiêm ngặt"}
                   </p>
                 </div>
               </div>
 
               <div>
-                <h3 className="font-medium text-gray-900">House Rules</h3>
+                <h3 className="font-medium text-gray-900">Nội quy nhà</h3>
                 <p className="text-gray-600">
-                  {formData.houseRules || "No special rules"}
+                  {formData.houseRules || "Không có nội quy đặc biệt"}
                 </p>
               </div>
             </div>
@@ -717,8 +750,8 @@ const PartnerRentalRegistration = () => {
                 htmlFor="publish-confirmation"
                 className="ml-2 block text-sm text-gray-900"
               >
-                I confirm that all information is accurate and I agree to the
-                terms and conditions
+                Tôi xác nhận rằng tất cả thông tin đều chính xác và tôi đồng ý
+                với các điều khoản và điều kiện
               </label>
             </div>
           </div>
@@ -739,10 +772,10 @@ const PartnerRentalRegistration = () => {
       <header className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">
-            List Your Property
+            Đăng bất động sản của bạn
           </h1>
           <p className="text-gray-600 mt-2">
-            Follow the steps to create your rental listing
+            Làm theo các bước để tạo danh sách cho thuê của bạn
           </p>
         </div>
       </header>
@@ -807,7 +840,7 @@ const PartnerRentalRegistration = () => {
           }`}
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
-          Previous
+          Trước
         </button>
 
         {currentStep < 8 ? (
@@ -815,7 +848,7 @@ const PartnerRentalRegistration = () => {
             onClick={nextStep}
             className="flex items-center px-5 py-2 bg-[#008fa0] text-white rounded-lg hover:bg-[#007a8a]"
           >
-            Next
+            Tiếp theo
             <ArrowRight className="w-4 h-4 ml-2" />
           </button>
         ) : (
@@ -823,7 +856,7 @@ const PartnerRentalRegistration = () => {
             onClick={publishListing}
             className="px-5 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
           >
-            Publish Listing
+            Đăng dịch vụ
           </button>
         )}
       </div>

@@ -4,7 +4,7 @@ import PartnerServiceModal from "../../components/PartnerServiceModal";
 import { useNavigate } from "react-router-dom";
 
 const PartnerService = () => {
-  const [activeFilter, setActiveFilter] = useState("All");
+  const [activeFilter, setActiveFilter] = useState("Tất cả");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -16,11 +16,21 @@ const PartnerService = () => {
       type: "tour",
       status: "inactive",
     },
-    { id: 3, title: "7-Seater SUV Rental", type: "car", status: "active" },
-    { id: 4, title: "Mountain View Villa", type: "rental", status: "active" },
+    { id: 3, title: "Thuê Xe SUV 7 Chỗ", type: "car", status: "active" },
+    {
+      id: 4,
+      title: "Biệt Thự Mountain View",
+      type: "rental",
+      status: "active",
+    },
     { id: 5, title: "Mekong Delta Adventure", type: "tour", status: "active" },
-    { id: 6, title: "Luxury Sedan Rental", type: "car", status: "inactive" },
-    { id: 7, title: "Beachfront Apartment", type: "rental", status: "active" },
+    {
+      id: 6,
+      title: "Thuê Xe Sedan Sang Trọng",
+      type: "car",
+      status: "inactive",
+    },
+    { id: 7, title: "Căn Hộ Mặt Biển", type: "rental", status: "active" },
     {
       id: 8,
       title: "Cultural Heritage Walk",
@@ -29,13 +39,13 @@ const PartnerService = () => {
     },
   ];
 
-  const filterTabs = ["All", "Rental", "Tour", "Car Rental"];
+  const filterTabs = ["Tất cả", "Cho thuê", "Tour", "Thuê xe"];
 
   const filteredServices = services.filter((service) => {
-    if (activeFilter === "All") return true;
-    if (activeFilter === "Rental") return service.type === "rental";
+    if (activeFilter === "Tất cả") return true;
+    if (activeFilter === "Cho thuê") return service.type === "rental";
     if (activeFilter === "Tour") return service.type === "tour";
-    if (activeFilter === "Car Rental") return service.type === "car";
+    if (activeFilter === "Thuê xe") return service.type === "car";
     return true;
   });
 
@@ -49,9 +59,9 @@ const PartnerService = () => {
 
   const getTypeDisplay = (type) => {
     const typeMap = {
-      rental: "Rental",
+      rental: "Cho thuê",
       tour: "Tour",
-      car: "Car Rental",
+      car: "Thuê xe",
     };
     return typeMap[type] || type;
   };
@@ -75,10 +85,10 @@ const PartnerService = () => {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              My Services
+              Dịch vụ của tôi
             </h1>
             <p className="text-gray-600">
-              Manage your rental properties, tours, and vehicle rentals
+              Quản lý bất động sản cho thuê, tour du lịch và dịch vụ thuê xe
             </p>
           </div>
 
@@ -97,7 +107,7 @@ const PartnerService = () => {
             }
           >
             <Plus className="w-5 h-5 mr-2" />
-            Add New Service
+            Thêm dịch vụ mới
           </button>
         </div>
 
@@ -108,21 +118,25 @@ const PartnerService = () => {
               <div className="text-2xl font-bold text-gray-900 mb-1">
                 {services.filter((s) => s.status === "active").length}
               </div>
-              <div className="text-sm text-gray-500">Active Services</div>
+              <div className="text-sm text-gray-500">
+                Dịch vụ đang hoạt động
+              </div>
             </div>
 
             <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
               <div className="text-2xl font-bold text-gray-900 mb-1">
                 {services.filter((s) => s.status === "inactive").length}
               </div>
-              <div className="text-sm text-gray-500">Inactive Services</div>
+              <div className="text-sm text-gray-500">
+                Dịch vụ không hoạt động
+              </div>
             </div>
 
             <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
               <div className="text-2xl font-bold text-gray-900 mb-1">
                 {services.length}
               </div>
-              <div className="text-sm text-gray-500">Total Services</div>
+              <div className="text-sm text-gray-500">Tổng số dịch vụ</div>
             </div>
           </div>
         )}
@@ -149,9 +163,9 @@ const PartnerService = () => {
                   {tab}
                   <span className="ml-2 text-xs">
                     (
-                    {tab === "All"
+                    {tab === "Tất cả"
                       ? services.length
-                      : tab === "Rental"
+                      : tab === "Cho thuê"
                       ? services.filter((s) => s.type === "rental").length
                       : tab === "Tour"
                       ? services.filter((s) => s.type === "tour").length
@@ -184,8 +198,9 @@ const PartnerService = () => {
                         {getTypeDisplay(service.type)}
                       </span>
                       <span className={getStatusBadge(service.status)}>
-                        {service.status.charAt(0).toUpperCase() +
-                          service.status.slice(1)}
+                        {service.status === "active"
+                          ? "Đang hoạt động"
+                          : "Không hoạt động"}
                       </span>
                     </div>
                   </div>
@@ -213,7 +228,7 @@ const PartnerService = () => {
                     onClick={handleOpenDetail}
                   >
                     <Edit2 className="w-4 h-4 mr-1" />
-                    Edit
+                    Chỉnh sửa
                   </button>
 
                   <button className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors">
@@ -232,12 +247,12 @@ const PartnerService = () => {
               <Plus className="w-8 h-8 text-gray-400" />
             </div>
             <h3 className="text-lg font-medium text-gray-900 mb-2">
-              No services found
+              Không tìm thấy dịch vụ
             </h3>
             <p className="text-gray-500 mb-6">
-              {activeFilter === "All"
-                ? "You haven't created any services yet."
-                : `No ${activeFilter.toLowerCase()} services found.`}
+              {activeFilter === "Tất cả"
+                ? "Bạn chưa tạo bất kỳ dịch vụ nào."
+                : `Không tìm thấy dịch vụ ${activeFilter.toLowerCase()}.`}
             </p>
             <button
               onClick={handleAddNewService}
@@ -253,7 +268,7 @@ const PartnerService = () => {
               }
             >
               <Plus className="w-5 h-5 mr-2" />
-              Create Your First Service
+              Tạo dịch vụ đầu tiên
             </button>
           </div>
         )}

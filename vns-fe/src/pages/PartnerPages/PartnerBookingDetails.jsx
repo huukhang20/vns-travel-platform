@@ -36,16 +36,16 @@ const PartnerBookingDetails = () => {
     remainingAmount: 2560000, // VND
     numberOfGuests: 6,
     specialRequests:
-      "Early check-in preferred if possible, please confirm pool access details",
+      "Ưa thích nhận phòng sớm nếu có thể, vui lòng xác nhận chi tiết quyền truy cập hồ bơi",
     createdAt: "2024-08-10T14:20:00",
     updatedAt: "2024-08-10T15:45:00",
 
     // Customer information
     customer: {
-      fullName: "Tran Thi Thuy",
+      fullName: "Trần Thị Thủy",
       email: "thuy.tran@email.com",
       phoneNumber: "+84 912 345 678",
-      avatarUrl: "https://via.placeholder.com/100",
+      avatarUrl: "https://via.placeholder.com/100  ",
     },
 
     // Homestay booking details
@@ -65,32 +65,32 @@ const PartnerBookingDetails = () => {
 
     // Service and location info - Updated for Oceanview Homestay
     service: {
-      title: "Oceanview Homestay - Luxury Apartment with River View",
+      title: "Oceanview Homestay - Căn hộ sang trọng với tầm nhìn sông",
       serviceType: "Homestay",
       location: {
         name: "Saigon Riverside",
         address:
-          "123 Nguyen Hue Street, Ben Nghe Ward, District 1, Ho Chi Minh City",
-        city: "Ho Chi Minh City",
-        district: "District 1",
-        ward: "Ben Nghe Ward",
+          "123 Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, Thành phố Hồ Chí Minh",
+        city: "Thành phố Hồ Chí Minh",
+        district: "Quận 1",
+        ward: "Phường Bến Nghé",
       },
     },
 
     // Room details - Updated for Oceanview Homestay
     room: {
-      roomName: "Premium 3-Bedroom River View Suite",
+      roomName: "Suite 3 Phòng Ngủ Premium với Tầm Nhìn Sông",
       maxOccupancy: 6,
-      bedType: "3 King beds",
+      bedType: "3 Giường King",
       privateBathroom: true,
       amenities: [
-        "Free WiFi",
-        "Air conditioning",
-        "Flat-screen TV",
-        "Fully equipped kitchen",
-        "Washing machine",
-        "Balcony with river view",
-        "City view",
+        "WiFi miễn phí",
+        "Điều hòa",
+        "TV màn hình phẳng",
+        "Bếp đầy đủ tiện nghi",
+        "Máy giặt",
+        "Ban công với tầm nhìn sông",
+        "Tầm nhìn thành phố",
       ],
     },
 
@@ -132,6 +132,21 @@ const PartnerBookingDetails = () => {
     }
   };
 
+  const getStatusText = (status) => {
+    switch (status) {
+      case "confirmed":
+        return "Đã xác nhận";
+      case "pending":
+        return "Đang chờ";
+      case "completed":
+        return "Đã hoàn thành";
+      case "cancelled":
+        return "Đã hủy";
+      default:
+        return status;
+    }
+  };
+
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat("vi-VN", {
       style: "currency",
@@ -164,15 +179,15 @@ const PartnerBookingDetails = () => {
         <div className="mb-6">
           {/* <button className="flex items-center text-[#008fa0] hover:text-[#007a8a] mb-4">
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Booking Management
+            Quay lại Quản lý đặt chỗ
           </button> */}
           <div className="flex justify-between items-start">
             <div>
               <h1 className="text-3xl font-bold text-gray-900">
-                Booking Details
+                Chi tiết đặt chỗ
               </h1>
               <p className="text-gray-600 mt-1">
-                Booking Reference: {booking.bookingReference}
+                Mã tham chiếu: {booking.bookingReference}
               </p>
             </div>
             <div className="flex items-center space-x-3">
@@ -181,8 +196,7 @@ const PartnerBookingDetails = () => {
                   booking.bookingStatus
                 )}`}
               >
-                {booking.bookingStatus.charAt(0).toUpperCase() +
-                  booking.bookingStatus.slice(1)}
+                {getStatusText(booking.bookingStatus)}
               </span>
               <span className="text-2xl font-bold text-gray-900">
                 {formatCurrency(booking.totalAmount)}
@@ -196,9 +210,13 @@ const PartnerBookingDetails = () => {
           <div className="border-b border-gray-200">
             <nav className="-mb-px flex space-x-8">
               {[
-                { key: "details", label: "Booking Details", icon: FileText },
-                { key: "customer", label: "Customer Info", icon: User },
-                { key: "payments", label: "Payment History", icon: CreditCard },
+                { key: "details", label: "Chi tiết đặt chỗ", icon: FileText },
+                { key: "customer", label: "Thông tin khách hàng", icon: User },
+                {
+                  key: "payments",
+                  label: "Lịch sử thanh toán",
+                  icon: CreditCard,
+                },
               ].map((tab) => {
                 const IconComponent = tab.icon;
                 return (
@@ -231,13 +249,13 @@ const PartnerBookingDetails = () => {
                   <div className="flex items-center mb-4">
                     <Home className="h-5 w-5 text-[#008fa0] mr-2" />
                     <h3 className="text-lg font-medium text-gray-900">
-                      Service Information
+                      Thông tin dịch vụ
                     </h3>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
-                        Service Name
+                        Tên dịch vụ
                       </label>
                       <p className="mt-1 text-sm text-gray-900">
                         {booking.service.title}
@@ -245,7 +263,7 @@ const PartnerBookingDetails = () => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
-                        Service Type
+                        Loại dịch vụ
                       </label>
                       <p className="mt-1 text-sm text-gray-900">
                         {booking.service.serviceType}
@@ -253,7 +271,7 @@ const PartnerBookingDetails = () => {
                     </div>
                     <div className="md:col-span-2">
                       <label className="block text-sm font-medium text-gray-700">
-                        Location
+                        Địa điểm
                       </label>
                       <div className="mt-1 flex items-start">
                         <MapPin className="h-4 w-4 text-gray-400 mr-2 mt-0.5" />
@@ -270,13 +288,13 @@ const PartnerBookingDetails = () => {
                   <div className="flex items-center mb-4">
                     <Calendar className="h-5 w-5 text-[#008fa0] mr-2" />
                     <h3 className="text-lg font-medium text-gray-900">
-                      Stay Details
+                      Chi tiết lưu trú
                     </h3>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
-                        Check-in Date
+                        Ngày nhận phòng
                       </label>
                       <p className="mt-1 text-sm text-gray-900">
                         {formatDateOnly(booking.homestayBooking.checkInDate)}
@@ -285,7 +303,7 @@ const PartnerBookingDetails = () => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
-                        Check-out Date
+                        Ngày trả phòng
                       </label>
                       <p className="mt-1 text-sm text-gray-900">
                         {formatDateOnly(booking.homestayBooking.checkOutDate)}
@@ -294,34 +312,34 @@ const PartnerBookingDetails = () => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
-                        Nights
+                        Số đêm
                       </label>
                       <p className="mt-1 text-sm text-gray-900">
-                        {booking.homestayBooking.nights} nights
+                        {booking.homestayBooking.nights} đêm
                       </p>
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
-                        Adults
+                        Người lớn
                       </label>
                       <p className="mt-1 text-sm text-gray-900">
-                        {booking.homestayBooking.adults} adults
+                        {booking.homestayBooking.adults} người lớn
                       </p>
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
-                        Children
+                        Trẻ em
                       </label>
                       <p className="mt-1 text-sm text-gray-900">
-                        {booking.homestayBooking.children} children
+                        {booking.homestayBooking.children} trẻ em
                       </p>
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
-                        Total Guests
+                        Tổng số khách
                       </label>
                       <p className="mt-1 text-sm text-gray-900">
-                        {booking.numberOfGuests} guests
+                        {booking.numberOfGuests} khách
                       </p>
                     </div>
                   </div>
@@ -330,12 +348,12 @@ const PartnerBookingDetails = () => {
                 {/* Room Information */}
                 <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                   <h3 className="text-lg font-medium text-gray-900 mb-4">
-                    Room Information
+                    Thông tin phòng
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
-                        Room Name
+                        Tên phòng
                       </label>
                       <p className="mt-1 text-sm text-gray-900">
                         {booking.room.roomName}
@@ -343,7 +361,7 @@ const PartnerBookingDetails = () => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
-                        Bed Type
+                        Loại giường
                       </label>
                       <p className="mt-1 text-sm text-gray-900">
                         {booking.room.bedType}
@@ -351,23 +369,23 @@ const PartnerBookingDetails = () => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
-                        Max Occupancy
+                        Số khách tối đa
                       </label>
                       <p className="mt-1 text-sm text-gray-900">
-                        {booking.room.maxOccupancy} guests
+                        {booking.room.maxOccupancy} khách
                       </p>
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
-                        Private Bathroom
+                        Phòng tắm riêng
                       </label>
                       <p className="mt-1 text-sm text-gray-900">
-                        {booking.room.privateBathroom ? "Yes" : "No"}
+                        {booking.room.privateBathroom ? "Có" : "Không"}
                       </p>
                     </div>
                     <div className="md:col-span-2">
                       <label className="block text-sm font-medium text-gray-700">
-                        Room Amenities
+                        Tiện nghi phòng
                       </label>
                       <div className="mt-1 flex flex-wrap gap-2">
                         {booking.room.amenities.map((amenity, index) => (
@@ -389,7 +407,7 @@ const PartnerBookingDetails = () => {
                     <div className="flex items-center mb-4">
                       <MessageSquare className="h-5 w-5 text-[#008fa0] mr-2" />
                       <h3 className="text-lg font-medium text-gray-900">
-                        Special Requests
+                        Yêu cầu đặc biệt
                       </h3>
                     </div>
                     <p className="text-sm text-gray-900">
@@ -406,7 +424,7 @@ const PartnerBookingDetails = () => {
                 <div className="flex items-center mb-6">
                   <User className="h-5 w-5 text-[#008fa0] mr-2" />
                   <h3 className="text-lg font-medium text-gray-900">
-                    Customer Information
+                    Thông tin khách hàng
                   </h3>
                 </div>
                 <div className="flex items-start space-x-4 mb-6">
@@ -420,7 +438,7 @@ const PartnerBookingDetails = () => {
                       {booking.customer.fullName}
                     </h4>
                     <p className="text-sm text-gray-500">
-                      Customer since August 2024
+                      Khách hàng từ tháng 8 năm 2024
                     </p>
                   </div>
                 </div>
@@ -441,7 +459,7 @@ const PartnerBookingDetails = () => {
                       <Phone className="h-4 w-4 text-gray-400 mr-3" />
                       <div>
                         <label className="block text-sm font-medium text-gray-700">
-                          Phone Number
+                          Số điện thoại
                         </label>
                         <p className="text-sm text-gray-900">
                           {booking.customer.phoneNumber}
@@ -452,20 +470,20 @@ const PartnerBookingDetails = () => {
                   <div className="space-y-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
-                        Booking History
+                        Lịch sử đặt chỗ
                       </label>
                       <p className="text-sm text-gray-900">
-                        1 previous booking
+                        1 đặt chỗ trước đó
                       </p>
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
-                        Customer Rating
+                        Đánh giá khách hàng
                       </label>
                       <div className="flex items-center">
                         <span className="text-sm text-gray-900">5.0/5.0</span>
                         <span className="text-xs text-gray-500 ml-2">
-                          (3 reviews)
+                          (3 đánh giá)
                         </span>
                       </div>
                     </div>
@@ -481,7 +499,7 @@ const PartnerBookingDetails = () => {
                   <div className="flex items-center">
                     <CreditCard className="h-5 w-5 text-[#008fa0] mr-2" />
                     <h3 className="text-lg font-medium text-gray-900">
-                      Payment History
+                      Lịch sử thanh toán
                     </h3>
                   </div>
                 </div>
@@ -490,22 +508,22 @@ const PartnerBookingDetails = () => {
                     <thead className="bg-gray-50">
                       <tr>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Payment ID
+                          Mã thanh toán
                         </th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Type
+                          Loại
                         </th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Amount
+                          Số tiền
                         </th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Method
+                          Phương thức
                         </th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Date
+                          Ngày
                         </th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Status
+                          Trạng thái
                         </th>
                       </tr>
                     </thead>
@@ -515,14 +533,18 @@ const PartnerBookingDetails = () => {
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                             {payment.paymentId}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 capitalize">
-                            {payment.paymentType}
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {payment.paymentType === "deposit"
+                              ? "Đặt cọc"
+                              : "Số dư"}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                             {formatCurrency(payment.amount)}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 capitalize">
-                            {payment.paymentMethod.replace("_", " ")}
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {payment.paymentMethod === "credit_card"
+                              ? "Thẻ tín dụng"
+                              : "Khác"}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                             {formatDate(payment.paymentTime)}
@@ -533,8 +555,7 @@ const PartnerBookingDetails = () => {
                                 payment.paymentStatus
                               )}`}
                             >
-                              {payment.paymentStatus.charAt(0).toUpperCase() +
-                                payment.paymentStatus.slice(1)}
+                              {getStatusText(payment.paymentStatus)}
                             </span>
                           </td>
                         </tr>
@@ -551,25 +572,25 @@ const PartnerBookingDetails = () => {
             {/* Quick Actions */}
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">
-                Quick Actions
+                Hành động nhanh
               </h3>
               <div className="space-y-3">
                 {booking.bookingStatus === "pending" && (
                   <button className="w-full flex items-center justify-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
                     <CheckCircle className="h-4 w-4 mr-2" />
-                    Confirm Booking
+                    Xác nhận đặt chỗ
                   </button>
                 )}
                 {booking.bookingStatus !== "cancelled" &&
                   booking.bookingStatus !== "completed" && (
                     <button className="w-full flex items-center justify-center px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">
                       <XCircle className="h-4 w-4 mr-2" />
-                      Cancel Booking
+                      Hủy đặt chỗ
                     </button>
                   )}
                 <button className="w-full flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
                   <MessageSquare className="h-4 w-4 mr-2" />
-                  Message Customer
+                  Nhắn tin khách hàng
                 </button>
               </div>
             </div>
@@ -577,13 +598,13 @@ const PartnerBookingDetails = () => {
             {/* Booking Summary */}
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">
-                Booking Summary
+                Tổng kết đặt chỗ
               </h3>
               <div className="space-y-3">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">
-                    Room Rate ({booking.homestayBooking.nights} nights @{" "}
-                    {formatCurrency(booking.homestayBooking.roomRate)}/night)
+                    Giá phòng ({booking.homestayBooking.nights} đêm @{" "}
+                    {formatCurrency(booking.homestayBooking.roomRate)}/đêm)
                   </span>
                   <span className="text-gray-900">
                     {formatCurrency(
@@ -593,32 +614,32 @@ const PartnerBookingDetails = () => {
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Cleaning Fee</span>
+                  <span className="text-gray-600">Phí dọn dẹp</span>
                   <span className="text-gray-900">
                     {formatCurrency(booking.homestayBooking.cleaningFee)}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Service Fee</span>
+                  <span className="text-gray-600">Phí dịch vụ</span>
                   <span className="text-gray-900">
                     {formatCurrency(booking.homestayBooking.serviceFee)}
                   </span>
                 </div>
                 <hr className="border-gray-200" />
                 <div className="flex justify-between text-base font-medium">
-                  <span className="text-gray-900">Total</span>
+                  <span className="text-gray-900">Tổng cộng</span>
                   <span className="text-gray-900">
                     {formatCurrency(booking.totalAmount)}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Deposit Paid</span>
+                  <span className="text-gray-600">Đã đặt cọc</span>
                   <span className="text-green-600">
                     {formatCurrency(booking.depositAmount)}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Remaining Balance</span>
+                  <span className="text-gray-600">Số dư còn lại</span>
                   <span className="text-gray-900">
                     {formatCurrency(booking.remainingAmount)}
                   </span>
@@ -629,7 +650,7 @@ const PartnerBookingDetails = () => {
             {/* Timeline */}
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">
-                Booking Timeline
+                Dòng thời gian đặt chỗ
               </h3>
               <div className="space-y-4">
                 <div className="flex items-start">
@@ -638,7 +659,7 @@ const PartnerBookingDetails = () => {
                   </div>
                   <div className="ml-3">
                     <p className="text-sm font-medium text-gray-900">
-                      Booking Created
+                      Đặt chỗ được tạo
                     </p>
                     <p className="text-xs text-gray-500">
                       {formatDate(booking.createdAt)}
@@ -651,7 +672,7 @@ const PartnerBookingDetails = () => {
                   </div>
                   <div className="ml-3">
                     <p className="text-sm font-medium text-gray-900">
-                      Host Approved
+                      Chủ nhà đã duyệt
                     </p>
                     <p className="text-xs text-gray-500">
                       {formatDate(booking.homestayBooking.hostApprovedAt)}
@@ -664,7 +685,7 @@ const PartnerBookingDetails = () => {
                   </div>
                   <div className="ml-3">
                     <p className="text-sm font-medium text-gray-900">
-                      Check-in Date
+                      Ngày nhận phòng
                     </p>
                     <p className="text-xs text-gray-500">
                       {formatDateOnly(booking.homestayBooking.checkInDate)}
