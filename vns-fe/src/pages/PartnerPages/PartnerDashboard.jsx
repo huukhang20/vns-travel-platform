@@ -28,29 +28,29 @@ const PartnerDashboard = () => {
     recentBookings: [
       {
         id: 1,
-        customer: "Emma Wilson",
-        service: "Full Body Massage",
+        customer: "Minh Tri",
+        service: "Tour biển đẹp",
         time: "2:00 PM",
         status: "confirmed",
       },
       {
         id: 2,
-        customer: "Michael Chen",
-        service: "Hair & Beard Combo",
+        customer: "Minh Tri",
+        service: "Tour biển đẹp",
         time: "3:30 PM",
         status: "pending",
       },
       {
         id: 3,
-        customer: "Lisa Rodriguez",
-        service: "Facial Treatment",
+        customer: "Minh Tri",
+        service: "Tour biển đẹp",
         time: "4:00 PM",
         status: "confirmed",
       },
       {
         id: 4,
-        customer: "David Kim",
-        service: "Wellness Package",
+        customer: "Minh Tri",
+        service: "Tour biển đẹp",
         time: "5:00 PM",
         status: "confirmed",
       },
@@ -111,7 +111,11 @@ const PartnerDashboard = () => {
               }`}
             >
               <StatusIcon className="w-3 h-3 mr-1" />
-              {booking.status}
+              {booking.status === "confirmed"
+                ? "Đã xác nhận"
+                : booking.status === "pending"
+                ? "Đang chờ"
+                : "Đã hủy"}
             </span>
           </div>
         </div>
@@ -126,9 +130,11 @@ const PartnerDashboard = () => {
         <div className="flex justify-between items-center pt-6">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Welcome back, {partnerData.name}
+              Chào mừng trở lại, {partnerData.name}
             </h1>
-            <p className="text-gray-600 mt-1">Monitor your account here</p>
+            <p className="text-gray-600 mt-1">
+              Theo dõi tài khoản của bạn tại đây
+            </p>
           </div>
         </div>
       </div>
@@ -140,31 +146,31 @@ const PartnerDashboard = () => {
           <StatCard
             icon={Package}
             number={partnerData.stats.totalServices}
-            label="Total Services"
+            label="Tổng Dịch Vụ"
             color="blue"
           />
           <StatCard
             icon={Gift}
             number={partnerData.stats.activeCombos}
-            label="Active Combos"
+            label="Combo Hoạt Động"
             color="purple"
           />
           <StatCard
             icon={Megaphone}
             number={partnerData.stats.livePromotions}
-            label="Live Promotions"
+            label="Khuyến Mãi Hiện Tại"
             color="orange"
           />
           <StatCard
             icon={Calendar}
             number={partnerData.stats.totalBookings}
-            label="Total Bookings"
+            label="Tổng Đặt Chỗ"
             color="green"
           />
           <StatCard
             icon={DollarSign}
             number={partnerData.stats.totalRevenue}
-            label="Total Revenue"
+            label="Tổng Doanh Thu"
             color="emerald"
           />
         </div>
@@ -177,10 +183,10 @@ const PartnerDashboard = () => {
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-semibold text-gray-900 flex items-center">
                   <Clock className="w-5 h-5 mr-2" />
-                  Recent Bookings
+                  Đặt Chỗ Gần Đây
                 </h3>
                 <button className="text-blue-600 hover:text-blue-800 text-sm font-medium">
-                  View all
+                  Xem tất cả
                 </button>
               </div>
 
@@ -197,23 +203,23 @@ const PartnerDashboard = () => {
             <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
                 <TrendingUp className="w-5 h-5 mr-2" />
-                This Week
+                Tuần Này
               </h3>
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Bookings</span>
+                  <span className="text-sm text-gray-600">Đặt Chỗ</span>
                   <span className="text-sm font-medium text-green-600">
                     +12%
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Revenue</span>
+                  <span className="text-sm text-gray-600">Doanh Thu</span>
                   <span className="text-sm font-medium text-green-600">
                     +8%
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">New Customers</span>
+                  <span className="text-sm text-gray-600">Khách Hàng Mới</span>
                   <span className="text-sm font-medium text-blue-600">
                     +15%
                   </span>

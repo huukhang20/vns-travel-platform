@@ -5,6 +5,7 @@ import {
   LayoutDashboard,
   MessageCircleMore,
   TicketPercent,
+  User,
 } from "lucide-react";
 import SideBar from "../../components/SideBar";
 import { Outlet } from "react-router-dom";
@@ -15,33 +16,38 @@ const PartnerLayout = () => {
       <SideBar
         navItems={[
           {
+            path: "/PartnerProfile",
+            label: "Hồ Sơ",
+            icon: <User />,
+          },
+          {
             path: "/PartnerDashboard",
-            label: "Dashboard",
+            label: "Bảng Điều Khiển",
             icon: <LayoutDashboard />,
           },
           {
             path: "/PartnerService",
-            label: "Service",
+            label: "Dịch Vụ",
             icon: <HandPlatter />,
           },
           {
             path: "/PartnerPromotion",
-            label: "Promotion",
+            label: "Khuyến Mãi",
             icon: <TicketPercent />,
           },
           {
             path: "/PartnerFinance",
-            label: "Finance",
+            label: "Tài Chính",
             icon: <CircleDollarSign />,
           },
           {
             path: "/PartnerBooking",
-            label: "Booking",
+            label: "Đặt Chỗ",
             icon: <CalendarCheck />,
           },
           {
             path: "/PartnerMessaging",
-            label: "Messaging",
+            label: "Tin Nhắn",
             icon: <MessageCircleMore />,
           },
         ]}

@@ -4,47 +4,36 @@ import {
   Building,
   Mail,
   Phone,
-  MapPin,
+  Lock,
+  Shield,
   Upload,
-  FileText,
   CheckCircle,
-  XCircle,
-  Clock,
-  X,
-  Plus,
+  AlertCircle,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 
-const PartnerProfile = () => {
+export default function PartnerProfileEdit() {
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const [formData, setFormData] = useState({
-    businessName: "",
-    businessCategory: "",
-    contactPersonName: "",
-    email: "",
-    phone: "",
-    businessAddress: "",
-    businessDescription: "",
+    fullName: "Minh Trí",
+    businessName: "Công Ty Du Lịch Việt Nam",
+    email: "minhtri@dulichtour.vn",
+    phone: "+84 901 234 567",
+    businessType: "tours",
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
   });
 
-  const [uploadedFiles, setUploadedFiles] = useState([
-    { id: 1, name: "Business License.pdf", status: "verified", size: "2.4 MB" },
-    { id: 2, name: "Tax Certificate.pdf", status: "pending", size: "1.8 MB" },
-    { id: 3, name: "Insurance Policy.pdf", status: "rejected", size: "3.2 MB" },
-  ]);
-
-  const [dragActive, setDragActive] = useState(false);
-
-  const businessCategories = [
-    "Technology & Software",
-    "Manufacturing",
-    "Healthcare",
-    "Finance & Banking",
-    "Retail & E-commerce",
-    "Construction",
-    "Education",
-    "Food & Beverage",
-    "Transportation",
-    "Other",
-  ];
+  const [verificationStatus] = useState({
+    houseRental: "verified",
+    tours: "pending",
+    carRentals: "not_verified",
+  });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -54,324 +43,352 @@ const PartnerProfile = () => {
     }));
   };
 
-  const handleDrag = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (e.type === "dragenter" || e.type === "dragover") {
-      setDragActive(true);
-    } else if (e.type === "dragleave") {
-      setDragActive(false);
+  const getStatusBadge = (status) => {
+    switch (status) {
+      case "verified":
+        return (
+          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+            <CheckCircle className="w-3 h-3 mr-1" />
+            Đã Xác Minh
+          </span>
+        );
+      case "pending":
+        return (
+          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+            <AlertCircle className="w-3 h-3 mr-1" />
+            Đang Chờ
+          </span>
+        );
+      default:
+        return (
+          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-600">
+            <AlertCircle className="w-3 h-3 mr-1" />
+            Chưa Xác Minh
+          </span>
+        );
     }
   };
 
-  const handleDrop = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragActive(false);
-
-    const files = Array.from(e.dataTransfer.files);
-    handleFiles(files);
-  };
-
-  const handleFileInput = (e) => {
-    const files = Array.from(e.target.files);
-    handleFiles(files);
-  };
-
-  const handleFiles = (files) => {
-    files.forEach((file) => {
-      const newFile = {
-        id: Date.now() + Math.random(),
-        name: file.name,
-        status: "pending",
-        size: `${(file.size / 1024 / 1024).toFixed(1)} MB`,
-      };
-      setUploadedFiles((prev) => [...prev, newFile]);
-    });
-  };
-
-  const removeFile = (fileId) => {
-    setUploadedFiles((prev) => prev.filter((file) => file.id !== fileId));
-  };
-
-  const getStatusBadge = (status) => {
-    const statusConfig = {
-      verified: {
-        bg: "bg-green-100",
-        text: "text-green-800",
-        icon: CheckCircle,
-      },
-      pending: { bg: "bg-yellow-100", text: "text-yellow-800", icon: Clock },
-      rejected: { bg: "bg-red-100", text: "text-red-800", icon: XCircle },
-    };
-
-    const config = statusConfig[status];
-    const Icon = config.icon;
-
-    return (
-      <span
-        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${config.bg} ${config.text}`}
-      >
-        <Icon className="w-3 h-3 mr-1" />
-        {status.charAt(0).toUpperCase() + status.slice(1)}
-      </span>
-    );
-  };
-
-  const handleSubmit = () => {
-    // Handle form submission here
-    console.log("Form submitted:", formData);
-    alert("Profile updated successfully!");
-  };
-
   return (
-    <div className="min-h-screen bg-gray-50 flex">
-      {/* Main Content */}
-      <div className="flex-1 p-8">
-        <div className="max-w-4xl mx-auto">
-          <div className="mb-8">
+    <div className="min-h-screen bg-[#e9e9e9] pb-20">
+      {/* Header */}
+      <div className="max-w-7xl mx-auto">
+        <div className="flex justify-between items-center pt-6 px-6">
+          <div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Profile & Verification
+              Hồ Sơ Đối Tác
             </h1>
-            <p className="text-gray-600">
-              Update your business information and manage verification documents
+            <p className="text-gray-600 mt-1">
+              Quản lý thông tin tài khoản và xác minh kinh doanh
             </p>
           </div>
+        </div>
+      </div>
 
-          <div className="space-y-8">
-            {/* Business Profile Section */}
-            <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
-                <Building className="w-5 h-5 mr-2 text-teal-600" />
-                Business Profile
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto p-6 pt-8 space-y-6">
+        {/* Account Information */}
+        <div className="bg-white rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200">
+          <div className="px-6 py-4 border-b border-gray-100">
+            <div className="flex items-center">
+              <User className="w-5 h-5 text-blue-600 mr-2" />
+              <h2 className="text-lg font-semibold text-gray-900">
+                Thông Tin Tài Khoản
               </h2>
+            </div>
+          </div>
+          <div className="p-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Họ và Tên
+                </label>
+                <input
+                  type="text"
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Tên Doanh Nghiệp
+                </label>
+                <div className="relative">
+                  <Building className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
+                  <input
+                    type="text"
+                    name="businessName"
+                    value={formData.businessName}
+                    onChange={handleInputChange}
+                    className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Địa Chỉ Email
+                </label>
+                <div className="relative">
+                  <Mail className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Số Điện Thoại
+                </label>
+                <div className="relative">
+                  <Phone className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Loại Hình Kinh Doanh
+                </label>
+                <select
+                  name="businessType"
+                  value={formData.businessType}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                >
+                  <option value="tours">Tour & Hoạt Động</option>
+                  <option value="accommodation">Cho Thuê Nhà</option>
+                  <option value="transportation">Cho Thuê Xe</option>
+                  <option value="mixed">Nhiều Dịch Vụ</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Password & Security */}
+        <div className="bg-white rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200">
+          <div className="px-6 py-4 border-b border-gray-100">
+            <div className="flex items-center">
+              <Lock className="w-5 h-5 text-blue-600 mr-2" />
+              <h2 className="text-lg font-semibold text-gray-900">
+                Mật Khẩu & Bảo Mật
+              </h2>
+            </div>
+          </div>
+          <div className="p-6">
+            <div className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Mật Khẩu Hiện Tại
+                </label>
+                <div className="relative">
+                  <input
+                    type={showCurrentPassword ? "text" : "password"}
+                    name="currentPassword"
+                    value={formData.currentPassword}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="Nhập mật khẩu hiện tại"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                    className="absolute right-3 top-2.5 text-gray-400 hover:text-gray-600"
+                  >
+                    {showCurrentPassword ? (
+                      <EyeOff className="w-4 h-4" />
+                    ) : (
+                      <Eye className="w-4 h-4" />
+                    )}
+                  </button>
+                </div>
+              </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Business Name
+                    Mật Khẩu Mới
                   </label>
                   <div className="relative">
-                    <Building className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
                     <input
-                      type="text"
-                      name="businessName"
-                      value={formData.businessName}
+                      type={showNewPassword ? "text" : "password"}
+                      name="newPassword"
+                      value={formData.newPassword}
                       onChange={handleInputChange}
-                      placeholder="Enter your business name"
-                      className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
+                      className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Nhập mật khẩu mới"
                     />
+                    <button
+                      type="button"
+                      onClick={() => setShowNewPassword(!showNewPassword)}
+                      className="absolute right-3 top-2.5 text-gray-400 hover:text-gray-600"
+                    >
+                      {showNewPassword ? (
+                        <EyeOff className="w-4 h-4" />
+                      ) : (
+                        <Eye className="w-4 h-4" />
+                      )}
+                    </button>
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Business Category
-                  </label>
-                  <select
-                    name="businessCategory"
-                    value={formData.businessCategory}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
-                  >
-                    <option value="">Select a category</option>
-                    {businessCategories.map((category) => (
-                      <option key={category} value={category}>
-                        {category}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Contact Person Name
+                    Xác Nhận Mật Khẩu Mới
                   </label>
                   <div className="relative">
-                    <User className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
                     <input
-                      type="text"
-                      name="contactPersonName"
-                      value={formData.contactPersonName}
+                      type={showConfirmPassword ? "text" : "password"}
+                      name="confirmPassword"
+                      value={formData.confirmPassword}
                       onChange={handleInputChange}
-                      placeholder="Enter contact person name"
-                      className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
+                      className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Xác nhận mật khẩu mới"
                     />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Email Address
-                  </label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      placeholder="Enter email address"
-                      className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Phone Number
-                  </label>
-                  <div className="relative">
-                    <Phone className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      placeholder="Enter phone number"
-                      className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Business Address
-                  </label>
-                  <div className="relative">
-                    <MapPin className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
-                    <textarea
-                      name="businessAddress"
-                      value={formData.businessAddress}
-                      onChange={handleInputChange}
-                      placeholder="Enter complete business address"
-                      rows="3"
-                      className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors resize-none"
-                    />
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setShowConfirmPassword(!showConfirmPassword)
+                      }
+                      className="absolute right-3 top-2.5 text-gray-400 hover:text-gray-600"
+                    >
+                      {showConfirmPassword ? (
+                        <EyeOff className="w-4 h-4" />
+                      ) : (
+                        <Eye className="w-4 h-4" />
+                      )}
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
 
-            {/* Business Description Section */}
-            <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
-                <FileText className="w-5 h-5 mr-2 text-teal-600" />
-                Business Description
+        {/* Business Verification */}
+        <div className="bg-white rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200">
+          <div className="px-6 py-4 border-b border-gray-100">
+            <div className="flex items-center">
+              <Shield className="w-5 h-5 text-blue-600 mr-2" />
+              <h2 className="text-lg font-semibold text-gray-900">
+                Xác Minh Kinh Doanh
               </h2>
-
+            </div>
+          </div>
+          <div className="p-6">
+            <div className="space-y-8">
+              {/* House Rental License */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Detailed Description
-                </label>
-                <textarea
-                  name="businessDescription"
-                  value={formData.businessDescription}
-                  onChange={handleInputChange}
-                  placeholder="Describe your business, services, and expertise..."
-                  rows="6"
-                  className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-colors resize-none"
-                />
-              </div>
-            </div>
-
-            {/* Document Upload Section */}
-            <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
-                <Upload className="w-5 h-5 mr-2 text-teal-600" />
-                Verification Documents
-              </h2>
-
-              {/* Upload Area */}
-              <div
-                className={`border-2 border-dashed rounded-lg p-8 mb-6 transition-colors ${
-                  dragActive
-                    ? "border-teal-400 bg-teal-50"
-                    : "border-gray-300 hover:border-gray-400"
-                }`}
-                onDragEnter={handleDrag}
-                onDragLeave={handleDrag}
-                onDragOver={handleDrag}
-                onDrop={handleDrop}
-              >
-                <div className="text-center">
-                  <Upload className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-                  <div className="flex text-sm text-gray-600">
-                    <label
-                      htmlFor="file-upload"
-                      className="relative cursor-pointer bg-white rounded-md font-medium text-teal-600 hover:text-teal-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-teal-500"
-                    >
-                      <span>Upload files</span>
-                      <input
-                        id="file-upload"
-                        name="file-upload"
-                        type="file"
-                        multiple
-                        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
-                        className="sr-only"
-                        onChange={handleFileInput}
-                      />
-                    </label>
-                    <p className="pl-1">or drag and drop</p>
-                  </div>
-                  <p className="text-xs text-gray-500 mt-2">
-                    PDF, DOC, DOCX, JPG, PNG up to 10MB each
-                  </p>
-                </div>
-              </div>
-
-              {/* Uploaded Files List */}
-              {uploadedFiles.length > 0 && (
-                <div className="space-y-3">
-                  <h3 className="font-medium text-gray-900">
-                    Uploaded Documents
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-md font-medium text-gray-900">
+                    Giấy Phép Cho Thuê Nhà
                   </h3>
-                  {uploadedFiles.map((file) => (
-                    <div
-                      key={file.id}
-                      className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
-                    >
-                      <div className="flex items-center space-x-3">
-                        <FileText className="w-5 h-5 text-gray-400" />
-                        <div>
-                          <p className="text-sm font-medium text-gray-900">
-                            {file.name}
-                          </p>
-                          <p className="text-xs text-gray-500">{file.size}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        {getStatusBadge(file.status)}
-                        <button
-                          type="button"
-                          onClick={() => removeFile(file.id)}
-                          className="text-gray-400 hover:text-red-500 transition-colors"
-                        >
-                          <X className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </div>
-                  ))}
+                  {getStatusBadge(verificationStatus.houseRental)}
                 </div>
-              )}
-            </div>
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-500 transition-colors">
+                  <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+                  <p className="text-sm text-gray-600 mb-2">
+                    Tải lên giấy phép kinh doanh cho thuê nhà
+                  </p>
+                  <button className="text-blue-600 hover:text-blue-800 font-medium text-sm">
+                    Chọn tệp hoặc kéo thả vào đây
+                  </button>
+                </div>
+              </div>
 
-            {/* Save Button */}
-            <div className="flex justify-end">
-              <button
-                type="button"
-                onClick={handleSubmit}
-                className="bg-teal-600 text-white px-8 py-3 rounded-xl font-medium hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 transition-colors flex items-center space-x-2"
-              >
-                <CheckCircle className="w-5 h-5" />
-                <span>Save Changes</span>
-              </button>
+              {/* Tours Booking License */}
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-md font-medium text-gray-900">
+                    Giấy Phép Đặt Tour
+                  </h3>
+                  {getStatusBadge(verificationStatus.tours)}
+                </div>
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-500 transition-colors">
+                  <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+                  <p className="text-sm text-gray-600 mb-2">
+                    Tải lên giấy phép kinh doanh tour và hoạt động
+                  </p>
+                  <button className="text-blue-600 hover:text-blue-800 font-medium text-sm">
+                    Chọn tệp hoặc kéo thả vào đây
+                  </button>
+                </div>
+              </div>
+
+              {/* Car Rentals License */}
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-md font-medium text-gray-900">
+                    Giấy Phép Cho Thuê Xe
+                  </h3>
+                  {getStatusBadge(verificationStatus.carRentals)}
+                </div>
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-500 transition-colors">
+                  <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+                  <p className="text-sm text-gray-600 mb-2">
+                    Tải lên giấy phép kinh doanh cho thuê xe
+                  </p>
+                  <button className="text-blue-600 hover:text-blue-800 font-medium text-sm">
+                    Chọn tệp hoặc kéo thả vào đây
+                  </button>
+                </div>
+              </div>
+
+              {/* Additional Certificates */}
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-md font-medium text-gray-900">
+                    Chứng Chỉ Bổ Sung
+                  </h3>
+                  <span className="text-xs text-gray-500">Tùy chọn</span>
+                </div>
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-500 transition-colors">
+                  <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+                  <p className="text-sm text-gray-600 mb-2">
+                    Tải lên các chứng chỉ kinh doanh hoặc bằng cấp bổ sung
+                  </p>
+                  <button className="text-blue-600 hover:text-blue-800 font-medium text-sm">
+                    Chọn tệp hoặc kéo thả vào đây
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      <div className="flex justify-end space-x-4 pt-4">
+        <button
+          type="button"
+          className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium transition-colors"
+        >
+          Hủy Bỏ
+        </button>
+        <button
+          type="submit"
+          className="px-6 py-2 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors"
+          style={{
+            backgroundColor: "var(--color-primary)",
+          }}
+        >
+          Lưu Thay Đổi
+        </button>
+      </div>
     </div>
   );
-};
-
-export default PartnerProfile;
+}
