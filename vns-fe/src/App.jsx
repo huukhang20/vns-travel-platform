@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./index.css";
 import LoginPartner from "./pages/PartnerPages/LoginPartner";
-import LoginManager from "./pages/ManagerPages/LoginManager";
 import PartnerService from "./pages/PartnerPages/PartnerService";
 import PartnerFinance from "./pages/PartnerPages/PartnerFinance";
 import PartnerBooking from "./pages/PartnerPages/PartnerBooking";
@@ -18,6 +17,7 @@ import PartnerBookingDetails from "./pages/PartnerPages/PartnerBookingDetails";
 import ManagerAccountManagement from "./pages/ManagerPages/ManagerAccountManagement";
 import ManagerDashboard from "./pages/ManagerPages/ManagerDashboard";
 import ManagerLayout from "./pages/ManagerPages/ManagerLayout";
+import RegisterPartner from "./pages/PartnerPages/RegisterPartner";
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginPartner />} />
         <Route path="/LoginPartner" element={<LoginPartner />} />
-        <Route path="/LoginManager" element={<LoginManager />} />
+        <Route path="/RegisterPartner" element={<RegisterPartner />} />
         <Route element={<ManagerLayout />}>
           <Route
             path="/ManagerAccountManagement"
