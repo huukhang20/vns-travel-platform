@@ -70,7 +70,7 @@ export default function PartnerProfileEdit() {
   };
 
   return (
-    <div className="min-h-screen bg-[#e9e9e9] pb-20">
+    <div className="min-h-screen bg-bg-light pb-20">
       {/* Header */}
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center pt-6 px-6">
@@ -79,7 +79,7 @@ export default function PartnerProfileEdit() {
               Hồ Sơ Đối Tác
             </h1>
             <p className="text-gray-600 mt-1">
-              Quản lý thông tin tài khoản và xác minh kinh doanh
+              Quản lý thông tin tài khoản và xác minh tài liệu
             </p>
           </div>
         </div>
@@ -370,24 +370,23 @@ export default function PartnerProfileEdit() {
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="flex justify-end space-x-4 pt-4">
-        <button
-          type="button"
-          className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium transition-colors"
-        >
-          Hủy Bỏ
-        </button>
-        <button
-          type="submit"
-          className="px-6 py-2 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors"
-          style={{
-            backgroundColor: "var(--color-primary)",
-          }}
-        >
-          Lưu Thay Đổi
-        </button>
+        <div className="flex justify-end space-x-4 pt-4">
+          <button
+            type="button"
+            className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium transition-colors"
+          >
+            Hủy Bỏ
+          </button>
+          <button
+            type="submit"
+            className="px-6 py-2 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors"
+            style={{
+              backgroundColor: "var(--color-primary)",
+            }}
+          >
+            Lưu Thay Đổi
+          </button>
+        </div>
       </div>
     </div>
   );

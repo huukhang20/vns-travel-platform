@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./index.css";
 import LoginPartner from "./pages/PartnerPages/LoginPartner";
-import LoginManager from "./pages/ManagerPages/LoginManager";
 import PartnerService from "./pages/PartnerPages/PartnerService";
 import PartnerFinance from "./pages/PartnerPages/PartnerFinance";
 import PartnerBooking from "./pages/PartnerPages/PartnerBooking";
@@ -27,7 +26,6 @@ function App() {
         <Route path="/" element={<LoginPartner />} />
         <Route path="/LoginPartner" element={<LoginPartner />} />
         <Route path="/RegisterPartner" element={<RegisterPartner />} />
-        <Route path="/LoginManager" element={<LoginManager />} />
         <Route element={<ManagerLayout />}>
           <Route
             path="/ManagerAccountManagement"
