@@ -1,12 +1,12 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Lock, User, Building } from "lucide-react";
 
 const LoginPartner = () => {
+  const [activeTab, setActiveTab] = useState("partner");
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const API_URL = "/api/auth/";
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -14,26 +14,26 @@ const LoginPartner = () => {
   };
 
   const handleSubmit = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
 
-    // if (!form.email || !form.password) {
-    //   setError("Vui lòng nhập cả email và mật khẩu.");
-    //   return;
-    // }
+    if (!form.email || !form.password) {
+      setError("Vui lòng nhập cả email và mật khẩu.");
+      return;
+    }
 
-    // try {
-    //   const response = await axios.post(API_URL + "login", {
-    //     email: form.email,
-    //     passwordHash: form.password,
-    //     phoneNumber: "000000000",
-    //   });
+    // Mock login - replace with actual API call
+    try {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    navigate("/PartnerDashboard");
-    // } catch (err) {
-    //   setError(
-    //     err.response?.data?.message || "Thông tin đăng nhập không hợp lệ hoặc lỗi máy chủ."
-    //   );
-    // }
+      if (activeTab === "partner") {
+        navigate("/PartnerDashboard");
+      } else {
+        navigate("/ManagerDashboard");
+      }
+    } catch (err) {
+      setError("Thông tin đăng nhập không hợp lệ hoặc lỗi máy chủ.");
+    }
   };
 
   return (
@@ -42,24 +42,47 @@ const LoginPartner = () => {
         <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
           <div className="text-center mb-8">
             <div className="bg-primary w-20 h-20 mx-auto mb-4 rounded-full flex items-center justify-center">
-              <svg
-                className="w-8 h-8 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                />
-              </svg>
+              <Lock className="w-8 h-8 text-white" />
             </div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">
-              VNS Partner
-            </h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-2">VNS Login</h2>
             <p className="text-gray-600">Đăng nhập vào tài khoản của bạn</p>
+          </div>
+
+          {/* Tab Switcher */}
+          <div className="flex mb-6 bg-gray-100 rounded-xl p-1">
+            <button
+              type="button"
+              onClick={() => setActiveTab("partner")}
+              className={`flex-1 py-3 px-4 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-2 ${
+                activeTab === "partner"
+                  ? "bg-white shadow-sm text-primary"
+                  : "text-gray-600 hover:text-gray-900"
+              }`}
+            >
+              <User className="w-4 h-4" />
+              Đối tác
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab("manager")}
+              className={`flex-1 py-3 px-4 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-2 ${
+                activeTab === "manager"
+                  ? "bg-white shadow-sm text-primary"
+                  : "text-gray-600 hover:text-gray-900"
+              }`}
+            >
+              <Building className="w-4 h-4" />
+              Quản lý
+            </button>
+          </div>
+
+          {/* Tab Content */}
+          <div className="mb-4">
+            <h3 className="text-lg font-semibold text-gray-800 text-center">
+              {activeTab === "partner"
+                ? "Đăng nhập Đối tác"
+                : "Đăng nhập Quản lý"}
+            </h3>
           </div>
 
           <form className="space-y-6" onSubmit={handleSubmit}>
@@ -72,7 +95,7 @@ const LoginPartner = () => {
                 name="email"
                 value={form.email}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-3 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-3 focus:ring-primary/20 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
                 autoComplete="email"
                 placeholder="Nhập email của bạn"
               />
@@ -87,7 +110,7 @@ const LoginPartner = () => {
                 name="password"
                 value={form.password}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-3 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-3 focus:ring-primary/20 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
                 autoComplete="current-password"
                 placeholder="Nhập mật khẩu của bạn"
               />
@@ -101,19 +124,25 @@ const LoginPartner = () => {
 
             <button
               type="submit"
-              className="bg-primary hover:bg-primary-hover w-full py-3 px-4 text-white font-semibold rounded-xl transition-all duration-200 transform hover:scale-[1.02] hover:shadow-lg focus:outline-none focus:ring-3 focus:ring-offset-2 text-center"
-              onClick={handleSubmit}
+              className="bg-primary hover:bg-primary-hover w-full py-3 px-4 text-white font-semibold rounded-xl transition-all duration-200 transform hover:scale-[1.02] hover:shadow-lg focus:outline-none focus:ring-3 focus:ring-primary/50 focus:ring-offset-2 text-center"
             >
               Đăng nhập
             </button>
           </form>
 
           <div className="mt-8 space-y-4">
-            <div className="flex items-center">
-              <div className="flex-1 border-t border-gray-200"></div>
-              <div className="px-4 text-sm text-gray-500">Đối tác mới?</div>
-              <div className="flex-1 border-t border-gray-200"></div>
-            </div>
+            {activeTab === "partner" && (
+              <div className="flex items-center">
+                <div className="flex-1 border-t border-gray-200"></div>
+                <a
+                  href="/RegisterPartner"
+                  className="text-black text-sm font-medium hover:underline transition-colors duration-200 mx-4"
+                >
+                  Tạo tài khoản
+                </a>
+                <div className="flex-1 border-t border-gray-200"></div>
+              </div>
+            )}
 
             <div className="text-center">
               <a

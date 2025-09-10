@@ -18,6 +18,7 @@ import PartnerBookingDetails from "./pages/PartnerPages/PartnerBookingDetails";
 import ManagerAccountManagement from "./pages/ManagerPages/ManagerAccountManagement";
 import ManagerDashboard from "./pages/ManagerPages/ManagerDashboard";
 import ManagerLayout from "./pages/ManagerPages/ManagerLayout";
+import RegisterPartner from "./pages/PartnerPages/RegisterPartner";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginPartner />} />
         <Route path="/LoginPartner" element={<LoginPartner />} />
+        <Route path="/RegisterPartner" element={<RegisterPartner />} />
         <Route path="/LoginManager" element={<LoginManager />} />
         <Route element={<ManagerLayout />}>
           <Route
