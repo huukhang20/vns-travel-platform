@@ -66,45 +66,45 @@ builder.Services.AddCors(options =>
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+    //options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
 })
-.AddCookie()
-.AddGoogle(options =>
-{
-    options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
-    options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
-    options.CallbackPath = "/signin-google";
-    options.Events.OnCreatingTicket = async context =>
-    {
-        var email = context.Principal.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value;
-        var name = context.Principal.FindFirst(System.Security.Claims.ClaimTypes.Name)?.Value;
-        var phoneNumber = context.Principal.FindFirst(System.Security.Claims.ClaimTypes.MobilePhone)?.Value;
+.AddCookie();
+//.AddGoogle(options =>
+//{
+//    options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+//    options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+//    options.CallbackPath = "/signin-google";
+//    options.Events.OnCreatingTicket = async context =>
+//    {
+//        var email = context.Principal.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value;
+//        var name = context.Principal.FindFirst(System.Security.Claims.ClaimTypes.Name)?.Value;
+//        var phoneNumber = context.Principal.FindFirst(System.Security.Claims.ClaimTypes.MobilePhone)?.Value;
 
-        // Get required services
-        var db = context.HttpContext.RequestServices.GetRequiredService<IUnitOfWork>();
-        var jwtService = context.HttpContext.RequestServices.GetRequiredService<IJwtService>();
+//        // Get required services
+//        var db = context.HttpContext.RequestServices.GetRequiredService<IUnitOfWork>();
+//        var jwtService = context.HttpContext.RequestServices.GetRequiredService<IJwtService>();
 
-        var user = await db.User.GetAsync(u => u.Email == email);
-        if (user == null)
-        {
-            user = new User
-            {
-                UserId = Guid.NewGuid(),
-                Email = email,
-                FullName = name,
-                PhoneNumber = phoneNumber,
-                Role = (int)DAL.Models.Enum.Role.Customer
-            };
-            await db.User.AddAsync(user);
-            await db.SaveChangesAsync();
-        }
+//        var user = await db.User.GetAsync(u => u.Email == email);
+//        if (user == null)
+//        {
+//            user = new User
+//            {
+//                UserId = Guid.NewGuid(),
+//                Email = email,
+//                FullName = name,
+//                PhoneNumber = phoneNumber,
+//                Role = (int)DAL.Models.Enum.Role.Customer
+//            };
+//            await db.User.AddAsync(user);
+//            await db.SaveChangesAsync();
+//        }
 
-        var token = jwtService.GenerateJwtToken(user);
+//        var token = jwtService.GenerateJwtToken(user);
 
-        // Store token in a cookie or redirect with token as query param
-        context.Properties.RedirectUri = $"/auth/google-callback?token={token}";
-    };
-});
+//        // Store token in a cookie or redirect with token as query param
+//        context.Properties.RedirectUri = $"/auth/google-callback?token={token}";
+//    };
+//});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
